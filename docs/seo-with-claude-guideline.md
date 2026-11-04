@@ -61,7 +61,7 @@ His point: big competitors like Homestars likely have whole teams doing on-page 
 | **Claude Code** | Builds the site and runs every prompt | The video runs it inside Antigravity. **Your plan: run Claude Code directly** in a terminal inside the project folder. No editor is required. |
 | **Semrush** | Keyword research, competitor keywords, site audit, backlink data | Free trial. Creator has used it 4–5 years. The "Keyword Magic Tool" is the main feature. |
 | **Dribbble** | Design reference screenshots | Free. Prevents "AI slop" design. |
-| **Pexels** | Free royalty-free images through an API | Needs a free account and an API key. |
+| **Unsplash API** (or your own images) | Free images for posts | The video uses Pexels. **Your choice: Unsplash**, with an Access Key from a free developer app. Or skip the API and put your own images in an `images/` folder, chosen per run. |
 | **GitHub** | Stores the code | Make the repo private. |
 | **Render** | Free static hosting and deploy | **Your choice instead of the video's Vercel.** Deploy as a **Static Site** (build `npm install && npm run build`, publish directory `out`). Custom domains are added in the Render dashboard. |
 | **Google Business Profile** (video says "Google My Business") | Free local listing | Described as the lowest-hanging fruit for clicks. |
@@ -158,15 +158,20 @@ Asking Claude "give me 20 keywords for plumbing" gives guesses. Claude doesn't k
 
 ### 7.1 First draft prompt
 
-> Can you please create a blog post for me about [primary keyword]? That's the keyword I want you to use, and I also want you to create a keyword cluster. That keyword cluster can either be from common keywords in the keywords.csv file or you can just make it up. Please add in images from Pexels, and my API key is in the .env file attached.
+> Can you please create a blog post for me about [primary keyword]? That's the keyword I want you to use, and I also want you to create a keyword cluster. That keyword cluster can either be from common keywords in the keywords.csv file or you can just make it up. Please add in images (from Pexels in the video; in this kit: Unsplash via the API key in `.env`, or my own images from the `images/` folder, chosen per run).
 
 **Rule of thumb: one keyword = one blog post.** Every keyword in `keywords.csv` becomes its own post.
 
-### 7.2 Pexels images
+### 7.2 Images (video: Pexels; this kit: Unsplash or your own images)
 
-1. Search "Pexels API", create an account, request an API key (name the project, generate).
-2. Paste into the **`.env` file** as `NAME=your_key`. A `.env` file holds passwords and secret keys.
-3. **[Note]** Add `.env` to `.gitignore`. The video shows its own key on screen, and he jokes about it. If the repo is ever public or shared, the key leaks.
+The video gets free images from the Pexels API and pastes the key into a **`.env` file**. This kit works two ways, chosen per run:
+
+1. **Unsplash API.** Create a free Unsplash developer app, copy its **Access Key** (never the Secret Key), and put `UNSPLASH_ACCESS_KEY=your_key` in `.env`. Unsplash's rules: images are **hotlinked** from the URLs the API returns (not downloaded and self-hosted), a download ping is sent when an image is chosen, and a visible credit ("Photo by [name] on Unsplash", with UTM links) is shown. Demo apps are limited to 50 API requests per hour.
+2. **Your own images.** Drop images into an `images/` folder in the project root. Claude looks at them, picks the fitting unused ones, and saves optimized copies (never touching your originals). No key and no attribution needed.
+
+You tell Claude which one per run ("blog images=unsplash", "blog images=local", "blog images=none"), or set a default in `CLAUDE.md`.
+
+**[Note]** Add `.env` to `.gitignore`. The video shows its own key on screen, and he jokes about it. If the repo is ever public or shared, the key leaks.
 
 ### 7.3 Keyword clusters
 
@@ -380,7 +385,7 @@ Off-page isn't required to succeed. His best advice: **find the golden-nugget ke
 > Can you please create a skill for me called **blog**, where we automatically generate blog posts with all of the details that we just covered in this conversation:
 > - Grab a keyword from `keywords.csv`
 > - Create a keyword cluster
-> - Publish the blog post and pull in pictures from Pexels
+> - Publish the blog post and add pictures (Unsplash or the owner's own images)
 > - Add in our writing style, voice, tone, humor
 > - Optimize it for on-page SEO
 > - For technical SEO, use the same standard template every time. Reuse the same page structure for every future blog post.
@@ -445,7 +450,7 @@ Localhost means only you can see the site. To go live:
 3. Find a Dribbble design reference, screenshot it and prompt Claude to build the homepage, blog index and service index.
 4. Research keywords in Semrush (KD ≤ 30, volume ≥ 100, right intent). Export `keywords.csv`.
 5. Build `references/` (voice, tone, humor, opinions, stats, stories) from your real writing.
-6. Create a blog post per keyword, with a keyword cluster and Pexels images.
+6. Create a blog post per keyword, with a keyword cluster and images (Unsplash or your own).
 7. Rewrite it with your voice and the **averaged format of the top 3 Google results**.
 8. Find service keywords (sort by CPC, service + city). Export `service-keywords.csv` and build service pages.
 9. Run the on-page SEO checklist over every blog post and service page, keeping the voice.
@@ -493,7 +498,7 @@ The video points to five resources in the Skool blueprint, which you can't acces
 | The 80+ item on-page checklist | `docs/seo-kit/on-page-seo-checklist.md` (90 items; the video named about a dozen, the rest are standard best practice) |
 | The exact prompts (build, blog, rewrite, on-page, Lighthouse, service page, deploy, outreach) | `docs/seo-kit/prompts.md` |
 | The reference templates (voice, tone, humor, opinions, stats, stories) | `docs/seo-kit/references/` |
-| The `blog` and service-page skill definitions | `docs/seo-kit/skills-draft/` (**drafts, not installed**) |
+| The `blog` and service-page skill definitions | **Installed:** `.claude/skills/blog/` and `.claude/skills/service-page/` |
 
 These are my versions, not the creator's originals. They follow his method but the wording and the checklist's extra items are mine. If you ever get the real files, compare and merge.
 

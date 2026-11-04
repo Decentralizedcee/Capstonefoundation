@@ -86,10 +86,10 @@ Some items apply only to blogs (B) or only to service pages (S). Unmarked items 
 56. At least one **relevant image** (count matches the competitor average). [V]
 57. Every image has descriptive **alt text**.
 58. Images have explicit width and height (prevents layout shift).
-59. Images are compressed and served in modern formats (WebP or AVIF).
+59. Images are compressed and served in modern formats (WebP or AVIF). Unsplash images are hotlinked with size and format parameters (`w`, `q`, `fm=webp`); own images are optimized into `srcset` sizes.
 60. The above-the-fold hero image is prioritized, and others are lazy-loaded.
 61. Descriptive image file names (`low-water-pressure-fix.webp`, not `IMG_123.webp`).
-62. Photo credits included where the licence asks for them (for example Pexels).
+62. Attribution included where required: Unsplash images carry a visible "Photo by [name] on Unsplash" credit with UTM-tagged links. Images from the owner's own folder need none.
 
 ## G. FAQ and rich results (63–67)
 

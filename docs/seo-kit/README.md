@@ -16,14 +16,15 @@ Every file marks its confidence:
 | `on-page-seo-checklist.md` | The "80+ signals" checklist, reconstructed. Paste or reference it in the on-page prompt. |
 | `prompts.md` | Every prompt from the video, written out in full and ready to copy. |
 | `references/` | Templates for the voice, tone, humor, opinions, stats and stories files. |
-| `skills-draft/` | Draft definitions for the `blog` and `service-page` skills. **Drafts only. Not installed.** They go into `.claude/skills/` once you give the go-ahead. |
+| `.claude/skills/blog/` and `.claude/skills/service-page/` | **The installed skills** (at the repo root, not in this folder). Each bundles the image-source rules, the checklist and the image optimizer script. |
 
 ## Project layout the kit assumes
 
 ```
 my-site/
 ├── CLAUDE.md
-├── .env                    # PEXELS_API_KEY=...   (git-ignored)
+├── .env                    # UNSPLASH_ACCESS_KEY=...   (git-ignored; only if using Unsplash)
+├── images/                 # your own images (only if using local images)
 ├── .gitignore
 ├── keywords.csv            # blog keywords, exported from Semrush
 ├── service-keywords.csv    # service + city keywords, exported from Semrush

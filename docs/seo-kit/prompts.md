@@ -51,7 +51,7 @@ That is the primary keyword.
 Also create a keyword cluster of 5 to 10 related terms. Take them from
 keywords.csv where they fit, or generate close variations if not.
 
-Add images from Pexels. My API key is in .env as PEXELS_API_KEY.
+Images: {{use Unsplash (my key is in .env as UNSPLASH_ACCESS_KEY) | use my own images from the images/ folder | no images, use placeholders}}.
 Save the post to content/blog/{{slug}}.md with frontmatter
 (title, description, slug, primary_keyword, cluster, date, images).
 ```
@@ -200,20 +200,27 @@ Repeat until solved or until the remaining items are acceptable.
 
 ## 9. Create the reusable skills [Video, expanded]
 
-Draft definitions are in `skills-draft/`. When approved, create them from them:
+The skills are already installed in `.claude/skills/blog/` and `.claude/skills/service-page/`. To use them, start a **new chat** and type:
 
 ```
-Create a skill called "blog" from docs/seo-kit/skills-draft/blog.md.
-Install it in .claude/skills/blog/SKILL.md and verify its frontmatter.
+blog
+blog <keyword>
+blog images=unsplash      (pull images from the Unsplash API)
+blog images=local         (pick from my images/ folder)
+blog images=none          (placeholders)
+service
+service <service> <city>
 ```
+
+You can also say it in plain words: "write the next blog post, use the photos I uploaded".
 
 Original wording from the video:
 
 ```
 Please create a skill called blog where we automatically generate blog posts
 with all the details we just covered: grab a keyword from keywords.csv,
-create a keyword cluster, publish the blog post, pull in pictures from
-Pexels, add our writing style, voice, tone and humor, optimize for on-page
+create a keyword cluster, publish the blog post, add pictures (Unsplash
+or my own images), add our writing style, voice, tone and humor, optimize for on-page
 SEO, and reuse the same standard technical-SEO page template every time.
 ```
 

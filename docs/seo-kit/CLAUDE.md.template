@@ -9,6 +9,8 @@
 - **Services:** {{service 1, service 2, service 3 …}}
 - **Locations served:** {{city or municipality list}}
 - **Primary conversion:** {{contact form / phone call / booking}}
+- **Image source (default):** {{unsplash | local | mixed | none | ask}}. A run's own instruction (for example "use my images") overrides this.
+- **Unsplash app name (only if using Unsplash):** {{your Unsplash application name, used in attribution links; it may not contain the word "Unsplash"}}
 - **Phone / email / address (NAP):** {{keep identical everywhere}}
 - **Target customer:** {{who}}
 
@@ -24,7 +26,7 @@
 3. **Every page must ship real HTML content**: headings, text and links in the initial HTML. Never hide primary content behind JavaScript.
 4. **Images:** use `next/image` (unoptimized for static export, so pre-optimize files yourself), always include descriptive `alt` text, set `width` and `height`, lazy-load below the fold, and give the hero/LCP image `priority`.
 5. **Fonts:** use `next/font` (self-hosted), with `display: swap`.
-6. **Secrets:** API keys live only in `.env`. Never print, commit or hard-code them. `.env` must be in `.gitignore`.
+6. **Secrets:** API keys (such as `UNSPLASH_ACCESS_KEY`) live only in `.env`. Never print, commit or hard-code them. `.env` must be in `.gitignore`.
 7. **No unnecessary third-party scripts.** They hurt Lighthouse. Add analytics last, loaded asynchronously.
 8. **Accessibility:** semantic HTML, one `<h1>` per page, correct heading order, labelled form fields, sufficient colour contrast, visible focus states.
 
@@ -60,7 +62,11 @@ Full list: `docs/on-page-seo-checklist.md`. The essentials:
 - Write in the voice defined in `references/` (voice, tone, humor, opinions, stats, stories). Never fall back to generic AI openings such as "In today's fast-paced world".
 - **Hook rule:** the first 50 words must contain at least one joke, self-aware aside or vivid specific image. {{adjust to the brand's humor level}}
 - Use only **true** stats and stories from `references/stats.md` and `references/stories.md`. Never invent a number, a customer or an anecdote. If one is needed and missing, leave a `TODO:` for the owner.
-- Images from Pexels using `PEXELS_API_KEY` from `.env`. Credit the photographer where required. Descriptive alt text.
+- **Images**, from one of two sources chosen per run (see the skills' `references/image-sources.md`):
+  - **Unsplash** via `UNSPLASH_ACCESS_KEY` in `.env` (Access Key only). Hotlink the API's URLs with size parameters (never self-host), send the download ping when a photo is chosen, and show visible attribution with UTM links.
+  - **Local:** the owner's own files in `images/`. Pick relevant unused ones by looking at them, save optimized WebP copies to `public/images/...`, never modify the originals, write honest alt text.
+  - **None:** insert marked placeholders. Never leave a broken image.
+  - Every image has descriptive `alt`, `width` and `height`; one hero image loads eagerly, the rest lazily.
 
 ### Service pages (conversion) [Video]
 - One page per **service + location** pair from `service-keywords.csv`. Be selective: never thousands, probably not hundreds.

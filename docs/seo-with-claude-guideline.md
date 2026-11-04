@@ -63,7 +63,7 @@ His point: big competitors like Homestars likely have whole teams doing on-page 
 | **Dribbble** | Design reference screenshots | Free. Prevents "AI slop" design. |
 | **Pexels** | Free royalty-free images through an API | Needs a free account and an API key. |
 | **GitHub** | Stores the code | Make the repo private. |
-| **Vercel** | Free hosting and deploy | Preset must be Next.js. Can also buy or connect a domain. |
+| **Render** | Free static hosting and deploy | **Your choice instead of the video's Vercel.** Deploy as a **Static Site** (build `npm install && npm run build`, publish directory `out`). Custom domains are added in the Render dashboard. |
 | **Google Business Profile** (video says "Google My Business") | Free local listing | Described as the lowest-hanging fruit for clicks. |
 | **Google Search Console** | Tracking, sitemap submission, request indexing | |
 | **Google Analytics** | Visitor behaviour | |
@@ -107,7 +107,7 @@ Three build types exist. The video's pizza analogy:
 
 - Google ranks only what it can crawl. "You can spend 10 years on SEO, it doesn't matter" if the site can't be crawled.
 - The provided `CLAUDE.md` forces SSG. **If you write your own, state this as a hard requirement.**
-- The deploy step later says the **Vercel preset must be Next.js**, so the stack in the video is Next.js with static generation.
+- The video's stack is Next.js with static generation (it deploys on Vercel with the Next.js preset). **You deploy on Render instead**, so the site is built with `output: 'export'` and hosted as a Render Static Site.
 
 ---
 
@@ -416,11 +416,12 @@ Localhost means only you can see the site. To go live:
 1. **GitHub** ("Google Drive for code"):
    - Create a **new repository**. Name it, set it **private**, create.
    - Copy the code shown, go back to Claude Code and say: *"Please upload my whole project here."*
-2. **Vercel** (free account):
-   - **Add new project**, connect GitHub, import the repo.
-   - Set the **application preset to Next.js** (required).
-   - Click **Deploy**. Live in about 60 seconds.
-3. **Domain (optional):** use Vercel's Domains tab to buy one, or import one from a registrar such as Namecheap.
+2. **Render** (your choice; the video uses Vercel, and the steps are equivalent):
+   - **New → Static Site**, connect GitHub, select the repo and branch.
+   - **Build Command:** `npm install && npm run build`
+   - **Publish Directory:** `out` (the folder Next.js writes when `output: 'export'` is set).
+   - Click **Create Static Site**. Every push to the branch redeploys automatically.
+3. **Domain (optional):** add a custom domain in the Render dashboard (Settings → Custom Domains) and set the DNS records Render shows, or buy one from a registrar such as Namecheap.
 
 ---
 
@@ -428,8 +429,8 @@ Localhost means only you can see the site. To go live:
 
 1. **Google Business Profile.** Free listing that appears in local results ("Toronto plumber"). He calls it the lowest-hanging fruit in 2026 for clicks and says it can bring thousands of clicks per month (his words: "I could be wrong"). This matters mainly for local, service-area businesses.
 2. **Google Search Console.**
-   - Add your Vercel URL as a **URL prefix** property. Use the **full URL**, because a partial one throws an error.
-   - **Verify ownership with the HTML tag method.** Copy the meta tag and tell Claude: *"Please add this meta tag to the website for Google Search Console verification, then deploy it live to GitHub and then Vercel."*
+   - Add your Render URL (or custom domain) as a **URL prefix** property. Use the **full URL**, because a partial one throws an error.
+   - **Verify ownership with the HTML tag method.** Copy the meta tag and tell Claude: *"Please add this meta tag to the website for Google Search Console verification, then deploy it live to GitHub and then Render."*
    - In the **Sitemaps** section, submit `sitemap.xml`.
    - **Request indexing:** paste a newly deployed page URL into the top search bar and request indexing. This can get a page indexed in about a day instead of weeks or months. It's limited to **roughly 10 requests per day**.
 3. **Google Analytics.** Track visitor behavior.
@@ -451,7 +452,7 @@ Localhost means only you can see the site. To go live:
 10. Add `sitemap.xml` and `robots.txt`. Run the Lighthouse loop until about 100 across the board.
 11. Bottle the workflow into `blog` and service-page skills.
 12. Publish at a gradual cadence.
-13. Deploy through GitHub then Vercel (Next.js preset).
+13. Deploy through GitHub then Render (Static Site).
 14. Set up Business Profile, Search Console (verify, submit sitemap, request indexing) and Analytics.
 15. Test landing pages, apply the winner everywhere. Optionally do careful off-page work.
 

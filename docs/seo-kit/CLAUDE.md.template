@@ -15,11 +15,14 @@
 ## 2. Non-negotiable technical rules
 
 1. **Static Site Generation (SSG) is required.** [Video] Every public page must be pre-rendered to HTML at build time. No client-side-only rendering for page content. No server-side rendering on request for content pages.
-2. **Stack:** Next.js (App Router), TypeScript, deployed on Vercel. [Video: Next.js preset]
-   - Blog posts and service pages are generated with `generateStaticParams` from files in `content/`.
-   - If using `output: 'export'`, keep it compatible with that (no features that need a server).
+2. **Stack:** Next.js (App Router), TypeScript, deployed on **Render as a Static Site** (the video used Vercel; the owner prefers Render).
+   - Set `output: 'export'` in `next.config` so `npm run build` writes plain HTML to `out/`. Render settings: Build Command `npm install && npm run build`, Publish Directory `out`.
+   - Blog posts and service pages are generated with `generateStaticParams` from files in `content/` (and `dynamicParams = false`).
+   - Static export means **no server features**: no API routes, no middleware, no on-request rendering, no `next/image` optimization server. Set `images: { unoptimized: true }` and instead ship pre-compressed WebP/AVIF images at the right sizes (this keeps Lighthouse Performance high).
+   - `sitemap` and `robots` must be static (`export const dynamic = 'force-static'`).
+   - Set `trailingSlash: true` if Render's static routing needs it, and confirm a `404.html` is produced and served.
 3. **Every page must ship real HTML content**: headings, text and links in the initial HTML. Never hide primary content behind JavaScript.
-4. **Images:** use `next/image`, always include descriptive `alt` text, set `width` and `height`, lazy-load below the fold, and give the hero/LCP image `priority`.
+4. **Images:** use `next/image` (unoptimized for static export, so pre-optimize files yourself), always include descriptive `alt` text, set `width` and `height`, lazy-load below the fold, and give the hero/LCP image `priority`.
 5. **Fonts:** use `next/font` (self-hosted), with `display: swap`.
 6. **Secrets:** API keys live only in `.env`. Never print, commit or hard-code them. `.env` must be in `.gitignore`.
 7. **No unnecessary third-party scripts.** They hurt Lighthouse. Add analytics last, loaded asynchronously.

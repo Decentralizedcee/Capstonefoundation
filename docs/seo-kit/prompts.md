@@ -226,7 +226,7 @@ Initialize git, make the first commit, and push this project to my
 GitHub repository: {{repo url}}. Do not commit .env.
 ```
 
-Then in Vercel: create a free account, **Add New Project**, connect GitHub, import the repo, set the preset to **Next.js**, and deploy.
+Then in Render: create a free account, **New → Static Site**, connect GitHub, pick the repo, set **Build Command** to `npm install && npm run build` and **Publish Directory** to `out`, then **Create Static Site**. (Needs `output: 'export'` in `next.config`; Claude should already have set this per `CLAUDE.md`.)
 
 ---
 
@@ -234,7 +234,7 @@ Then in Vercel: create a free account, **Add New Project**, connect GitHub, impo
 
 ```
 Add this meta tag to the website for Google Search Console verification,
-then deploy it live to GitHub and then Vercel:
+then deploy it live to GitHub and then Render:
 
 <paste the HTML tag from Search Console>
 ```

@@ -1,0 +1,87 @@
+# {{Business Name}}: Website and SEO Content Project
+
+> Reconstructed template. The video's original `CLAUDE.md` wasn't accessible. Items marked [Video] come from the video. Everything else is standard practice chosen to match it.
+
+## 1. About the business
+
+- **Business:** {{business name}}
+- **What we do:** {{one sentence}}
+- **Services:** {{service 1, service 2, service 3 …}}
+- **Locations served:** {{city or municipality list}}
+- **Primary conversion:** {{contact form / phone call / booking}}
+- **Phone / email / address (NAP):** {{keep identical everywhere}}
+- **Target customer:** {{who}}
+
+## 2. Non-negotiable technical rules
+
+1. **Static Site Generation (SSG) is required.** [Video] Every public page must be pre-rendered to HTML at build time. No client-side-only rendering for page content. No server-side rendering on request for content pages.
+2. **Stack:** Next.js (App Router), TypeScript, deployed on Vercel. [Video: Next.js preset]
+   - Blog posts and service pages are generated with `generateStaticParams` from files in `content/`.
+   - If using `output: 'export'`, keep it compatible with that (no features that need a server).
+3. **Every page must ship real HTML content**: headings, text and links in the initial HTML. Never hide primary content behind JavaScript.
+4. **Images:** use `next/image`, always include descriptive `alt` text, set `width` and `height`, lazy-load below the fold, and give the hero/LCP image `priority`.
+5. **Fonts:** use `next/font` (self-hosted), with `display: swap`.
+6. **Secrets:** API keys live only in `.env`. Never print, commit or hard-code them. `.env` must be in `.gitignore`.
+7. **No unnecessary third-party scripts.** They hurt Lighthouse. Add analytics last, loaded asynchronously.
+8. **Accessibility:** semantic HTML, one `<h1>` per page, correct heading order, labelled form fields, sufficient colour contrast, visible focus states.
+
+## 3. Required routes and files
+
+- `/` homepage
+- `/blog` blog index, `/blog/[slug]` posts
+- `/services` service index, `/services/[slug]` service pages
+- `sitemap.xml` generated from the content files (every public URL, with `lastmod`)
+- `robots.txt` allows everything except `/admin`, `/api`, `/login`, `/dashboard` and anything private. References the sitemap URL.
+- Custom `404` page with links to the home, blog and services pages.
+
+## 4. SEO rules (apply to every page)
+
+Full list: `docs/on-page-seo-checklist.md`. The essentials:
+
+- Exactly **one H1** containing the primary keyword.
+- **Meta title** (≤ 60 characters) and **meta description** (≤ 160 characters) that include the primary keyword and read like a human wrote them.
+- Canonical URL, Open Graph and Twitter tags on every page.
+- Primary keyword in the **first 100 words**. [Video]
+- **3 to 5 internal links** and **2 to 3 external links** per blog post. [Video]
+- **4 to 8 FAQ questions** per blog post. [Video]
+- JSON-LD structured data: `Article` for posts, `Service` / `LocalBusiness` for service pages, `FAQPage` where FAQs exist, `BreadcrumbList` everywhere.
+- Clean, lowercase, hyphenated URLs containing the primary keyword.
+- Target **100/100 in Lighthouse** for SEO, Accessibility, Best Practices and Performance. [Video]
+
+## 5. Content rules
+
+### Blog posts (topical authority) [Video]
+- One post per keyword from `keywords.csv`. Never reuse a keyword already listed in `content/published.json`.
+- Each post targets a **primary keyword plus a keyword cluster** (5 to 10 related terms) woven in naturally.
+- Before writing, **research the top 3 organic results** (skip Reddit and forums) and match their **average word count, H2 count and image count**, covering the same topics plus something better.
+- Write in the voice defined in `references/` (voice, tone, humor, opinions, stats, stories). Never fall back to generic AI openings such as "In today's fast-paced world".
+- **Hook rule:** the first 50 words must contain at least one joke, self-aware aside or vivid specific image. {{adjust to the brand's humor level}}
+- Use only **true** stats and stories from `references/stats.md` and `references/stories.md`. Never invent a number, a customer or an anecdote. If one is needed and missing, leave a `TODO:` for the owner.
+- Images from Pexels using `PEXELS_API_KEY` from `.env`. Credit the photographer where required. Descriptive alt text.
+
+### Service pages (conversion) [Video]
+- One page per **service + location** pair from `service-keywords.csv`. Be selective: never thousands, probably not hundreds.
+- Layout mirrors the homepage (or the best-converting landing page layout once tested). Clear call to action above the fold, the form, proof (reviews, years, guarantees), a short FAQ, and links to related blog posts.
+- Each page must have **unique, locally relevant content**, not just a swapped city name.
+
+### Publishing cadence [Video]
+- Never create more than the agreed number of posts per run. Default is **1 per run**.
+- Ramp: day 1 → 1, day 2 → 1, day 3 → 2, day 5 → 3, day 8 → 4. Ask before exceeding the current stage.
+
+## 6. Workflow rules for Claude
+
+1. Read `CLAUDE.md`, the relevant `references/` files and `docs/on-page-seo-checklist.md` before writing content.
+2. After creating or editing a page, **verify against the checklist** and report what passed or failed.
+3. Do not weaken the voice to satisfy SEO, and do not weaken SEO to be funny. Both are required. [Video]
+4. Build with `npm run build` and fix errors before declaring a task done.
+5. Never push to `main` or deploy unless asked.
+6. When unsure about a business fact (prices, areas served, licences), ask. Do not guess.
+
+## 7. Commands
+
+```bash
+npm install
+npm run dev      # local preview
+npm run build    # production build (must pass)
+npm run lint
+```

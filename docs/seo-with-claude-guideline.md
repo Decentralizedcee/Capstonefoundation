@@ -58,7 +58,7 @@ His point: big competitors like Homestars likely have whole teams doing on-page 
 
 | Tool | Purpose | Notes |
 |---|---|---|
-| **Claude Code** | Builds the site and runs every prompt | The video runs it inside Antigravity (antigravity.google, a free desktop coding workspace). Install the Claude Code extension from its Extensions tab. |
+| **Claude Code** | Builds the site and runs every prompt | The video runs it inside Antigravity. **Your plan: run Claude Code directly** in a terminal inside the project folder. No editor is required. |
 | **Semrush** | Keyword research, competitor keywords, site audit, backlink data | Free trial. Creator has used it 4–5 years. The "Keyword Magic Tool" is the main feature. |
 | **Dribbble** | Design reference screenshots | Free. Prevents "AI slop" design. |
 | **Pexels** | Free royalty-free images through an API | Needs a free account and an API key. |
@@ -70,13 +70,13 @@ His point: big competitors like Homestars likely have whole teams doing on-page 
 | **Chrome DevTools, Lighthouse tab** | Performance audit | Built into Chrome. |
 | **Make.com** | Optional automation | Appears in his related videos, not in this one. |
 
-**[Update from the video description]** Antigravity 2.0 removed extensions, including Claude Code. The creator says to **use VS Code instead** (https://code.visualstudio.com/). He says everything in the video still applies because VS Code is identical to Antigravity for this purpose.
+**[Decision]** You chose to work in Claude Code directly, so Antigravity is dropped. The video description notes Antigravity 2.0 removed extensions (including Claude Code) and recommends VS Code instead, but the workspace is only a window around Claude Code. Every step in this guideline works the same from the terminal. Where the video says "attach a screenshot" or "drag the file into Antigravity", drag the image into the Claude Code session or give it the file path.
 
 ---
 
 ## 4. Step 1: Set up the project
 
-1. Install the coding workspace (VS Code per the update; Antigravity in the video) and the Claude Code extension.
+1. Open Claude Code directly in your terminal (no Antigravity or VS Code needed).
 2. Create an **empty folder** for the project. Every Claude Code project lives in a folder. The video names it "SEO brief".
 3. Add **one file: `CLAUDE.md`**. The video compares it to training a new employee: how to behave and the standard operating procedures.
    - The creator supplies a ready-made `CLAUDE.md` for web apps in the free Skool blueprint. **[Not in video]**: its contents aren't shown, only that it exists.
@@ -439,7 +439,7 @@ Localhost means only you can see the site. To go live:
 
 ## 15. Master workflow (the video in 15 steps)
 
-1. Install the workspace and Claude Code. Make an empty project folder.
+1. Open Claude Code in an empty project folder (no Antigravity needed).
 2. Add `CLAUDE.md` (SSG required).
 3. Find a Dribbble design reference, screenshot it and prompt Claude to build the homepage, blog index and service index.
 4. Research keywords in Semrush (KD ≤ 30, volume ≥ 100, right intent). Export `keywords.csv`.
@@ -482,17 +482,19 @@ Localhost means only you can see the site. To go live:
 
 ---
 
-## 17. Gaps: what the video points to but doesn't show
+## 17. Missing blueprint files: now reconstructed
 
-These live in the free Skool blueprint, which is behind a login, so I couldn't read them. You'll need to open them yourself:
+The video points to five resources in the Skool blueprint, which you can't access. They have been **reconstructed** in `docs/seo-kit/`. Each is marked as [Video], [Reconstructed] or [Standard SEO]:
 
-1. **The full `CLAUDE.md` web-app file**, which enforces static generation and the stack.
-2. **The 80+ item on-page SEO checklist and its prompt.**
-3. **The combined "rewrite with voice and steal the top-3 format" prompt.**
-4. **The reference-file templates** (humor, voice, opinions, stats, stories).
-5. **The exact skill definitions** for blog and service pages.
+| Missing resource | Reconstructed in |
+|---|---|
+| The `CLAUDE.md` web-app file (SSG, stack, rules) | `docs/seo-kit/CLAUDE.md.template` |
+| The 80+ item on-page checklist | `docs/seo-kit/on-page-seo-checklist.md` (90 items; the video named about a dozen, the rest are standard best practice) |
+| The exact prompts (build, blog, rewrite, on-page, Lighthouse, service page, deploy, outreach) | `docs/seo-kit/prompts.md` |
+| The reference templates (voice, tone, humor, opinions, stats, stories) | `docs/seo-kit/references/` |
+| The `blog` and service-page skill definitions | `docs/seo-kit/skills-draft/` (**drafts, not installed**) |
 
-When you've read them, paste or upload them and I'll fold them into this guideline and the eventual skill so it is complete. **I did not invent contents for these.**
+These are my versions, not the creator's originals. They follow his method but the wording and the checklist's extra items are mine. If you ever get the real files, compare and merge.
 
 ---
 
@@ -503,5 +505,5 @@ When you've read them, paste or upload them and I'll fold them into this guideli
 - **Fabricated experience risk.** The "stats" and "stories" reference files should contain **true** information. Don't let Claude invent anecdotes or numbers about a real business. This also matters for Google's expectations on experience and trustworthiness.
 - **Scaled AI content carries risk.** Google has policies against low-value mass-produced content. His mitigations (voice, real stats, competitor-informed structure, slow cadence) help, but quality and originality still decide this. Review each post before publishing.
 - **Keep secrets out of git.** `.env` should be git-ignored.
-- **Re-check tool names and UIs.** Antigravity changed during the video's lifetime, and Google My Business is now Google Business Profile.
+- **Re-check tool names and UIs.** Google My Business is now Google Business Profile, and Semrush's menus may differ from the video.
 - **Local SEO.** The creator's other video covers local SEO in depth (Google Business Profile ranking fields, citations, reviews). That isn't part of this guideline.

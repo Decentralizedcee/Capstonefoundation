@@ -1,0 +1,93 @@
+# Start prompt: paste this into a NEW chat in the project folder
+
+(Everything inside the box below is the prompt. Before you paste it, make sure these are in your project folder: `CLAUDE.md`, `references/`, `keywords.csv`, `docs/capstone-build-spec.pdf`, `.claude/skills/`. They are all in `seo-skills-kit.zip`.)
+
+````
+You are helping me build the Capstone Foundation website in this folder (the project root). I am not technical, so explain each step in plain words before you do it. Work in STAGES. Do not start the next stage until I say "go".
+
+READ FIRST, IN THIS ORDER
+1. CLAUDE.md (project rules, stack, folder map, gates, and the conflicts already resolved)
+2. docs/capstone-build-spec.pdf (the full build specification: all copy, routes, design tokens and acceptance criteria; it is canonical for copy and design)
+3. docs/cross-check.md (open decisions I still need to confirm; do not decide these yourself)
+4. references/ and keywords.csv (voice and facts, used later by the SEO skill)
+Do not write any site code yet.
+
+=== STAGE 1: CHECK, THEN CREATE THE FOLDERS (no site code) ===
+
+1A. Check and report back to me in a short table:
+   - Node.js version (need 20 or higher) and npm version
+   - git installed, and whether this folder is already a git repository (ask before running git init)
+   - Which skills you can see (I expect: blog, service-page)
+   - That these exist: CLAUDE.md, docs/capstone-build-spec.pdf, docs/cross-check.md, references/ (6 files), keywords.csv
+   - Whether any logo files or photos are already in this folder, and where
+   Stop and tell me if anything is missing or wrong.
+
+1B. Show me the folder tree below, explain in ONE line what each folder is for, then create the ones that do not exist yet. Put an empty .gitkeep file in each empty folder so it is not lost.
+
+   (project root)
+   ├── docs/                        spec PDF, cross-check, SEO guide and kit
+   ├── references/                  voice, tone, humor, opinions, stats, stories
+   ├── images-incoming/             I drop my approved photos here (never committed)
+   ├── public/
+   │   └── brand/                   the two logo files
+   ├── scripts/                     process-images.mjs and fetch-unsplash.mjs (written later)
+   ├── server/                      README only: the future donation back end plan, no code
+   ├── src/
+   │   ├── assets/images/           processed images (created by the pipeline)
+   │   ├── components/              Header, Footer, Hero, Band, MediaBlock, ProgramCard, StatStrip,
+   │   │                            Testimonial, CtaBand, PlaceholderCard, Seo, DonationPanel
+   │   ├── config/                  site.ts (contact, social links, the hidden-section flags)
+   │   ├── content/stories/         the blog (MDX)
+   │   ├── data/                    images.ts, testimonials.ts, published.json
+   │   ├── layouts/
+   │   ├── pages/                   (routes are created in Stage 4)
+   │   └── styles/                  global.css
+   └── .claude/skills/              already provided (blog, service-page)
+
+   Do NOT scaffold Astro yet (no package.json, no npm install). Only folders and the small files below.
+
+1C. Create these files:
+   - .gitignore containing at least: .env, node_modules/, dist/, .astro/, images-incoming/*, and a .DS_Store line. Keep images-incoming/.gitkeep tracked.
+   - .env.example listing: PUBLIC_SITE_URL=   PUBLIC_INDEXABLE=false   PUBLIC_API_URL=   UNSPLASH_ACCESS_KEY=
+   - .env with the same keys and EMPTY values, except PUBLIC_INDEXABLE=false. I will type my own Unsplash key into .env myself. NEVER ask me to paste a key into this chat.
+   - server/README.md with one short paragraph: "Phase 2 donation back end plan. No code yet." plus the planned endpoints from the spec.
+   - A short README.md placeholder (it is completed in Stage 4).
+
+1D. VERIFY everything and show me the proof:
+   - Print the final folder tree.
+   - Run `git check-ignore -v` on .env, images-incoming/test.jpg, node_modules and dist to prove they are ignored.
+   - Confirm every folder in the tree above exists, and list anything that does not.
+   - Confirm .env exists, is ignored by git, and contains no secret.
+
+1E. STOP. Then give me a plain checklist of exactly what I must do now:
+   - Put the two logo files in public/brand/ and rename them to capstone-logo-green-on-white.jpg and capstone-logo-white-on-green.jpg (tell me which of my files is which if you can see them).
+   - Put the photos I have approved into images-incoming/ (not straight from Google Drive; no receipts, bank screenshots, ID cards, chat screenshots, medical documents or school-fee slips; no videos).
+   - Optional: add my Unsplash Access Key to .env (UNSPLASH_ACCESS_KEY=...). Access Key only, never the Secret Key.
+   - Tell me what to type when I am done.
+   Wait for me to say "go".
+
+=== STAGE 2: CHECK WHAT I UPLOADED (no processing yet) ===
+   - List every file in public/brand/ and images-incoming/ with its size. Check that the logos are 960 x 540 and the names are right.
+   - Look at each photo. Flag anything that looks like a receipt, bank screenshot, ID, chat screenshot, medical document, school-fee slip, or anything showing an account number, and tell me those will be skipped. Flag very large files, duplicates and unreadable files.
+   - Tell me how many photos look usable. Do not move, edit or delete anything. Wait for "go".
+
+=== STAGE 3: PLAN (the spec's "How to work", step 1) ===
+   Reply with: the full file tree you plan to create, the component list (including DonationPanel), and any questions you have, including the open decisions in docs/cross-check.md that block you. Wait for my approval.
+
+=== STAGE 4: BUILD ===
+   Follow the spec's build order: scaffold and config; design tokens and layout; Home; About; Programs; Get involved; Donate and Contact; Stories; SEO and structured data; final checks. After EACH step run the build and tell me in 2 to 3 sentences what is done and what is next. When the image pipeline is ready, process my photos, then propose the slot map (home hero, About, one per program page, Get involved) and WAIT for my approval before placing any photo. Use the copy in the spec word for word. Use no invented facts.
+
+=== STAGE 5: ACCEPTANCE ===
+   Check the build against the spec's "Done means" list and report pass or fail for each item with proof (Lighthouse 95+ on mobile for all four categories on the built site; 360, 768 and 1280 px widths).
+
+=== STAGE 6: SEO (ONLY WHEN I SAY SO) ===
+   Do not run anything from the SEO skill until I ask. When I do, run the `blog` skill for the Stories section as set out in CLAUDE.md (stack adapter, drafts, humor none). Do not run `service-page` on this site.
+
+RULES THAT NEVER CHANGE
+- Never invent facts, statistics, names, dates, addresses, quotes, testimonials, partners or Scripture.
+- Never publish money amounts, receipts, bank screenshots, diagnoses, case details or children's surnames.
+- Never put a secret in the repository or the browser.
+- If something is not covered, ask me before adding it.
+
+Begin with Stage 1A now.
+````

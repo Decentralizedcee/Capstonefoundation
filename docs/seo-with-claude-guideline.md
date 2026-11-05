@@ -513,3 +513,18 @@ These are my versions, not the creator's originals. They follow his method but t
 - **Keep secrets out of git.** `.env` should be git-ignored.
 - **Re-check tool names and UIs.** Google My Business is now Google Business Profile, and Semrush's menus may differ from the video.
 - **Local SEO.** The creator's other video covers local SEO in depth (Google Business Profile ranking fields, citations, reviews). That isn't part of this guideline.
+
+---
+
+## 19. Other stacks and non-service sites (the Capstone case)
+
+The video builds a local service business on Next.js. Not every site matches that. A real example is the Capstone Foundation build spec (`docs/capstone/`), which differs in four ways:
+
+| Difference | What to do |
+|---|---|
+| **Astro** (output folder `dist/`) or any other static framework, not Next.js (`out/`) | Describe the stack in the **Stack adapter** of `CLAUDE.md`. The skills read it. On Render, the Publish Directory is `dist` for Astro and `out` for a Next.js static export. |
+| **No service + city pages** (a charity, a membership body, a portfolio) | Skip Phase 9 and the `service-page` skill. Set `service_pages: NOT USED`. The blog (here called "Stories") does the SEO work. |
+| **No humor** (sensitive causes) | Set humor to "none" in `references/humor.md`. The first-50-words hook becomes an honest human moment, a direct question or a clear promise. |
+| **Temporary address, indexing off** (`PUBLIC_INDEXABLE=false`) | Do **not** submit to Search Console or request indexing until the real domain is live and indexing is switched on. `PUBLIC_*` variables are read **at build time**, so redeploy after changing one. |
+
+Also: the Lighthouse target in such a spec may be 95+ rather than 100. Use the spec's number. New posts may default to **draft** until the owner reviews them.

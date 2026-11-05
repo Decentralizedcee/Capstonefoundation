@@ -26,6 +26,7 @@ Image modes work exactly as in the `blog` skill. Details: `references/image-sour
 
 ## Step 0: Project and image pre-flight
 
+0. **Applicability gate.** Read the `## Stack adapter` section of the project `CLAUDE.md` (keys: `framework`, `build_command`, `output_dir`, `service_pages`, `published_log`, `local_images_dir`, `image_pipeline`, `image_registry`, `new_posts_as`). If `service_pages` says **NOT USED** (for example a charity or any site whose program pages have fixed copy), **stop** and tell the user this skill does not apply to the site. Otherwise use the adapter's values instead of the Next.js-style defaults named below (`content/services/`, `content/published.json`, `images/`, `npm run build`). Project content rules in `CLAUDE.md` (tone, privacy, image restrictions) override this skill's defaults.
 1. Confirm `CLAUDE.md`, `service-keywords.csv` and `content/services/` (or a service page template) exist. If core pieces are missing, **stop** and name the missing setup step.
 2. Resolve the image mode and run its pre-flight per `references/image-sources.md`. Missing `UNSPLASH_ACCESS_KEY` or an empty `images/` folder means **stop** and tell the user how to fix it, or offer another mode. Never ask for a key in chat.
 3. Read `CLAUDE.md` for: business facts, services, locations, phone/email/NAP, the primary conversion goal, and the layout rules.

@@ -2,6 +2,10 @@
 
 Pages (blog posts and service pages) can get images from **two sources**, chosen per run. Nothing here needs an API key except the Unsplash mode.
 
+## 0. Project overrides (read first)
+
+Folder names below use defaults (`images/`, `public/images/...`, the bundled optimizer). The project's `CLAUDE.md` **Stack adapter** may define others. Use its values when present: `local_images_dir`, `image_pipeline`, `image_registry`, `processed_images_dir`, `image_source`, `unsplash_app_name`. The project's **image rules in `CLAUDE.md` always win** (for example "Unsplash only for atmosphere images with no people", "propose a slot map and wait for approval", "skip receipts and ID documents").
+
 ## 1. Choosing the mode
 
 Resolve the mode in this order and stop at the first match:
@@ -47,7 +51,7 @@ curl -s -G "https://api.unsplash.com/search/photos" \
 
 - Use specific visual queries (what the photo should show), not the SEO keyword itself.
 - Read from each result: `id`, `alt_description`, `width`, `height`, `urls.raw`, `user.name`, `user.links.html`, `links.html`, `links.download_location`.
-- Pick photos that truly match the topic and fit the brand. Prefer real, uncluttered scenes. Avoid photos with legible brand names, faces that imply a testimonial, or content that misrepresents the business.
+- Pick photos that truly match the topic and fit the brand. Follow any restriction in `CLAUDE.md` on what Unsplash may be used for (for example no photos of people, or no scene that could be mistaken for the organisation's own work). Prefer real, uncluttered scenes. Avoid photos with legible brand names, faces that imply a testimonial, or content that misrepresents the business.
 - **Rate limit:** demo apps get 50 API requests per hour (1,000 after production approval). Check the `X-Ratelimit-Remaining` response header. Use as few requests as possible (one search per image topic), and stop and report if it runs out. Requests to `images.unsplash.com` do not count.
 - Unsplash expects the API to be used for authentic, human-reviewed experiences. **Show the user the chosen photos (id, description, link) in your report** so they can approve or swap them. Do not bulk-pull images.
 
@@ -63,7 +67,7 @@ All uses of the image must use the URLs returned by the API. **Do not download a
 - Always set explicit `width` and `height` (use the aspect ratio you crop to) so there is no layout shift.
 - The hero / above-the-fold image gets `fetchpriority="high"` and no lazy loading. Everything else gets `loading="lazy"`.
 - Add `<link rel="preconnect" href="https://images.unsplash.com">` in the page head.
-- With a static export, use a plain `<img>` (or `next/image` with `unoptimized`). No `remotePatterns` setup is needed for `<img>`.
+- Use a plain `<img>`. **Do not route Unsplash URLs through a framework's image optimiser** (Astro `astro:assets` remote images, `next/image` with optimisation on): those download and re-host the photo, which breaks the hotlink rule. Own photos may use the optimiser; Unsplash photos may not.
 
 ### 3.3 Trigger the download (required)
 
@@ -83,6 +87,7 @@ Visible under or next to every Unsplash image:
 
 - The photographer name links to `user.links.html` + `?utm_source=<app>&utm_medium=referral`
 - "Unsplash" links to `https://unsplash.com/?utm_source=<app>&utm_medium=referral`
+- Show the credit **beside the image** (caption). If `CLAUDE.md` also asks for a site-wide "Photo credits" line (for example in the footer), add the credit there too.
 - `<app>` is `unsplash_app_name` from `CLAUDE.md` (the name of the owner's Unsplash application). The name may not contain "Unsplash". If it is not set, ask.
 
 ### 3.5 Frontmatter to store
@@ -116,7 +121,8 @@ The user drops images into `images/` in the project root. These are theirs, so n
 ### 4.2 Optimize and place
 
 - **Never modify or move the originals in `images/`.**
-- Run the bundled optimizer (copy `scripts/optimize-image.mjs` into the project's `scripts/` folder if it is not there; it needs `sharp`, so `npm install --save-dev sharp` if missing):
+- **If the project defines an `image_pipeline`** (for example `node scripts/process-images.mjs`), use that and its `image_registry`. Do not bypass its safety checks. Skip and report anything that looks like a receipt, bank screenshot, ID, chat screenshot, medical document or similar, and never use an image showing an account number or private details. Wait for any approval step the project requires (such as a slot map).
+- Otherwise run the bundled optimizer (copy `scripts/optimize-image.mjs` into the project's `scripts/` folder if it is not there; it needs `sharp`, so `npm install --save-dev sharp` if missing):
 
   ```bash
   node scripts/optimize-image.mjs "images/<file>" "public/images/<blog|services>/<slug>" "<descriptive-name>"

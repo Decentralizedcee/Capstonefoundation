@@ -30,6 +30,33 @@
 7. **No unnecessary third-party scripts.** They hurt Lighthouse. Add analytics last, loaded asynchronously.
 8. **Accessibility:** semantic HTML, one `<h1>` per page, correct heading order, labelled form fields, sufficient colour contrast, visible focus states.
 
+## 2b. Stack adapter (read by the `blog` and `service-page` skills)
+
+Fill in the values for this project. Use the Next.js column or the Astro column as a starting point. The skills follow these values instead of any default.
+
+```
+framework:            {{nextjs | astro | other}}
+build_command:        npm install && npm run build
+output_dir:           {{out (Next.js with output: 'export') | dist (Astro)}}      <- Render "Publish Directory"
+blog_collection:      {{content/blog | src/content/stories}}
+blog_format:          {{md | mdx}}
+blog_route:           {{/blog/<slug> | /stories/<slug>}}
+blog_index:           {{/blog | /stories}}
+service_pages:        {{content/services | NOT USED}}      <- NOT USED for charities and sites without service pages
+published_log:        {{content/published.json | src/data/published.json}}
+new_posts_as:         {{published | draft}}                <- draft = owner reviews and flips it
+local_images_dir:     {{images | images-incoming}}
+image_pipeline:       {{scripts/optimize-image.mjs (bundled) | node scripts/process-images.mjs}}
+image_registry:       {{none | src/data/images.ts}}
+processed_images_dir: {{public/images/blog/<slug> | src/assets/images}}
+image_source:         {{unsplash | local | mixed | none | ask}}
+unsplash_app_name:    {{your Unsplash app name; may not contain "Unsplash"}}
+```
+
+Add any **project-specific content rules** the skills must obey (tone, humor level, privacy, faith or legal wording, image restrictions) in their own section of this file. They override the skills' defaults.
+
+---
+
 ## 3. Required routes and files
 
 - `/` homepage

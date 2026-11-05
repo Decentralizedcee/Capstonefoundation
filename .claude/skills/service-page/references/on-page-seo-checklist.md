@@ -55,7 +55,7 @@ Some items apply only to blogs (B) or only to service pages (S). Unmarked items 
 31. **Word count** matches the average of the top 3 ranking pages. [V]
 32. Covers every major topic the top 3 results cover, plus at least one thing they miss.
 33. **Original voice**: reads like the owner, not generic AI. [V]
-34. **Hook in the first 50 words** (joke, aside or vivid image, per the brand's tone). [V]
+34. **Hook in the first 50 words** that fits the brand's tone: a joke, aside or vivid image where humor is on; an honest human moment, a direct question or a clear promise where humor is off. [V]
 35. Uses real **stats** about the business where relevant. Never fabricated. [V]
 36. Includes a real **story or anecdote** where relevant. Never fabricated. [V]
 37. Includes a clear **opinion or recommendation**, not only neutral information.

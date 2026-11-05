@@ -12,6 +12,13 @@ Editorial and restrained, like a well-made annual report. Hopeful, warm and stea
 | Stories: how we work (how we choose who to help) | Transparent, accountable, calm. |
 | Donate and Get involved | Inviting and sincere. Never pushy. |
 
+## Sparkle level (see `sparkle-text.md`)
+| Content | Level |
+|---|---|
+| Stories | Moderate: 2 to 4 sparkle moments per post (opening, turning point, closing) |
+| Donate, Get involved (new copy only) | Light: one line at most |
+| Fixed spec copy | None. Word for word. |
+
 ## Always
 - Lead with the reader's need or question, then answer it plainly.
 - Treat every person in a story with dignity and honour.

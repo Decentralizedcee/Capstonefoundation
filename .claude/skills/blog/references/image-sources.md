@@ -4,7 +4,7 @@ Pages (blog posts and service pages) can get images from **two sources**, chosen
 
 ## 0. Project overrides (read first)
 
-Folder names below use defaults (`images/`, `public/images/...`, the bundled optimizer). The project's `CLAUDE.md` **Stack adapter** may define others. Use its values when present: `local_images_dir`, `image_pipeline`, `image_registry`, `processed_images_dir`, `image_source`, `unsplash_app_name`. The project's **image rules in `CLAUDE.md` always win** (for example "Unsplash only for atmosphere images with no people", "propose a slot map and wait for approval", "skip receipts and ID documents").
+Folder names below use defaults (`images/`, `public/images/...`, the bundled optimizer). The project's `CLAUDE.md` **Stack adapter** may define others. Use its values when present: `local_images_dir`, `image_pipeline`, `image_registry`, `processed_images_dir`, `image_source`, `unsplash_app_name`. The project's **image rules in `CLAUDE.md` always win** (for example "own photos required for anything about the organisation's work; Unsplash people-photos only in general-topic posts", "propose a slot map and wait for approval", "skip receipts and ID documents").
 
 ## 1. Choosing the mode
 
@@ -51,7 +51,8 @@ curl -s -G "https://api.unsplash.com/search/photos" \
 
 - Use specific visual queries (what the photo should show), not the SEO keyword itself.
 - Read from each result: `id`, `alt_description`, `width`, `height`, `urls.raw`, `user.name`, `user.links.html`, `links.html`, `links.download_location`.
-- Pick photos that truly match the topic and fit the brand. Follow any restriction in `CLAUDE.md` on what Unsplash may be used for (for example no photos of people, or no scene that could be mistaken for the organisation's own work). Prefer real, uncluttered scenes. Avoid photos with legible brand names, faces that imply a testimonial, or content that misrepresents the business.
+- Pick photos that truly match the topic and fit the brand. Follow any restriction in `CLAUDE.md` on **when** Unsplash may be used. A common rule: Unsplash (including photos of people) is fine for **general-topic** posts, but anything about the organisation's own work, testimonials or projects must use the owner's own photos, with Unsplash limited to atmosphere images with no people. Decide the context first. Never caption, describe or place an Unsplash photo so it looks like the organisation's own beneficiaries, team, events or testimonials.
+- Alt text for an Unsplash photo describes what is visible as a general illustration. Prefer real, uncluttered scenes. Avoid photos with legible brand names, faces that imply a testimonial, or content that misrepresents the business.
 - **Rate limit:** demo apps get 50 API requests per hour (1,000 after production approval). Check the `X-Ratelimit-Remaining` response header. Use as few requests as possible (one search per image topic), and stop and report if it runs out. Requests to `images.unsplash.com` do not count.
 - Unsplash expects the API to be used for authentic, human-reviewed experiences. **Show the user the chosen photos (id, description, link) in your report** so they can approve or swap them. Do not bulk-pull images.
 

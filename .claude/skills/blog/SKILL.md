@@ -88,6 +88,8 @@ Search Google (web search) for the primary keyword. Take the **top 3 organic res
 
 Read **every** file in the project `references/` (voice, tone, humor, opinions, stats, stories) and the content rules in `CLAUDE.md`. Use only real stats and stories from them. If a useful stat, story, opinion or quotation is missing, write `TODO(owner): <what is needed>` in the draft. **Never invent** numbers, quotes, people, results, anecdotes or (where relevant) Scripture or legal/medical claims. A fact from outside the project (a statistic, a date, a verse) needs a named, checkable source the owner can verify, otherwise mark it `TODO(owner): verify`.
 
+**Scripture.** If `CLAUDE.md` sets a `bible_translation`, quote Scripture only in that translation. **Fetch the passage from an authoritative source (for example BibleGateway or the publisher) and copy it exactly; never quote from memory.** Cite book, chapter:verse and the translation, keep quotations short, and add the copyright notice the project's rules require. If you cannot verify the text, write `TODO(owner): verify the verse text`. Never present a paraphrase as a quotation.
+
 ## Step 6: Write the post
 
 To the averaged targets, in the owner's voice and tone:
@@ -99,12 +101,13 @@ To the averaged targets, in the owner's voice and tone:
 - Answer the query directly and early, then go deeper. Be specific and practical, only where the facts are known.
 - Include a clear opinion or recommendation where the owner has one (`opinions.md`).
 - End with a call to action that fits the site (donate, volunteer, contact, book, buy) and link to the most relevant page.
+- **Craft guidance in `references/`** (for example `sparkle-text.md`): follow it. Where a style file asks for a few vivid, emotionally true lines (opening, turning point, closing), write them as **short plain sentences**, keep to the stated number, and obey its guardrails (no invented facts, no clichés, dignity first, no humor where humor is off). Fixed page copy defined by the project is never rewritten.
 - **No generic AI openings** ("In today's fast-paced world", "In this comprehensive guide", "Delve into").
 - Respect any privacy and faith rules in `CLAUDE.md` (for example no amounts, no children's surnames, Scripture only as allowed).
 
 ## Step 7: Images
 
-Follow `references/image-sources.md` for the chosen mode and **the project's image rules in `CLAUDE.md`** (for example "Unsplash only for scenes with no people"). Summary:
+Follow `references/image-sources.md` for the chosen mode and **the project's image rules in `CLAUDE.md`**. Projects often set rules by context, for example: the owner's own photos are required for anything about the organisation's own work, while Unsplash is fine (even with people) for general-topic posts. **First decide which context this post is in**, then pick the source accordingly. Summary:
 
 - `unsplash`: search, pick, **hotlink** the API's URLs with size parameters, send the download ping, add visible attribution with UTM links, store the credit. Show the user the chosen photos in the report.
 - `local`: look at the images in `local_images_dir`, pick the ones that fit and are unused, run the project's `image_pipeline` (or the bundled optimizer if none), write honest alt text, record in `image_registry` if defined, never touch the originals.
@@ -140,6 +143,8 @@ PAGE: <file>   TYPE: blog   PRIMARY KEYWORD: <kw>
 PASSED: n/90   FAILED: n   N/A: n
 FAILED ITEMS: #<n> <item> -> <what is wrong> -> <fix>
 VOICE CHECK: pass | fail (hook fits the tone? no generic AI phrasing? only true stats, stories and quotations? project rules respected?)
+STYLE CHECK (if a style file exists): sparkle moments: n (target per the style file); clichés: none | list; humor/guardrails respected: yes | no
+SCRIPTURE CHECK (if used): each quotation verified exactly in the project's translation, cited, notice included: yes | no
 ```
 
 Fix failures and re-run the audit. Check that the page's text is in the built HTML (static), not only produced by JavaScript.

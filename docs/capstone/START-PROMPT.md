@@ -9,7 +9,7 @@ READ FIRST, IN THIS ORDER
 1. CLAUDE.md (project rules, stack, folder map, gates, and the conflicts already resolved)
 2. docs/capstone-build-spec.pdf (the full build specification: all copy, routes, design tokens and acceptance criteria; it is canonical for copy and design)
 3. docs/cross-check.md (open decisions I still need to confirm; do not decide these yourself)
-4. references/ and keywords.csv (voice and facts, used later by the SEO skill)
+4. references/ (voice.md, tone.md, humor.md, sparkle-text.md, opinions.md, stats.md, stories.md: the voice, the sparkle writing style and the approved facts) and keywords.csv. They are used later by the SEO skill.
 Do not write any site code yet.
 
 === STAGE 1: CHECK, THEN CREATE THE FOLDERS (no site code) ===
@@ -18,7 +18,7 @@ Do not write any site code yet.
    - Node.js version (need 20 or higher) and npm version
    - git installed, and whether this folder is already a git repository (ask before running git init)
    - Which skills you can see (I expect: blog, service-page)
-   - That these exist: CLAUDE.md, docs/capstone-build-spec.pdf, docs/cross-check.md, references/ (6 files), keywords.csv
+   - That these exist: CLAUDE.md, docs/capstone-build-spec.pdf, docs/cross-check.md, references/ (7 files, including sparkle-text.md), keywords.csv
    - Whether any logo files or photos are already in this folder, and where
    Stop and tell me if anything is missing or wrong.
 
@@ -61,7 +61,7 @@ Do not write any site code yet.
 
 1E. STOP. Then give me a plain checklist of exactly what I must do now:
    - Put the two logo files in public/brand/ and rename them to capstone-logo-green-on-white.jpg and capstone-logo-white-on-green.jpg (tell me which of my files is which if you can see them).
-   - Put the photos I have approved into images-incoming/ (not straight from Google Drive; no receipts, bank screenshots, ID cards, chat screenshots, medical documents or school-fee slips; no videos).
+   - Put the photos I have approved into images-incoming/ (not straight from Google Drive; no receipts, bank screenshots, ID cards, chat screenshots, medical documents or school-fee slips; no videos). These are my own photos of Capstone's work, and they are the ONLY source for anything about Capstone's work, testimonials and projects.
    - Optional: add my Unsplash Access Key to .env (UNSPLASH_ACCESS_KEY=...). Access Key only, never the Secret Key.
    - Tell me what to type when I am done.
    Wait for me to say "go".
@@ -72,7 +72,7 @@ Do not write any site code yet.
    - Tell me how many photos look usable. Do not move, edit or delete anything. Wait for "go".
 
 === STAGE 3: PLAN (the spec's "How to work", step 1) ===
-   Reply with: the full file tree you plan to create, the component list (including DonationPanel), and any questions you have, including the open decisions in docs/cross-check.md that block you. Wait for my approval.
+   Reply with: the full file tree you plan to create, the component list (including DonationPanel), and any questions you have. You MUST include question K from docs/cross-check.md (the spec's Psalm 68:5 and James 1:27 lines are not NIV wording; ask me whether to switch them to the NIV text or keep the spec wording). Do not change any fixed spec copy until I answer. Wait for my approval.
 
 === STAGE 4: BUILD ===
    Follow the spec's build order: scaffold and config; design tokens and layout; Home; About; Programs; Get involved; Donate and Contact; Stories; SEO and structured data; final checks. After EACH step run the build and tell me in 2 to 3 sentences what is done and what is next. When the image pipeline is ready, process my photos, then propose the slot map (home hero, About, one per program page, Get involved) and WAIT for my approval before placing any photo. Use the copy in the spec word for word. Use no invented facts.
@@ -81,10 +81,12 @@ Do not write any site code yet.
    Check the build against the spec's "Done means" list and report pass or fail for each item with proof (Lighthouse 95+ on mobile for all four categories on the built site; 360, 768 and 1280 px widths).
 
 === STAGE 6: SEO (ONLY WHEN I SAY SO) ===
-   Do not run anything from the SEO skill until I ask. When I do, run the `blog` skill for the Stories section as set out in CLAUDE.md (stack adapter, drafts, humor none). Do not run `service-page` on this site.
+   Do not run anything from the SEO skill until I ask. When I do, run the `blog` skill for the Stories section as set out in CLAUDE.md (stack adapter, new posts as drafts, humor none, the sparkle style in references/sparkle-text.md, Scripture in the NIV verified exactly). Show me every Unsplash photo you pick. Do not run `service-page` on this site.
 
 RULES THAT NEVER CHANGE
-- Never invent facts, statistics, names, dates, addresses, quotes, testimonials, partners or Scripture.
+- Never invent facts, statistics, names, dates, addresses, quotes, testimonials, partners or Scripture. Quote Scripture only in the NIV, copied exactly from a verified source and cited.
+- Images: my own photos (images-incoming/) are required for anything about Capstone's work, testimonials and projects. Unsplash may be used elsewhere when needed (people are allowed in general-topic Stories). In pages or stories about Capstone's work, Unsplash is for atmosphere with no people only. Never present an Unsplash photo as Capstone's own people, work or testimonial.
+- Voice: the spec voice (hopeful, openly Christian, inspirational, short sentences, plain words) plus the sparkle style for Stories and new copy only. Fixed spec copy is never sparkled. No humor.
 - Never publish money amounts, receipts, bank screenshots, diagnoses, case details or children's surnames.
 - Never put a secret in the repository or the browser.
 - If something is not covered, ask me before adding it.

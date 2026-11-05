@@ -37,21 +37,41 @@ Compared: `docs/capstone-build-spec.pdf` (the build spec) against `docs/seo-step
 | 8 | Strict **privacy rules** (no amounts, receipts, diagnoses, children's surnames) and **no invented Scripture** | Guide had a general "no invention" rule | Added to `CLAUDE.md`, the references and the skill's hard rules. |
 | 9 | Seeded stories are **drafts** and "do not publish drafts" | Skill published posts | New posts are written with `draft: true`; an existing stub for the keyword is **filled in**, not duplicated. |
 | 10 | No keyword data | Skill needs keywords with volume and difficulty | `keywords.csv` seeded from the 8 story titles, marked **unverified**. Fill volume and difficulty from Semrush (free trial) before leaning on it. |
+| 11 | Owner's voice reference ("sparkle text": vivid, rhythmic, emotionally true) | Humor-based voice | New `references/sparkle-text.md` adapted to Capstone: sparkle inside short plain sentences, hopeful imagery, no invented facts, no humor, never in fixed copy. |
+| 12 | Owner's image policy: Unsplash people-photos allowed in general-topic Stories; own photos for Capstone's work | Spec: Unsplash for no-people atmosphere only | Policy updated in `CLAUDE.md` section 6, the skills and the image rules. |
+| 13 | Scripture: NIV | Spec's Scripture lines are not NIV wording | See question K. |
 
-## 3. Conflicts inside the spec itself (owner decisions)
+## 3. Conflicts inside the spec, and your decisions
 
-These are in the spec as written. I applied the "Resolution" so work is not blocked. Please confirm or change.
+Decisions recorded on **5 Nov 2026**. Items you did not mention were accepted ("every other thing is okay"). Tell me if I read any of them wrongly.
 
-| # | Issue | Resolution applied | Your decision |
-|---|---|---|---|
-| A | **Images:** the spec wants optimisation through `astro:assets` **and** Unsplash's returned URLs. Unsplash requires hotlinking; Astro's remote-image optimisation downloads and re-hosts the photo. | Own photos via `astro:assets`; Unsplash photos hotlinked with plain `<img>` and size parameters. | ☐ OK  ☐ Change |
-| B | **Testimonial 2** (healing from leg pain) vs the rule "never publish diagnoses or case details". | Included as written because consent is stated. | ☐ Keep  ☐ Remove  ☐ Soften wording |
-| C | **Testimonial 1** shows the mother's surname with the child's first name; the rule says children's surnames are never published. | Included as written because she agreed to be quoted. | ☐ Keep  ☐ Use first name only |
-| D | **`DonationPanel`** is described but missing from the component list. | Built as part of the component list. | ☐ OK |
-| E | **Unsplash credit** only in the footer. Unsplash's rules ask for credit where the photo is displayed. | Footer line **and** a credit beside each Unsplash image. | ☐ OK  ☐ Footer only |
-| F | **Scripture in stories:** the spec allows only the verses it quotes, but two seeded stories are about Bible verses. | Any other verse is flagged `TODO(owner)` to verify text and translation. Tell me the translation you prefer (for example NIV, ESV, KJV). | Translation: ________ |
-| G | **Spelling:** "programs" in page copy, "programmes" in Values. | New copy uses "programs". | ☐ OK  ☐ UK spelling ("programmes") |
-| H | **Sport Development Program** is "backed by Capstone Foundation" and may have its own site. | Button appears only when `sportProgramUrl` is set. | ☐ OK |
+| # | Issue | Decision |
+|---|---|---|
+| A | `astro:assets` vs Unsplash hotlinking | **Confirmed.** Own photos go through `astro:assets` (from `images-incoming/`). Unsplash photos are hotlinked with a plain `<img>`. |
+| B | Testimonial 2 (healing from leg pain) vs the "no diagnoses" rule | **Kept as written.** Consent is stated in the spec. |
+| C | Testimonial 1 shows the mother's surname with the child's first name | **Kept as written.** She agreed to be quoted. |
+| D | `DonationPanel` missing from the component list | **Added.** |
+| E | Unsplash credit | **Beside each Unsplash image and in the footer.** |
+| F | Bible translation | **NIV.** Verified text and quoting rules are in `CLAUDE.md` section 7. |
+| G | "programs" vs "programmes" | **"programs".** |
+| H | Sport Development Program site button | **Only when `sportProgramUrl` is set.** |
+| I | **Images policy (changed from the spec)** | **Own photos are required for anything about Capstone's work, testimonials and projects.** Unsplash may be used anywhere else it is needed. Photos of people are allowed from Unsplash in general-topic Stories. In pages or stories about Capstone's work, Unsplash is for atmosphere with no people only. |
+| J | **Voice (extended)** | The spec voice stays. **Sparkle text** is layered on for Stories and new copy only (2 to 4 moments per post). Fixed page copy is never sparkled. Humor stays off. |
+
+### New question for you (found while checking the NIV text)
+
+**K. The spec's two Scripture lines are not NIV wording.**
+
+| Where | The spec says | NIV says (verified on BibleGateway) |
+|---|---|---|
+| Psalm 68:5 (Home faith band, About: Why faith) | "Father of the fatherless and protector of widows" (this matches the ESV wording) | "A father to the fatherless, a defender of widows, is God in his holy dwelling." |
+| James 1:27 (About: Why faith) | "visit orphans and widows in their affliction" (a paraphrase) | "Religion that God our Father accepts as pure and faultless is this: to look after orphans and widows in their distress and to keep oneself from being polluted by the world." |
+
+Because you asked for the spec copy word for word, **I have not changed them.** If the site quotes the NIV everywhere else, the cleanest option is to switch these two lines to the NIV text, with a short NIV notice in the footer.
+
+☐ Switch both to NIV  ☐ Keep the spec wording (and keep it clearly separate from NIV quotations in Stories)  ☐ Other: ________
+
+Claude will ask you this at Stage 3.
 
 ## 4. What the SEO method gives this site (and what it does not)
 

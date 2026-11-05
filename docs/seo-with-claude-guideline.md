@@ -528,3 +528,11 @@ The video builds a local service business on Next.js. Not every site matches tha
 | **Temporary address, indexing off** (`PUBLIC_INDEXABLE=false`) | Do **not** submit to Search Console or request indexing until the real domain is live and indexing is switched on. `PUBLIC_*` variables are read **at build time**, so redeploy after changing one. |
 
 Also: the Lighthouse target in such a spec may be 95+ rather than 100. Use the spec's number. New posts may default to **draft** until the owner reviews them.
+
+**Two more adjustments from the Capstone project**
+
+| Topic | What to do |
+|---|---|
+| **Voice from a style reference** | An owner can supply a writing sample as a style reference (the Capstone project used a "sparkle text" article). Distil it into `references/<name>.md` (technique, where to use it, guardrails) and let the skill follow it. Never paste a whole third-party article into the repo. |
+| **Images by context** | Some sites need rules by context: the owner's own photos for anything about the organisation's work, Unsplash for general-topic posts (including people), and Unsplash limited to no-people atmosphere on pages about the work. Put this in `CLAUDE.md`; the skill decides the context first. |
+| **Scripture or other quoted text** | Set one translation in `CLAUDE.md`, verify every quotation exactly from an authoritative source, cite it, keep it short and add the publisher's notice. |

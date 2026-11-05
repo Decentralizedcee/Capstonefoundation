@@ -12,6 +12,9 @@ Open every post with a **human moment or a clear promise**, in plain words. One 
 
 Use only situations that are honest and generic. **Never** invent a specific named person, case or anecdote. Stories about real people come only from `stories.md` and only with consent.
 
+## Note on the sparkle-text reference
+The owner's style reference (`sparkle-text.md`) includes a playful and witty side ("a dash of humor"). **That side stays off** for this site. Take the imagery, rhythm, emotional truth and specificity; leave out the jokes. If the owner later wants gentle humor in lighter posts (for example practical how-to pieces), they will say so and this file will change.
+
 ## Lightness that is allowed
 - Warmth, gentleness and hope.
 - Plain, human wording.

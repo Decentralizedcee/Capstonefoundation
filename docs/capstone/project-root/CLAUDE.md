@@ -58,7 +58,7 @@ render.yaml                     Render Static Site blueprint
 .env                            secrets (git-ignored)   .env.example   .gitignore
 package.json  astro.config.mjs  tsconfig.json    (created when scaffolding)
 keywords.csv                    SEO keywords for stories
-docs/                           spec PDF, cross-check, SEO guide and kit
+docs/                           spec PDF, cross-check, video-links.md, SEO guide and kit
 references/                     voice, tone, humor, opinions, stats, stories (for the SEO skill)
 images-incoming/                OWNER drops approved photos here (git-ignored)
 public/brand/                   capstone-logo-green-on-white.jpg, capstone-logo-white-on-green.jpg
@@ -67,10 +67,10 @@ server/                         README only: the phase 2 donation back end plan.
 src/
   assets/images/                processed AVIF/WebP (created by the pipeline)
   components/                   Header Footer Hero Band MediaBlock ProgramCard StatStrip Testimonial
-                                CtaBand PlaceholderCard Seo DonationPanel
+                                CtaBand PlaceholderCard Seo DonationPanel VideoEmbed
   config/site.ts                single source of truth: contact, social links, flags
   content/stories/              MDX posts (drafts seeded as front-matter-only stubs)
-  data/                         images.ts, testimonials.ts, published.json
+  data/                         images.ts, testimonials.ts, videos.ts, published.json
   layouts/
   pages/                        index about programs/(index, widows-empowerment, scholarships, healthcare,
                                 sport-development) get-involved donate stories/(index, [slug]) contact 404 rss.xml
@@ -114,6 +114,10 @@ There are two sources, and the rule depends on **what the page or story is about
 Unsplash technical rules (from Unsplash's API guidelines): the key lives only in `.env` and a local script (`scripts/fetch-unsplash.mjs`), never in the repository or the browser; use the URLs the API returns (**hotlink with a plain `<img>`, never through `astro:assets`**); trigger the download endpoint when a photo is chosen; credit the photographer and Unsplash with links **beside the image** and in the footer "Photo credits" line. Demo apps are limited to 50 API requests an hour. Show the owner every Unsplash photo chosen (id, description, link) in the report.
 
 Own-photo pipeline: sharp, max 2000px on the long side, AVIF and WebP, strips all EXIF including GPS, records each image in `src/data/images.ts` (id, alt, caption, page, slot, credit). It **skips and reports** receipts, bank screenshots, IDs, chat screenshots, medical documents, school-fee slips and anything showing an account number. Alt text describes only what is visible, with no names unless the owner gives them. No videos in the repository (host on YouTube or Vimeo and embed, if the owner asks). Propose a **slot map** (home hero, About, one per program page, Get involved) and **wait for approval** before placing any own photo.
+
+## 6b. Videos (YouTube embeds)
+
+The site embeds the owner's YouTube videos where they fit. **`docs/video-links.md` is the source of truth** (the four videos, their IDs, suggested homes and the full embed rules). In short: embed only (never download or commit video); one reusable `VideoEmbed` component; click-to-load from `youtube-nocookie.com` so no YouTube code loads before a click; 9:16 box with no layout shift; works without JavaScript through a plain link to YouTube; no hotlinked YouTube thumbnails; every video stays `approved: false` until the owner confirms consent and that no amounts, children's surnames, diagnoses or case details appear; propose a video slot map and wait for approval; never copy YouTube title or description wording into page copy.
 
 ## 7. Scripture
 
@@ -159,4 +163,5 @@ The owner is not technical. Explain each step in plain words before doing it. Ne
 - 5 Nov 2026: Bible translation is **NIV**.
 - 5 Nov 2026: Unsplash for general-topic Stories (people allowed), own photos required for Capstone's work, testimonials and projects. Unsplash photos hotlinked; own photos through `astro:assets`.
 - 5 Nov 2026: Voice = the spec's voice (hopeful, openly Christian, inspirational) **plus** the sparkle-text style for Stories and new copy.
+- 6 Nov 2026: Four YouTube Shorts from the Capstone Foundation channel are to be **embedded** (see `docs/video-links.md`), click-to-load, each pending the owner's consent confirmation.
 - 5 Nov 2026: All other cross-check items accepted as proposed (testimonials kept as written, `DonationPanel` added, credits beside images and in the footer, "programs" spelling, `sportProgramUrl` button).

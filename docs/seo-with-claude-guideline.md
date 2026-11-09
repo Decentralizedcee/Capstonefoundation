@@ -536,3 +536,22 @@ Also: the Lighthouse target in such a spec may be 95+ rather than 100. Use the s
 | **Voice from a style reference** | An owner can supply a writing sample as a style reference (the Capstone project used a "sparkle text" article). Distil it into `references/<name>.md` (technique, where to use it, guardrails) and let the skill follow it. Never paste a whole third-party article into the repo. |
 | **Images by context** | Some sites need rules by context: the owner's own photos for anything about the organisation's work, Unsplash for general-topic posts (including people), and Unsplash limited to no-people atmosphere on pages about the work. Put this in `CLAUDE.md`; the skill decides the context first. |
 | **Scripture or other quoted text** | Set one translation in `CLAUDE.md`, verify every quotation exactly from an authoritative source, cite it, keep it short and add the publisher's notice. |
+
+---
+
+## 20. The `site-setup` skill (starting any new project)
+
+`.claude/skills/site-setup/` automates the start of a project for **any** business, with checkpoints:
+
+| Stage | What it does |
+|---|---|
+| 0 | Checks Node, npm, git and the skills. If a `CLAUDE.md` already exists it switches to **audit mode** and changes nothing. Reads a build spec if there is one. |
+| 1 | Plain-language **intake** (about 40 questions in groups). "Unknown" is allowed and becomes a `TODO(owner)`. Nothing is invented. |
+| 2 | Writes `CLAUDE.md` (with the **Stack adapter** for Astro or Next.js), the six `references/` files (only from the owner's answers), `keywords.csv` and the checklist. Never overwrites a file. |
+| 3 | Creates the folder tree, `.gitignore`, `.env.example` and an empty `.env`. No framework scaffold. |
+| 4 | Runs `scripts/verify-setup.sh` and shows the full output (files, folders, git-ignore proof, no secrets behind public prefixes, `.env` values never printed, stray video files). |
+| 5 | **Stops** with a checklist for the owner: images, logos, keys, keyword export. |
+| 6 | Checks what the owner uploaded, flags risky files, changes nothing. |
+| 7 | Proposes the build plan and waits. It does **not** build the site. |
+
+Type `site-setup` in a new chat in an empty project folder. For an existing project, type `site-setup audit`.

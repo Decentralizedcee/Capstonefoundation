@@ -546,13 +546,13 @@ Also: the Lighthouse target in such a spec may be 95+ rather than 100. Use the s
 | Stage | What it does |
 |---|---|
 | 0 | Checks Node, npm, git and the skills. If a `CLAUDE.md` already exists it switches to **audit mode** and changes nothing. Reads a build spec if there is one. |
-| 1 | Plain-language **intake** (about 40 questions in groups). "Unknown" is allowed and becomes a `TODO(owner)`. Nothing is invented. |
-| 2 | Writes `CLAUDE.md` (with the **Stack adapter** for Astro or Next.js), the six `references/` files (only from the owner's answers), `keywords.csv` and the checklist. Never overwrites a file. |
-| 3 | Creates the folder tree, `.gitignore`, `.env.example` and an empty `.env`. No framework scaffold. |
+| 1 | **Folder first.** Before any questions, guides the owner (even a complete beginner) to confirm the project folder, creates the starter folders and files while explaining each one, offers to open the folder so they can see it, and, if they want, walks them through finding and filling the private `.env` file step by step (Mac, Windows or Linux). It never asks for a key in the chat and never prints `.env`. |
+| 2 | Plain-language **intake** (about 40 questions in groups). "Unknown" is allowed and becomes a `TODO(owner)`. Nothing is invented. |
+| 3 | Writes `CLAUDE.md` (with the **Stack adapter** for Astro or Next.js), the six `references/` files (only from the owner's answers), `keywords.csv` and the checklist. Then adds the framework's folders, `.gitignore` lines and `.env` keys. Never overwrites a file. |
 | 4 | Runs `scripts/verify-setup.sh` and shows the full output (files, folders, git-ignore proof, no secrets behind public prefixes, `.env` values never printed, stray video files). |
 | 5 | **Stops** with a checklist for the owner: images, logos, keys, keyword export. |
 | 6 | Checks what the owner uploaded, flags risky files, changes nothing. |
 | 7 | Agrees a **design direction** (uses the owner's reference or spec; otherwise proposes two or three simple directions and the owner picks) and a **build plan**, then waits for approval. |
 | 8 | Writes a ready-to-paste **build prompt** (`docs/BUILD-PROMPT.md`) from the owner's own answers, with hidden sections for anything missing. The owner pastes it into a new chat to build. The skill itself does **not** build the site. |
 
-Type `site-setup` in a new chat in an empty project folder. For an existing project, type `site-setup audit`.
+Type `site-setup` in a new chat in your project folder (not sure what that means? Say "I'm brand new" and it walks you through). For an existing project, type `site-setup audit`. Any time you need help with the private key file, type `site-setup env`.

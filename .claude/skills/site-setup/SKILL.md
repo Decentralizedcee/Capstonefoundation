@@ -1,6 +1,6 @@
 ---
 name: site-setup
-description: Start a new SEO-ready website project for any business or organisation, in clear stages with checkpoints. Checks the environment, runs a plain-language intake (or reads the owner's build spec), writes the project's CLAUDE.md with a Stack adapter, fills the voice and facts reference files only from what the owner said, creates the folder tree, .gitignore and .env skeleton, verifies everything with a script, then stops so the owner can upload images, logos and keys, agrees a design direction and a build plan, and finishes with a build prompt. Use when the user says "set up a new site", "start a website project", "site setup", "new project", "intake", or opens an empty folder to begin a website. Ends by writing a ready-to-paste build prompt (docs/BUILD-PROMPT.md) from the owner's own answers, and prepares the project for the blog and service-page skills. It does not build the site itself.
+description: Start a new SEO-ready website project for any business or organisation, in clear stages with checkpoints. Checks the environment, then guides even a complete beginner through making the project folder and the starter files (including a step-by-step walkthrough for the private .env file) before asking anything else; then runs a plain-language intake (or reads the owner's build spec), writes the project's CLAUDE.md with a Stack adapter, fills the voice and facts reference files only from what the owner said, verifies everything with a script, stops so the owner can upload images, logos and keys, agrees a design direction and a build plan, and finishes with a build prompt. Use when the user says "set up a new site", "start a website project", "site setup", "new project", "intake", or opens an empty folder to begin a website. Ends by writing a ready-to-paste build prompt (docs/BUILD-PROMPT.md) from the owner's own answers, and prepares the project for the blog and service-page skills. It does not build the site itself.
 ---
 
 # site-setup
@@ -9,7 +9,7 @@ Prepares a project folder so a static, SEO-ready website can be designed and the
 
 It does the first half of the owner's workflow (environment, intake, project files, folders, verification, uploads, design direction, build plan) and finishes by **writing a ready-to-paste build prompt**. It **does not scaffold or build the site itself**. The owner pastes the build prompt into a new chat for that.
 
-The owner is usually **not technical**. Explain every step in plain words **before** doing it. Work in **stages** and **stop at each gate**. Never move on until the owner says "go".
+The owner is usually **not technical**, and may be a complete beginner who has never made a project folder or edited a hidden file. **Folder and files first:** the skill helps them create the project folder and the starter files, one step at a time, **before** it asks for anything else. Explain every step in plain words **before** doing it. Work in **stages** and **stop at each gate**. Never move on until the owner says "go".
 
 ## Invocation
 
@@ -18,10 +18,12 @@ The owner is usually **not technical**. Explain every step in plain words **befo
 | `site-setup` or "set up a new site" | Full flow from Stage 0 |
 | `site-setup audit` | Existing project: check it and report, change nothing |
 | `site-setup <path-to-build-spec>` | Use the owner's build spec as the source of truth for copy and design |
+| `site-setup env` or "help me with .env" | Any time: walk the owner through finding, opening and filling the private `.env` file (`references/beginner-walkthroughs.md` section 5) |
 | `site-setup build-prompt` | Skip to Stage 7 and 8 on an existing project: agree the design direction and plan, then write `docs/BUILD-PROMPT.md` |
 
 ## Bundled files (in this skill's folder)
 
+- `references/beginner-walkthroughs.md`: plain-language steps for the project folder, hidden files, the `.env` file and common mix-ups, for Mac, Windows and Linux.
 - `references/intake-sheet.md`: the questions, by group.
 - `references/framework-adapters.md`: Stack adapter values and technical rules for Next.js and Astro, plus Render settings.
 - `references/claude-md.template.md`: the project `CLAUDE.md` template.
@@ -30,6 +32,10 @@ The owner is usually **not technical**. Explain every step in plain words **befo
 - `references/build-prompt-template.md`: the minimum needed, the design fallback, the placeholder system and the prompt skeleton (Stage 8).
 - `scripts/verify-setup.sh`: the verification script (Stage 4).
 
+## The nine stages at a glance
+
+0 Check · 1 **Folder first (guided)** · 2 Questions · 3 Project files and finish the structure · 4 Safety check · 5 Your uploads and keys (stop) · 6 Upload check · 7 Design and plan · 8 Build prompt
+
 ## Stage 0: Look before you touch anything
 
 1. **Check and report** in a short table: Node.js version (20 or higher) and npm; git installed, and whether this folder is a git repository (**ask before running `git init`**); which skills are visible (`blog`, `service-page`); whether the folder is empty or already a project.
@@ -37,9 +43,31 @@ The owner is usually **not technical**. Explain every step in plain words **befo
 3. **If the owner supplied a build spec** (PDF, markdown, document) read it fully. It is **canonical for copy, design, routes and acceptance criteria**. The intake then only fills gaps. Note anything in the spec that conflicts with the SEO method and list it as an **open decision for the owner** (do not decide it yourself).
 4. Stop and tell the owner if something is missing or wrong (for example Node too old).
 
-## Stage 1: Intake (plain-language questions)
+## Stage 1: Folder first (guided, before any questions)
 
-Ask the questions in `references/intake-sheet.md`, **one group at a time**, and wait for answers. Rules:
+The goal: the owner **sees and understands** their project folder and starter files before you ask for anything else. Use `references/beginner-walkthroughs.md` for the exact words and steps.
+
+1. **Say what is about to happen,** in one plain sentence: "Everything for your website will live in one folder. First we make sure we are in the right one, then I will create the starter folders and files with you."
+2. **Ask how comfortable they are** with folders and the terminal: *brand new*, *a little*, or *comfortable*. Record it as `guidance_level` in `docs/intake.md`.
+   - **Brand new:** explain every term when you first use it (walkthroughs section 7), do each file step for them, show each result, and check in more often.
+   - **A little:** short explanations, confirm at each folder.
+   - **Comfortable:** be brief; do not over-explain.
+   Ask which computer they use (Mac, Windows or Linux) so you only give the steps for theirs.
+3. **Confirm the project folder.** Tell them, in plain words, which folder you are in (run `pwd`). Check it is a good place (walkthroughs section 1). **If it is the wrong place** (their home folder, Desktop or Downloads root, full of unrelated files): walk them through making a new folder and **stop**. A running chat cannot move itself, so they must start a **new chat in the new folder** and type `site-setup` again.
+4. **Two quick questions** that decide which starter files to create: (a) Will you use free **Unsplash** photos, your **own photos**, both, or none? (b) What should the folder for your own photos be called? (default `images`; use the spec's name if it has one).
+5. **Create the base structure** (framework-neutral; the framework-specific folders come in Stage 3). Before creating each item, say in one line what it is for (walkthroughs section 2). Create only what is missing, never overwrite:
+   - folders `docs/`, `references/`, `public/`, `scripts/` and the images folder, each with an empty `.gitkeep`
+   - `.gitignore` (at least `.env`, `node_modules/`, `.DS_Store`, and the images folder contents with its `.gitkeep` kept)
+   - `.env.example` and `.env` with only the keys known so far (for example `UNSPLASH_ACCESS_KEY=` if they will use Unsplash), **empty values**
+   - a placeholder `README.md`
+   Do **not** run `git init`, `npm init`, install packages or scaffold anything.
+6. **Show them their folder.** Print the folder tree. Then **offer** to open the folder on their computer ("Would you like me to open it so you can see it?"). Only run the open command if they say yes (walkthroughs section 3). If they decline, give them the path and how to find it.
+7. **Offer the `.env` walkthrough now.** Say: "If you already have your key, I can walk you through putting it in. If not, we will do it later." If yes, follow walkthroughs sections 4 and 5, one step at a time. **Never ask them to paste the key into the chat, and never print or open the contents of `.env`.** Confirm with the script, which shows only SET or empty.
+8. **Checkpoint.** Recap what now exists and where, and ask: "Does this look right? Say go and I will start asking about your business."
+
+## Stage 2: Questions (plain-language intake)
+
+Ask the questions in `references/intake-sheet.md`, **one group at a time**, and wait for answers. Skip anything already answered in Stage 1 or in a build spec. Rules:
 
 - "I don't know" or "later" is a valid answer. Record it as `unknown` and carry it forward as a `TODO(owner)`. **Never guess or invent** a fact, number, name, price, licence, address, testimonial or quote.
 - Never ask the owner to paste an API key or password into the chat.
@@ -52,8 +80,9 @@ Ask the questions in `references/intake-sheet.md`, **one group at a time**, and 
   5. **Image source default:** Unsplash, the owner's own images, mixed, none, or ask each time, plus any rules by context (for example "own photos for anything about our work").
   6. **Special content rules:** privacy, faith or legal wording, quoted texts (for example a Bible translation), medical or financial claims.
   7. **Hosting:** Render Static Site by default; note a domain if the owner has one.
+- After the last group, read back a summary (every `unknown` listed) and ask the owner to confirm or correct it.
 
-## Stage 2: Write the project files
+## Stage 3: Project files, then finish the structure
 
 Show the owner what you are about to create, then create it. **Never overwrite an existing file**; if one exists, write the new version next to it as `<name>.new` and tell the owner.
 
@@ -65,15 +94,8 @@ Show the owner what you are about to create, then create it. **Never overwrite a
    - If the owner gave a **writing sample as a style reference**, follow `references/style-reference-template.md` (distil the technique and guardrails; never paste a whole third-party article).
 3. **`keywords.csv`**: header only (`keyword,volume,difficulty,intent,status,notes`), or seeded from the owner's own list with `status: unverified` and blank volume and difficulty. Tell the owner keyword data comes from a tool such as Semrush.
 4. **`docs/`**: copy the on-page checklist (from either `blog` or `service-page` skill's `references/on-page-seo-checklist.md`) to `docs/on-page-seo-checklist.md`, if it is not there.
-
-## Stage 3: Folders and starter files (no framework scaffold)
-
-1. Print the folder tree for the chosen framework (`references/framework-adapters.md`), explain each folder in **one plain line**, then create the missing ones. Put an empty `.gitkeep` in each empty folder.
-2. Create:
-   - `.gitignore` (at least `.env`, `node_modules/`, the build output folder, the framework cache folder, the local images folder contents, `.DS_Store`). Keep the images folder's `.gitkeep` tracked.
-   - `.env.example` and `.env` with the same keys and **empty values** (the owner types their own keys). Only the keys the project needs (see the adapter file).
-   - `README.md` placeholder (completed when the site is built).
-3. **Do not** run `npm init`, install packages, or scaffold the framework. Scaffolding belongs to the build step.
+5. **Finish the structure for the chosen framework** (`references/framework-adapters.md`): print the full tree, explain each **new** folder in one plain line, and create the missing ones with `.gitkeep`. **Add** the framework's lines to `.gitignore`, and its keys to `.env.example` and `.env` (empty values; **append only, never change a value the owner already typed**).
+6. **Do not** run `npm init`, install packages, or scaffold the framework. Scaffolding belongs to the build step.
 
 ## Stage 4: Verify and show proof
 
@@ -85,8 +107,8 @@ Give a plain checklist, adapted to the intake:
 
 - Put **logos and brand files** where the plan says (and which file is which).
 - Put approved **photos** in the local images folder. Not receipts, bank screenshots, ID cards, chat screenshots, medical documents; no videos (videos are embedded from YouTube or Vimeo instead).
-- Type **API keys** into `.env` themselves (for example `UNSPLASH_ACCESS_KEY`). Access key only, never a secret key.
-- Add the **keyword export** to `keywords.csv`, or say they will do it later.
+- Type **API keys** into `.env` themselves (for example `UNSPLASH_ACCESS_KEY`). Access key only, never a secret key. **If they did not do it in Stage 1, offer the `.env` walkthrough now** (`references/beginner-walkthroughs.md` sections 4 and 5), one step at a time. Never ask for the key in the chat.
+- Add the **keyword export** to `keywords.csv`, or say they will do it later (walkthroughs section 6 explains how).
 - Fill any **`TODO(owner)`** items listed in your report.
 - Tell the owner what to type when done ("go").
 
@@ -117,6 +139,9 @@ The skill ends here. **Building happens in the new chat** that uses the build pr
 - Never invent facts, statistics, names, dates, addresses, prices, licences, testimonials, quotes, partners or Scripture.
 - Never ask for, print, log, commit or paste an API key or password. Never give a secret a `NEXT_PUBLIC_` or `PUBLIC_` prefix.
 - Never overwrite an existing file. Never replace an existing `CLAUDE.md`.
+- Never print, `cat`, quote or open the contents of `.env` in the chat. Check it with the verify script, which shows only SET or empty.
+- Never run a command on the owner's computer that opens or moves things (for example opening their folder) without asking first.
+- A running chat cannot change folders. If the folder is wrong, stop and guide the owner to start a new chat in the right one.
 - Never run `git init`, commit or push without asking. Never deploy.
 - Never scaffold or build the site as part of this skill. Writing `docs/BUILD-PROMPT.md` is the last thing it does.
 - Follow the owner's build spec and existing `CLAUDE.md` over this skill's defaults. If they conflict, ask.

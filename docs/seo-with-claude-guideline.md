@@ -541,7 +541,7 @@ Also: the Lighthouse target in such a spec may be 95+ rather than 100. Use the s
 
 ## 20. The `site-setup` skill (starting any new project)
 
-`.claude/skills/site-setup/` automates the start of a project for **any** business, with checkpoints:
+`.claude/skills/site-setup/` automates the start of a project (a short, interactive user guide is in `docs/site-setup-user-guide.pdf`) for **any** business, with checkpoints:
 
 | Stage | What it does |
 |---|---|
@@ -552,6 +552,7 @@ Also: the Lighthouse target in such a spec may be 95+ rather than 100. Use the s
 | 4 | Runs `scripts/verify-setup.sh` and shows the full output (files, folders, git-ignore proof, no secrets behind public prefixes, `.env` values never printed, stray video files). |
 | 5 | **Stops** with a checklist for the owner: images, logos, keys, keyword export. |
 | 6 | Checks what the owner uploaded, flags risky files, changes nothing. |
-| 7 | Proposes the build plan and waits. It does **not** build the site. |
+| 7 | Agrees a **design direction** (uses the owner's reference or spec; otherwise proposes two or three simple directions and the owner picks) and a **build plan**, then waits for approval. |
+| 8 | Writes a ready-to-paste **build prompt** (`docs/BUILD-PROMPT.md`) from the owner's own answers, with hidden sections for anything missing. The owner pastes it into a new chat to build. The skill itself does **not** build the site. |
 
 Type `site-setup` in a new chat in an empty project folder. For an existing project, type `site-setup audit`.

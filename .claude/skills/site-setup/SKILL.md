@@ -1,13 +1,13 @@
 ---
 name: site-setup
-description: Start a new SEO-ready website project for any business or organisation, in clear stages with checkpoints. Checks the environment, runs a plain-language intake (or reads the owner's build spec), writes the project's CLAUDE.md with a Stack adapter, fills the voice and facts reference files only from what the owner said, creates the folder tree, .gitignore and .env skeleton, verifies everything with a script, then stops so the owner can upload images, logos and keys. Use when the user says "set up a new site", "start a website project", "site setup", "new project", "intake", or opens an empty folder to begin a website. Prepares the project for the blog and service-page skills; it does not build the site.
+description: Start a new SEO-ready website project for any business or organisation, in clear stages with checkpoints. Checks the environment, runs a plain-language intake (or reads the owner's build spec), writes the project's CLAUDE.md with a Stack adapter, fills the voice and facts reference files only from what the owner said, creates the folder tree, .gitignore and .env skeleton, verifies everything with a script, then stops so the owner can upload images, logos and keys, agrees a design direction and a build plan, and finishes with a build prompt. Use when the user says "set up a new site", "start a website project", "site setup", "new project", "intake", or opens an empty folder to begin a website. Ends by writing a ready-to-paste build prompt (docs/BUILD-PROMPT.md) from the owner's own answers, and prepares the project for the blog and service-page skills. It does not build the site itself.
 ---
 
 # site-setup
 
 Prepares a project folder so a static, SEO-ready website can be designed and then fed by the `blog` and `service-page` skills. It is **business-neutral**: everything specific to one business comes from the owner's answers (or their build spec), never from this skill.
 
-It does the first half of the owner's workflow (environment, intake, project files, folders, verification, uploads). It **does not scaffold or design the site**. That is the next step, and only when the owner says so.
+It does the first half of the owner's workflow (environment, intake, project files, folders, verification, uploads, design direction, build plan) and finishes by **writing a ready-to-paste build prompt**. It **does not scaffold or build the site itself**. The owner pastes the build prompt into a new chat for that.
 
 The owner is usually **not technical**. Explain every step in plain words **before** doing it. Work in **stages** and **stop at each gate**. Never move on until the owner says "go".
 
@@ -18,6 +18,7 @@ The owner is usually **not technical**. Explain every step in plain words **befo
 | `site-setup` or "set up a new site" | Full flow from Stage 0 |
 | `site-setup audit` | Existing project: check it and report, change nothing |
 | `site-setup <path-to-build-spec>` | Use the owner's build spec as the source of truth for copy and design |
+| `site-setup build-prompt` | Skip to Stage 7 and 8 on an existing project: agree the design direction and plan, then write `docs/BUILD-PROMPT.md` |
 
 ## Bundled files (in this skill's folder)
 
@@ -26,6 +27,7 @@ The owner is usually **not technical**. Explain every step in plain words **befo
 - `references/claude-md.template.md`: the project `CLAUDE.md` template.
 - `references/reference-templates/`: voice, tone, humor, opinions, stats, stories templates.
 - `references/style-reference-template.md`: how to turn an owner-supplied writing sample into a style guide.
+- `references/build-prompt-template.md`: the minimum needed, the design fallback, the placeholder system and the prompt skeleton (Stage 8).
 - `scripts/verify-setup.sh`: the verification script (Stage 4).
 
 ## Stage 0: Look before you touch anything
@@ -94,9 +96,21 @@ Give a plain checklist, adapted to the intake:
 
 List files in the brand and images folders with sizes. Look at each photo. Flag anything that looks like a receipt, bank screenshot, ID, chat screenshot, medical document, fee slip, or anything showing an account number, and say it will be skipped. Flag very large files, duplicates and unreadable files. Do **not** move, edit or delete anything. Report how many look usable.
 
-## Stage 7: Hand-off
+## Stage 7: Design direction and build plan
 
-Tell the owner the project is ready, then propose the **next step** (designing and building the site) as a plan: the file tree, the component or page list and any questions, including open decisions from a build spec. **Wait for approval.** Do not start building unless the owner asks. When the site exists and the owner says so, the `blog` skill (and `service-page`, if the business needs it) can run.
+1. **Design direction.** If the owner has a build spec, a reference screenshot or link, use it (describe its system in words; never copy a third party's logo, copy, photos or fonts). If not, follow the **design fallback** in `references/build-prompt-template.md` section 3: propose two or three simple directions from the owner's mood words, compute contrast honestly, recommend one, and let the owner pick or tweak. Save the decision to `docs/design-direction.md`.
+2. **Build plan.** Propose the plan in plain words: the file tree, the pages and their copy status (FIXED, DRAFT or PLACEHOLDER), the component list, how visitors contact or act (forms, mailto, WhatsApp, booking, donations later), and any open questions (including conflicts found in a build spec). Save the **approved** plan to `docs/build-plan.md`.
+3. **STOP and wait for approval** of the design direction and the plan. Do not start building.
+
+## Stage 8: Write the build prompt
+
+1. Check the **minimum** in `references/build-prompt-template.md` section 2. If something is missing, ask for it. Do not write the prompt yet.
+2. Fill the skeleton in `references/build-prompt-template.md` section 5 from the sources in section 1 (spec, `CLAUDE.md`, `docs/intake.md`, `docs/build-plan.md`, `docs/design-direction.md`). Never invent. Unknowns become `TODO(owner)` with the **placeholder system** (hidden sections, never empty boxes or fake content).
+3. Save it to `docs/BUILD-PROMPT.md` (never overwrite an existing one; write `.new` instead) and **show the full text in the chat in a code block** so the owner can copy it.
+4. Give the owner plain instructions: open a **new chat** in this project folder, paste the prompt, and answer its questions. Explain the stop points (image slot map, anything not covered, before deploying). Tell them that when the site is built and approved, the `blog` skill (and `service-page`, if the business needs it) can run.
+5. Show the **list of `TODO(owner)` items** that will still need their input.
+
+The skill ends here. **Building happens in the new chat** that uses the build prompt, not in this skill.
 
 ## Hard rules
 
@@ -104,6 +118,7 @@ Tell the owner the project is ready, then propose the **next step** (designing a
 - Never ask for, print, log, commit or paste an API key or password. Never give a secret a `NEXT_PUBLIC_` or `PUBLIC_` prefix.
 - Never overwrite an existing file. Never replace an existing `CLAUDE.md`.
 - Never run `git init`, commit or push without asking. Never deploy.
-- Never scaffold or build the site as part of this skill.
+- Never scaffold or build the site as part of this skill. Writing `docs/BUILD-PROMPT.md` is the last thing it does.
 - Follow the owner's build spec and existing `CLAUDE.md` over this skill's defaults. If they conflict, ask.
+- Never write the build prompt before the owner has approved the design direction and plan, and never put an invented fact in it.
 - Stop at every gate and wait for "go".

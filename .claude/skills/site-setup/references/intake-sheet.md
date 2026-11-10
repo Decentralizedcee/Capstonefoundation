@@ -37,7 +37,7 @@ If the owner supplied a build spec, read it first and **ask only what it does no
 
 ## G. Brand and design
 18. Logo, colours, fonts, photos you already have?
-19. Websites whose look you like? Or do you have a written build spec or design document?
+19. Do you have a **design reference**: a screenshot or link of a site whose look you like, or a written build spec or design document? (If not, just say "no". I will suggest two or three simple design directions and you pick one.)
 20. Words or feelings the site should give (calm, bold, warm, premium, practical)?
 
 ## H. Voice
@@ -55,6 +55,7 @@ If the owner supplied a build spec, read it first and **ask only what it does no
 28. Which pages do you need? (Home, About, services or programs, contact, donate, blog...)
 29. Do you want a **blog**? Do you need **service + location pages** (usually only for local service businesses)?
 30. Is any page copy already written and fixed (must stay word for word)?
+30a. How should visitors contact you or take action? (a phone number, an email link, WhatsApp, a booking link, a contact form later, payments or donations later?)
 
 ## K. Images and video
 31. Do you have your own photos? Are they ready, with consent from everyone who appears?

@@ -25,6 +25,7 @@ When a step is finished, update this note.
 | `site-setup-chat` (regular chat edition, ZIP-based) | `chat-edition/site-setup-chat/` | Built; scripts tested; not run in claude.ai |
 | `blog-anywhere` (any platform; per-post brief, copy-paste package + preview page, draft if connected) | `.claude/skills/blog-anywhere/` | Built and edited 12 Nov; scripts tested; skill not run end to end. Zip: `dist/blog-anywhere.zip` |
 | Interactive user guide for site-setup (7 pages) | `docs/site-setup-user-guide.pdf` | Done |
+| Interactive user guide for blog-anywhere (7 pages: install, set up, per-post questions, package, publish, commands and fixes) | `docs/blog-anywhere-user-guide.pdf` | Done |
 | Capstone Foundation project files and start prompt | `docs/capstone/` | Done (owner is running it in their own folder) |
 | `seo-audit` (access prompt, 3 modes, labelled report) | `.claude/skills/seo-audit/` | Built 12 Nov; `audit_page.py` and `build_report.py` tested locally; not run on a real site |
 

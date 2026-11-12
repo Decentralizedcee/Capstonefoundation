@@ -3,7 +3,9 @@
 Branch: `claude/seo-video-guideline-0fl7qh`. Everything below is committed and pushed. Updated 12 Nov 2026.
 
 ## About the owner
-Non-technical, works in Claude Code on their own computer (sometimes the regular chat). Wants plain-language, beginner-friendly output, short guides (PDF, interactive), and **never invented facts**. Never pastes passwords or keys into the chat (they go in `.env` or a browser login). Prefers Render for hosting. Bible translation for Capstone is NIV.
+Non-technical, works in Claude Code on their own computer (sometimes the regular chat). Wants plain-language, beginner-friendly output, short guides (PDF, interactive), and **never invented facts**. Never pastes passwords or keys into the chat (they go in `.env` or a browser login). Prefers Render for hosting.
+
+**Capstone-only rules** (hopeful and openly Christian voice, NIV, the sparkle style, humor off, no Unsplash people-photos in work pages, and so on) live in `docs/capstone/` and apply **only** to the Capstone project. They must **never** be copied into `blog-anywhere`, `site-setup`, `blog` or any other general-purpose skill. Those skills are for any user.
 
 ## What exists (all in this repo)
 | Item | Where | Status |
@@ -20,7 +22,7 @@ Non-technical, works in Claude Code on their own computer (sometimes the regular
 | Audit-skill requirements | `docs/seo-audit-skill-notes.md` | **Not built yet** |
 
 ## Pending edits to `blog-anywhere` (requested 12 Nov, not yet made)
-1. **Per-post voice prompt.** Each post, ask the owner how this post should sound (tone, humor level, angle, audience, "I" or "we"). It layers on top of the site's base voice. Offer to save the choice as a named variant (and update the voice reference files only after the owner approves). Site safety rules (privacy, legal, humor off-limits) stay unless the owner explicitly changes them.
+1. **Per-post voice picker (voice-neutral).** The skill is for **any user**, so every user must be free to **pick their own voice type**. Each post, ask how this post should sound and offer a menu **as examples, not rules** (for example: friendly and conversational; professional and authoritative; warm and inspirational; calm and reassuring; bold and direct; playful and witty; educational and clear; premium and refined; **my own voice from my writing samples**; or **describe it yourself**), plus humor level, "I" or "we", angle and audience. Use the choice for that post. **No default, preset or example may come from the Capstone owner's rules.** Keep example wording neutral. The user's **own** site rules (their privacy, legal and off-limits topics from their own site profile) still apply, never anyone else's. Offer to save a choice as a named variant (and update the voice reference files only after the user approves).
 2. **Keywords.** Ask for keywords before writing: if the owner supplied a list (`keywords.csv`), let them choose from it; if they have a specific keyword, take that one; if neither, ask. Flag unverified data. Then start.
 3. **Images.** Ask which images the owner wants for this post (their own photos, stock, specific files, how many, where).
 4. **Owner's own content.** Ask if they have their own content. Modes: write for me / build on my notes and add to them / **use mine exactly** (format, SEO fields and checks only; do not change their wording without permission; suggest, do not edit).

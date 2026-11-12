@@ -16,6 +16,7 @@ Every file marks its confidence:
 | `on-page-seo-checklist.md` | The "80+ signals" checklist, reconstructed. Paste or reference it in the on-page prompt. |
 | `prompts.md` | Every prompt from the video, written out in full and ready to copy. |
 | `references/` | Templates for the voice, tone, humor, opinions, stats and stories files. |
+| `.claude/skills/blog-anywhere/` | Writes blog posts in a site's own voice for **any platform** (Shopify, WordPress, Wix...) and delivers a **copy-paste package** with an interactive preview page. Builds and checks the voice, handles images, never publishes. |
 | `chat-edition/site-setup-chat/` | The **regular chat (claude.ai)** version of `site-setup`: it makes the starter project as a downloadable ZIP. See `chat-edition/README.md`. |
 | `.claude/skills/site-setup/`, `.claude/skills/blog/` and `.claude/skills/service-page/` | **The installed skills** (at the repo root, not in this folder). `site-setup` starts a project (environment check, intake, `CLAUDE.md`, folders, verification) and is the maintained source of the generic `CLAUDE.md` template; `blog` and `service-page` write the content. Each bundles what it needs. |
 

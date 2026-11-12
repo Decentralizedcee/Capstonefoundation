@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Post package: {{PAGE_TITLE}}</title>
+<style>
+  :root { --bg:#ffffff; --panel:#f6f8fa; --ink:#1f2937; --muted:#64748b; --line:#d6dde6; --brand:#0f766e; --brand-ink:#ffffff;
+          --ok:#166534; --okbg:#dcfce7; --warn:#92400e; --warnbg:#fef3c7; --bad:#991b1b; --badbg:#fee2e2; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f172a; --panel:#1e293b; --ink:#e2e8f0; --muted:#94a3b8; --line:#334155; --brand:#2dd4bf; --brand-ink:#042f2e;
+            --ok:#86efac; --okbg:#14532d; --warn:#fde68a; --warnbg:#78350f; --bad:#fecaca; --badbg:#7f1d1d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2.sec { font-size: 1.15rem; margin: 32px 0 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .sub { color: var(--muted); margin: 0 0 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .field { display: grid; grid-template-columns: 160px 1fr auto; gap: 8px 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .field:last-child { border-bottom: 0; }
+  .field label { font-weight: 600; font-size: .92rem; padding-top: 7px; }
+  .field .hint { display:block; font-weight: 400; color: var(--muted); font-size: .8rem; }
+  .field input, .field textarea { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; }
+  .field textarea { min-height: 72px; resize: vertical; }
+  .count { font-size: .8rem; margin-top: 3px; color: var(--muted); }
+  .count.ok { color: var(--ok); } .count.warn { color: var(--warn); }
+  button { font: inherit; cursor: pointer; border: 1px solid var(--brand); background: var(--brand); color: var(--brand-ink); border-radius: 8px; padding: 7px 14px; font-weight: 600; }
+  button.ghost { background: transparent; color: var(--brand); }
+  button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+  .bar { display:flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+  .preview { background:#fff; color:#111827; border: 1px solid var(--line); border-radius: 10px; padding: 24px 28px; }
+  .preview h2 { font-size: 1.4rem; margin: 1.4em 0 .4em; } .preview h3 { font-size: 1.15rem; margin: 1.2em 0 .3em; }
+  .preview p, .preview li { line-height: 1.7; } .preview img { max-width: 100%; height: auto; }
+  .preview figure { margin: 1.2em 0; } .preview figcaption { font-size: .85rem; color: #6b7280; }
+  .preview a { color: #0f5fc2; } .preview blockquote { margin: 1em 0; padding: .2em 1em; border-left: 4px solid #d1d5db; color: #374151; }
+  .preview table { border-collapse: collapse; } .preview th, .preview td { border: 1px solid #d1d5db; padding: 6px 10px; }
+  .preview .title { font-size: 2rem; line-height: 1.2; margin: 0 0 .5em; }
+  table.t { width:100%; border-collapse: collapse; font-size: .92rem; }
+  table.t th, table.t td { text-align:left; vertical-align: top; border-bottom: 1px solid var(--line); padding: 8px 8px; }
+  .lint li { margin: 4px 0; list-style: none; padding: 4px 10px; border-radius: 6px; }
+  .lint ul { padding: 0; margin: 0; }
+  .lint .FAIL { background: var(--badbg); color: var(--bad); } .lint .WARN { background: var(--warnbg); color: var(--warn); }
+  .lint .PASS { background: var(--okbg); color: var(--ok); } .lint .INFO { background: var(--panel); color: var(--muted); }
+  details { border: 1px solid var(--line); border-radius: 10px; margin: 8px 0; padding: 0 14px; background: var(--panel); }
+  summary { cursor: pointer; padding: 10px 0; font-weight: 600; }
+  details ol { margin-top: 0; }
+  .checks label { display:block; padding: 6px 0; }
+  #toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  #toast.show { opacity: 1; }
+  @media (max-width: 640px) { .field { grid-template-columns: 1fr; } .field label { padding-top: 0; } .preview { padding: 16px; } }
+  @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Post package: {{PAGE_TITLE}}</h1>
+  <p class="sub">Everything you need to publish this post on your own site. Work from top to bottom. Nothing here is sent anywhere: it all stays in this file.</p>
+
+  <h2 class="sec" id="s1">1. Fields to paste</h2>
+  <p class="sub">Press <b>Copy</b> next to a field, then paste it into the matching box on your site (see the guide in step 5).</p>
+  <div class="panel">
+    {{FIELDS_HTML}}
+  </div>
+
+  <h2 class="sec" id="s2">2. The post itself</h2>
+  <p class="sub">Two ways to copy it. <b>Copy formatted post</b> works when you paste into a normal visual editor. <b>Copy HTML code</b> is for an editor's "HTML" or "code" view. If a button does not work in your browser, select the text in the preview below and press Ctrl+C (Cmd+C on a Mac).</p>
+  <div class="bar">
+    <button type="button" id="btn-rich">Copy formatted post</button>
+    <button type="button" id="btn-html" class="ghost">Copy HTML code</button>
+    <button type="button" id="btn-md" class="ghost">Copy Markdown</button>
+  </div>
+  <article class="preview" aria-label="Post preview">
+    <p class="title">{{TITLE_ESC}}</p>
+    <div id="post-body">
+{{BODY_RENDERED}}
+    </div>
+  </article>
+  <textarea id="body-html" hidden>{{BODY_RAW_ESC}}</textarea>
+  <textarea id="body-md" hidden>{{MD_ESC}}</textarea>
+
+  <h2 class="sec" id="s3">3. Images</h2>
+  {{IMAGES_HTML}}
+
+  <h2 class="sec" id="s4">4. Structured data (optional)</h2>
+  <p class="sub">Many themes and SEO plugins already add this. Check your page first (Google's Rich Results Test) so it is not added twice.</p>
+  <div class="bar"><button type="button" id="btn-schema" class="ghost">Copy structured data</button></div>
+  <textarea id="schema-src" hidden>{{SCHEMA_ESC}}</textarea>
+
+  <h2 class="sec" id="s5">5. Where to paste it</h2>
+  <details {{OPEN_SHOPIFY}}><summary>Shopify</summary>
+    <ol>
+      <li>In Shopify admin go to <b>Online Store</b> then <b>Blog posts</b>, and choose <b>Create blog post</b>.</li>
+      <li>Paste the <b>Title</b>. In the <b>Content</b> editor either paste the formatted post, or click the <b>&lt;&gt;</b> (Show HTML) button and paste the HTML code.</li>
+      <li>Add the <b>Excerpt</b>, choose the <b>Blog</b>, add <b>Tags</b>, and set the <b>Featured image</b> with its alt text.</li>
+      <li>Under <b>Search engine listing</b> choose <b>Edit</b> and paste the <b>Page title</b>, <b>Meta description</b> and <b>URL handle</b>.</li>
+      <li>Save as <b>Hidden</b> (or a draft), preview it, then set it to <b>Visible</b>.</li>
+    </ol>
+  </details>
+  <details {{OPEN_WORDPRESS}}><summary>WordPress</summary>
+    <ol>
+      <li>Go to <b>Posts</b> then <b>Add New</b>. Paste the <b>Title</b>.</li>
+      <li>Paste the formatted post straight into the editor, or add a <b>Custom HTML</b> block and paste the HTML code.</li>
+      <li>In the post settings set the <b>URL slug</b>, <b>Excerpt</b>, <b>Categories</b>, <b>Tags</b> and the <b>Featured image</b> with alt text.</li>
+      <li>Paste the <b>SEO title</b> and <b>Meta description</b> into your SEO plugin's boxes (for example Yoast or Rank Math).</li>
+      <li>Save as draft, preview, then publish.</li>
+    </ol>
+  </details>
+  <details {{OPEN_OTHER}}><summary>Wix, Squarespace, Webflow, Ghost or something else</summary>
+    <ol>
+      <li>Create a new blog post and paste the <b>Title</b>.</li>
+      <li>Paste the formatted post into the visual editor. If there is an HTML, code or embed block, you can paste the HTML code there instead. Ghost also accepts Markdown.</li>
+      <li>Look for the post's <b>SEO</b> or <b>search</b> settings for the title, description and URL slug, and for fields called excerpt, tags and featured image.</li>
+      <li>Menu names change, so look for the closest match. Save as a draft, preview, then publish.</li>
+    </ol>
+  </details>
+
+  <h2 class="sec" id="s6">6. Checks on this post</h2>
+  <div class="lint">{{LINT_HTML}}</div>
+
+  <h2 class="sec" id="s7">7. Before you publish</h2>
+  <div class="panel checks">
+    <label><input type="checkbox"> I pasted the title, summary and search fields.</label>
+    <label><input type="checkbox"> The post looks right in my site's preview (headings, lists, links, spacing).</label>
+    <label><input type="checkbox"> Every image is uploaded or linked, has its alt text, and the markers in the text are gone.</label>
+    <label><input type="checkbox"> Any <b>[[INTERNAL:...]]</b> link or <b>TODO</b> in the text is replaced with the real link or fact.</label>
+    <label><input type="checkbox"> I read the post once more out loud and it sounds like me.</label>
+    <label><input type="checkbox"> I set it to visible (or scheduled it) only after checking the preview.</label>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+(function () {
+  var toast = document.getElementById('toast'), t;
+  function say(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(t); t = setTimeout(function () { toast.classList.remove('show'); }, 2200); }
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} ta.remove(); return ok;
+  }
+  function copyText(text, okMsg) {
+    var done = function (ok) { say(ok ? okMsg : 'Could not copy. Select the text and press Ctrl+C or Cmd+C.'); };
+    if (navigator.clipboard && window.isSecureContext !== false) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+    } else { done(fallbackCopy(text)); }
+  }
+  function selectionCopy() {
+    var el = document.getElementById('post-body'), sel = window.getSelection(), r = document.createRange();
+    r.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(r);
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    sel.removeAllRanges();
+    say(ok ? 'Formatted post copied. Paste it into your editor.' : 'Could not copy. Select the post text and press Ctrl+C or Cmd+C.');
+  }
+  function copyRich() {
+    // Copy the CLEAN html (no preview colours or fonts) so it pastes neatly into any editor.
+    var htmlStr = document.getElementById('body-html').value, plain = document.getElementById('post-body').innerText;
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      var item = new ClipboardItem({ 'text/html': new Blob([htmlStr], { type: 'text/html' }), 'text/plain': new Blob([plain], { type: 'text/plain' }) });
+      navigator.clipboard.write([item]).then(function () { say('Formatted post copied. Paste it into your editor.'); }, selectionCopy);
+    } else { selectionCopy(); }
+  }
+  document.getElementById('btn-rich').addEventListener('click', copyRich);
+  document.getElementById('btn-html').addEventListener('click', function () { copyText(document.getElementById('body-html').value, 'HTML code copied.'); });
+  document.getElementById('btn-md').addEventListener('click', function () { copyText(document.getElementById('body-md').value, 'Markdown copied.'); });
+  document.getElementById('btn-schema').addEventListener('click', function () { copyText(document.getElementById('schema-src').value, 'Structured data copied.'); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (b) {
+    b.addEventListener('click', function () { var f = document.getElementById(b.getAttribute('data-copy')); copyText(f.value, 'Copied: ' + b.getAttribute('data-label')); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-count-for]'), function (c) {
+    var f = document.getElementById(c.getAttribute('data-count-for')), min = +c.getAttribute('data-min'), max = +c.getAttribute('data-max');
+    function update() { var n = f.value.length; c.textContent = n + ' characters' + (max ? ' (aim for ' + (min ? min + ' to ' : 'up to ') + max + ')' : ''); c.className = 'count ' + ((max && n > max) || (min && n < min) ? 'warn' : 'ok'); }
+    f.addEventListener('input', update); update();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+---
+name: blog-anywhere
+description: Write SEO blog posts for any site and platform. You pick the voice, keyword and images each post. Gives a copy-paste package with SEO fields and preview, or a draft if connected.
+---
+
+# blog-anywhere
+
+Writes a blog post for **any website, on any platform**, in **the voice the user chooses for that post**, and hands it over as a **copy-paste package** they can publish on their own site (or as a **draft** if their site is connected). Use it when you cannot or should not publish for them: Shopify, WordPress, Wix, Squarespace, Webflow, Ghost, a client's site, or a site that is not built yet.
+
+It is **not** the same as the `blog` skill. `blog` is for a static-site project in this folder (it has a `CLAUDE.md` with a Stack adapter) and publishes the post file straight into that project. If the folder is such a project, say so and suggest `blog`, unless the owner wants a copy-paste package anyway.
+
+## What you produce
+
+For each post, a **package** (`post-preview.html` and files): every SEO field with a Copy button and a character count, the post as clean HTML, Markdown and a formatted copy, the image list with alt text and credits, optional structured data, a "where to paste it" guide for their platform, and a plain-language check report. The owner copies, pastes and publishes. **You never publish anything yourself**, and never say you did.
+
+## Workspace
+
+One folder per site: `blog-sites/<site-slug>/`, made by `scripts/new_site.py`. It holds `site.json`, `references/` (the voice files), `site-pages.csv`, `keywords.csv`, `published.json`, `posts/` and `images-incoming/`. Keep it **outside** the skill folder. To run a script, find this skill's folder first: `find / -type d -name blog-anywhere 2>/dev/null | head -1`.
+
+## Invocation
+
+| What the user types | Meaning |
+|---|---|
+| `blog-anywhere` | Start, or continue: set up the site if needed, then write the next post |
+| `blog-anywhere new-site` | Make a workspace and site profile for a new site |
+| `blog-anywhere voice` | Build or refresh the site's voice |
+| `blog-anywhere post <topic or keyword>` | Write a post on this topic |
+| `blog-anywhere package <slug>` | Rebuild a post's package after edits |
+
+## Bundled files
+
+- `references/site-profile-questions.md`: the questions for a new site.
+- `references/post-brief.md`: the questions asked before every post (voice, keywords, images, own content, connection).
+- `references/voice-builder.md`: how to capture and keep a consistent voice.
+- `references/reference-templates/`: voice, tone, humor, opinions, stats, stories templates.
+- `references/style-reference-template.md`: turn a writing sample into a style guide.
+- `references/post-anatomy.md`: what a proper post contains, in order.
+- `references/post-package-spec.md`: the `post.json` fields, HTML rules and checks.
+- `references/image-guide.md`: image sources and rules.
+- `references/platform-paste-guides.md`: Shopify, WordPress and others.
+- `references/on-page-seo-checklist.md`: the 90-item checklist (platform items are N/A here).
+- `scripts/new_site.py`, `scripts/voice_tools.py`, `scripts/build_package.py`, `scripts/optimize_image.py`, `assets/preview-template.html`.
+
+The owner is often a beginner. Explain each step in plain words before you do it, and **stop at each gate**.
+
+## Step 0: Orient
+
+1. Is there a `blog-sites/<site>/` workspace for this site? If not, go to Step 1. If yes, read `site.json`, every file in `references/`, `anchor-sample.md` and `published.json`.
+2. If the folder is a static-site project with a `CLAUDE.md` Stack adapter, mention `blog` (see above).
+3. Ask which site this post is for, if more than one workspace exists.
+
+## Step 1: Site profile (first time for a site)
+
+Ask `references/site-profile-questions.md` **one group at a time**. "I don't know" is fine: leave it empty and carry a `TODO(owner)`. **Never guess**, never ask for a password or key. Run `python3 <skill>/scripts/new_site.py <site-slug> --name "..." --platform <platform> --url <url>` and save the answers into `site.json`, `site-pages.csv` and `keywords.csv`. Read back a summary and get a "go".
+
+## Step 2: Saved voice (optional, only for "my own voice")
+
+Follow `references/voice-builder.md`: collect samples, **measure** them (`voice_tools.py stats`), write the six voice files only from evidence, **calibrate** a ~120-word sample until the owner approves, save it as `anchor-sample.md`. This saved voice is used when a post's voice choice is **"my own voice"**. The user may instead pick a different voice for any post (Step 3, part 1), so skip this step if they never want their own voice. **Do not write a post in the "my own voice" style until that voice is approved.** Say how you will keep it consistent: every post is written from these files and checked against the measured numbers.
+
+## Step 3: Each post
+
+1. **Brief.** Before anything else, ask `references/post-brief.md`, one group at a time: the **voice for this post** (a menu the user picks from freely, plus humor, "I" or "we", angle, audience), the **keyword** (choose from their list, give one, or be asked), the **images** they want, whether they have **their own content** (write it for me, build on my notes, use mine exactly) and whether the **site is connected** to Claude. Read the brief back and wait for "go". No voice is assumed: never apply a house style, a belief or humor rule, or a preset from anywhere except the user's own answers and their own site rules.
+2. **Cluster.** 5 to 10 related terms, used naturally. Never reuse a keyword in `published.json`; flag unverified volume or difficulty.
+3. **Research.** Search the web for the primary keyword. Take the **top 3 organic results** (skip forums, directories and video). Record word count, number of H2s, images, FAQ presence, topics and format; average them for targets; list what all three cover and what none cover. Use them for **structure only**, never copy wording or facts. Show a short table.
+4. **Outline** following `references/post-anatomy.md`. Show it and **wait for the owner's OK** (skip only if they say "just write it").
+5. **Write** in the voice chosen in the brief (for "my own voice" read every voice file and `anchor-sample.md` first; for a menu or described voice write and show a short voice brief first). In mode **use mine exactly** do not rewrite anything: add only the SEO fields, format, images and checks, and list suggestions separately. In **build on my notes** mark what you added. Hook per the humor level (a joke only if allowed; otherwise an honest human moment, a direct question or a clear promise). Primary keyword in the first 100 words. Answer early, then go deeper. **Only true facts** from the profile, `stats.md`, `stories.md` or sources you can name; everything else is `TODO(owner)`. Quoted texts follow the owner's rule (one translation, verified exactly, cited). Signature phrases sparingly. No generic AI openings. Internal links **only** to pages in `site-pages.csv`, otherwise `[[INTERNAL:description]]`. Never invent a web address.
+6. **Images.** Follow `references/image-guide.md` and the site's image rules. Use the images the user asked for in the brief (own photos, Unsplash by hand, Unsplash by API, specific files, or none). Look at the owner's photos before choosing; write honest alt text; optimise copies with `optimize_image.py`. Show every stock photo you pick.
+7. **Build the package.** Write `blog-sites/<site>/posts/<slug>/post.json` per `references/post-package-spec.md`, then run `build_package.py <that file> blog-sites/<site>/posts --zip`. Include the `brief` object. Fix every **FAIL** (in "use mine exactly" mode a FAIL means their wording changed), weigh every **WARN**, rebuild.
+8. **Voice check.** For "my own voice" run `voice_tools.py check blog-sites/<site>/posts/<slug>/post.md blog-sites/<site>/voice-metrics.json`. Fix real drift; if you keep a difference, say why (topic or post type can move the numbers). For a menu or described voice there are no saved numbers: read the draft against the voice brief and the humor choice, and say so. For "my own voice" also read it against `voice.md` and `humor.md`.
+9. **On-page checklist.** Walk `references/on-page-seo-checklist.md`. Mark site-platform items (sitemap, robots, speed, templates) **N/A** and say they belong to the site.
+10. **Report** (below). Update `published.json` with keyword, slug, date and status `package built`.
+
+## Step 4: Publish (their choice)
+
+- **Site connected, tool can make drafts:** follow `references/post-brief.md` part 5. Show exactly what will be sent, get a clear yes, create a **draft only**, never publish live, never edit an existing live post, then tell the user to check it and publish it themselves.
+- **Not connected:** give the paste guide for **their** platform from `references/platform-paste-guides.md`, one step at a time for a beginner. Remind them: replace image markers and `[[INTERNAL:...]]` links, remove `TODO` notes, publish as **draft or hidden first**, check the preview, then go live.
+
+You cannot see their live site, so never say you checked it there.
+
+## The report (every post)
+
+```
+POST: <title>   SITE: <site>   PLATFORM: <platform>
+BRIEF: voice <choice>, humor <level>, <I/we>; content mode <write / notes / exact>; images <choice>; connected <yes/no>
+KEYWORD: <primary>   CLUSTER: <terms>   LENGTH: <words> (target <n>)
+PACKAGE: <folder and zip>   Open post-preview.html in a browser.
+CHECKS: <passed> passed, <warnings> warning(s), <fails> failed   (list each warning in plain words)
+VOICE CHECK: <hook fits tone? no AI phrasing? only true facts? signature phrases ok?>   METRICS: <in range / drifting and why>
+IMAGES: <each: source, what it shows, who uploads it, credit>
+STILL NEEDED FROM YOU: <every TODO(owner), every [[INTERNAL:...]] link, every image to upload>
+WHERE TO PASTE or DRAFT: <their platform's steps, or what was sent as a draft>
+```
+
+## Hard rules
+
+- **Never invent** facts, statistics, quotes, customers, stories, prices, results, web addresses or licences. Unknown means `TODO(owner)`.
+- **Never publish live** or claim to have. The only thing you may ever create on a connected site is a **draft**, and only after the user approved exactly what is sent. Never claim to have checked the owner's live site.
+- Never ask for, print, store or repeat a password or API key. A key lives only in the owner's `.env`.
+- Never write a post before the user has chosen its voice (and, for "my own voice", approved it). Never change the wording of content the user chose to use exactly. Never reuse the anchor sample or the owner's signature phrases heavily.
+- Never present a stock photo as the owner's own people, products, team, results or testimonials.
+- Posts link only to real pages the owner listed; everything else is a marked placeholder.
+- Follow the user's **own** content rules (privacy, legal, medical, financial or other wording they set for their site) over any default here. This skill has no house voice or beliefs of its own; rules from other people's projects never apply.
+- Content quality and truth beat checklist scores.

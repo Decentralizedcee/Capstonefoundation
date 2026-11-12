@@ -9,8 +9,8 @@ Non-technical, works in Claude Code on their own computer (sometimes the regular
 
 ## ORDER OF WORK
 1. ~~Make the five pending edits to `blog-anywhere`.~~ **DONE 12 Nov 2026** (see below). Not yet run end to end in a real session.
-2. **Next:** build the **SEO site audit skill** (`seo-audit`). Requirements: `docs/seo-audit-skill-notes.md`. **Wait for the owner's "go" first.**
-3. **After that:** run the audit on the owner's Shopify client store using the preview link the owner will send (after the skill is built).
+2. ~~Build the SEO site audit skill (`seo-audit`).~~ **DONE 12 Nov 2026** (`.claude/skills/seo-audit/`, zip `dist/seo-audit.zip`). Scripts tested on a local test site only (this session's network blocks outside hosts); not yet run on a real site. Lighthouse step is instructions only, not scripted.
+3. **Next (waiting for the owner's preview link):** run the audit on the owner's Shopify client store using the preview link the owner will send (after the skill is built).
 
 When a step is finished, update this note.
 
@@ -26,7 +26,7 @@ When a step is finished, update this note.
 | `blog-anywhere` (any platform; per-post brief, copy-paste package + preview page, draft if connected) | `.claude/skills/blog-anywhere/` | Built and edited 12 Nov; scripts tested; skill not run end to end. Zip: `dist/blog-anywhere.zip` |
 | Interactive user guide for site-setup (7 pages) | `docs/site-setup-user-guide.pdf` | Done |
 | Capstone Foundation project files and start prompt | `docs/capstone/` | Done (owner is running it in their own folder) |
-| Audit-skill requirements | `docs/seo-audit-skill-notes.md` | **Not built yet** |
+| `seo-audit` (access prompt, 3 modes, labelled report) | `.claude/skills/seo-audit/` | Built 12 Nov; `audit_page.py` and `build_report.py` tested locally; not run on a real site |
 
 ## `blog-anywhere` edits (done 12 Nov 2026)
 New file `references/post-brief.md` holds the questions asked before every post; `SKILL.md` Step 3 starts with it. Skill is voice-neutral (checked: no Capstone terms anywhere in the skill folder).
@@ -37,7 +37,7 @@ New file `references/post-brief.md` holds the questions asked before every post;
 5. **Connected site:** ask which connector tools exist; if one can make drafts, show exactly what will be sent, get a yes, create a **draft only**, never live. Otherwise the copy-paste package.
 Script changes (all tested): `build_package.py` (brief + exact check), `voice_tools.py check` (friendly note if no saved numbers), `new_site.py` (`connection` field in `site.json`). Skill description is 180 characters.
 
-## Step 2: SEO audit skill (still to build; wait for the owner's "go")
+## seo-audit skill (built; requirements it follows)
 See `docs/seo-audit-skill-notes.md` for the full requirements: the access prompt (link, password protection, code, admin access, written permission), the **link-only mode that is always offered** (report only), the fix/recommend labels, safety rules and the pages to audit first (home, about, a product page, contact). First target is a Shopify client store; the owner will send a preview link after the skill exists. Lighthouse 13.6 was run successfully in the Claude Code environment (needs Node and Chrome). Google's keyless PageSpeed API was rate-limited.
 
 ## Rules that never change

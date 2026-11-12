@@ -9,8 +9,8 @@ Non-technical, works in Claude Code on their own computer (sometimes the regular
 
 ## ORDER OF WORK
 1. ~~Make the five pending edits to `blog-anywhere`.~~ **DONE 12 Nov 2026** (see below). Not yet run end to end in a real session.
-2. ~~Build the SEO site audit skill (`seo-audit`).~~ **DONE 12 Nov 2026** (`.claude/skills/seo-audit/`, zip `dist/seo-audit.zip`). Scripts tested on a local test site only (this session's network blocks outside hosts); not yet run on a real site. Lighthouse step is instructions only, not scripted.
-3. **Next (waiting for the owner's preview link):** run the audit on the owner's Shopify client store using the preview link the owner will send (after the skill is built).
+2. ~~Build the SEO site audit skill (`seo-audit`).~~ **DONE 12 Nov 2026** (`.claude/skills/seo-audit/`, zip `dist/seo-audit.zip`). Update 12 Nov: first real run done on the client's Shopify preview link (report only; audit files kept LOCAL in `seo-audits/`, not committed, because they hold client data). Added `run_lighthouse.py` (works: Node + Chromium) and `build_client_summary.py` (plain-English client PDF via reportlab; owner approves the text first). Needed the session's network to allow the preview host.
+3. ~~First audit on the Shopify preview~~ done (test run). **Next:** when the client's site is live, run `seo-audit` again on the live address (owner will ask). Open items from the test: confirm noindex/robots.txt are gone live, sitemap exists, 'Elixer/Elixir' spelling, headings, alt text, home page speed (LCP 8.9 s on preview). Reviews finding stays in the internal report only.
 
 When a step is finished, update this note.
 

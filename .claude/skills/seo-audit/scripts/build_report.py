@@ -57,6 +57,14 @@ def build_md(d):
             if f.get("workaround"): L.append(f"- Workaround: {f['workaround']}")
             for s in f.get("steps", []): L.append(f"  - {s}")
             L.append("")
+    lh = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), "lighthouse.json")
+    if os.path.isfile(lh):
+        L += ["## Speed test (Lighthouse)", "", "One lab test per page on a mobile profile. Scores move between runs, and a preview link can differ from the live site. The SEO score is lowered while a site is blocked from search engines.", "",
+              "| Page | Speed | Accessibility | Best practices | SEO | Largest content shows after |", "|---|---|---|---|---|---|"]
+        for r in json.load(open(lh, encoding="utf-8")):
+            if r.get("error"): L.append(f"| {r['url']} | not measured: {r['error'][:80]} | | | | |"); continue
+            c = r["scores"]; L.append(f"| {r['url']} | {c['performance']} | {c['accessibility']} | {c['best-practices']} | {c['seo']} | {r['metrics'].get('Largest Contentful Paint', 'n/a').replace(chr(160), ' ')} |")
+        L.append("")
     L += ["## Not checked", ""] + ([f"- {x}" for x in d.get("not_checked", [])] or ["- Nothing listed."]) + [""]
     L += ["## Next steps", "", "1. The client reviews the findings marked Client's decision.", "2. Nothing is changed on the site without written permission.", "3. Fixes are prepared on a copy and shown before any change.", ""]
     return "\n".join(L)
@@ -68,6 +76,11 @@ def build_html(md):
         e = html.escape(line)
         e = __import__("re").sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", e)
         e = __import__("re").sub(r"(?<![\w])_(.+?)_(?![\w])", r"<em>\1</em>", e)
+        if line.startswith("|"):
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if set("".join(cells)) <= set("-: "): continue
+            tag = "th" if not any(o.startswith("<tr") for o in out[-1:]) and not (out and out[-1].startswith("<tr")) and (not out or not out[-1].startswith("<tr")) else "td"
+            out.append("<tr>" + "".join(f"<{tag}>{html.escape(c)}</{tag}>" for c in cells) + "</tr>"); continue
         if line.startswith("- ") or line.startswith("  - "):
             if not in_ul: out.append("<ul>"); in_ul = True
             out.append(f"<li>{e.strip()[2:]}</li>"); continue
@@ -78,7 +91,7 @@ def build_html(md):
         elif line.startswith("&gt;") or line.startswith("> "): out.append(f"<blockquote>{e[4:] if e.startswith('&gt;') else e}</blockquote>")
         elif line.strip(): out.append(f"<p>{e}</p>")
     if in_ul: out.append("</ul>")
-    css = "body{font-family:system-ui,sans-serif;max-width:46rem;margin:2rem auto;padding:0 1rem;line-height:1.55;color:#1c1c1c}blockquote{background:#fff7e0;margin:1rem 0;padding:.6rem 1rem;border-left:4px solid #e0a800}h3{margin-top:2rem}"
+    css = "table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:.3rem .5rem;font-size:.9rem}th{background:#eee}body{font-family:system-ui,sans-serif;max-width:46rem;margin:2rem auto;padding:0 1rem;line-height:1.55;color:#1c1c1c}blockquote{background:#fff7e0;margin:1rem 0;padding:.6rem 1rem;border-left:4px solid #e0a800}h3{margin-top:2rem}"
     return f"<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>SEO audit report</title><style>{css}</style>" + "\n".join(out)
 
 

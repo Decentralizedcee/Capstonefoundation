@@ -9,7 +9,7 @@ Use this when the owner gives a writing sample, an article or a description of a
 
 ## Create `references/<style-name>.md` with these sections
 1. **Status and source:** owner-approved; where the sample came from; the owner's own words about it.
-2. **Where it applies:** a table (for example blog posts: yes, moderate; new short copy: light; fixed copy from a build spec: never; quoted texts such as Scripture: never).
+2. **Where it applies:** a table (for example blog posts: yes, moderate; new short copy: light; fixed copy from a build spec: never; quoted texts such as laws or standards: never).
 3. **What the style is:** the marks of the style in 3 to 5 bullets (for example vivid imagery, emotional resonance, rhythm, originality, specificity).
 4. **How to write it:** the techniques, each in one or two sentences.
 5. **Where to place it:** for example the opening line, a turning point, a key idea, the closing line. Give a working number per post (for example 2 to 4 moments) and say the owner can change it.

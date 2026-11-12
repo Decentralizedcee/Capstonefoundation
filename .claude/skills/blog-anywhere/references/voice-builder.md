@@ -1,5 +1,7 @@
 # Voice builder
 
+This file is for the **"my own voice"** choice. For any other voice a post uses, follow `post-brief.md` instead.
+
 Goal: capture **how this site's owner sounds** once, write it down, and use the same voice in **every** post. A voice is only real if it is built from real evidence. Never invent a voice, a catchphrase, a story or a fact about the owner.
 
 All files live in `blog-sites/<site>/references/`.

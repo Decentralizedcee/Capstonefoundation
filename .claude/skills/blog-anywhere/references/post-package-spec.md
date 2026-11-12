@@ -25,6 +25,7 @@ The package is written into `blog-sites/<site>/posts/<slug>/` (next to `post.jso
 | `target_words` | no | From the competitor research; the check allows 20 percent either way. |
 | `featured_image` | no | Image object (below). |
 | `images` | no | List of image objects, numbered from 1. |
+| `brief` | no | `{ "voice": "what the user chose", "humor": "none/light/playful", "person": "I/we", "content_mode": "write/notes/exact", "original_file": "path (only for exact)" }`. In `exact` mode the builder compares the body with the original file word for word and FAILs on any difference. |
 | `body_html` | yes | Clean HTML (rules below). |
 | `faq` | no | List of `{ "q": "...", "a": "..." }`, 4 to 8. Appended as an H2 section, or placed where `[[FAQ]]` appears. |
 | `faq_heading` | no | Default "Frequently asked questions". |

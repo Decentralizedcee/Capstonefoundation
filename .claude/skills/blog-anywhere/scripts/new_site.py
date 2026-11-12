@@ -52,7 +52,7 @@ def main(argv):
             shutil.copy2(os.path.join(TEMPLATES, f), os.path.join(root, "references", f))
     site = {"slug": slug, "name": name or slug, "url": url, "platform": platform,
             "author": "", "audience": "", "goal": "", "humor_level": "unknown",
-            "image_source_default": "ask", "image_rules": "", "content_rules": "",
+            "image_source_default": "ask", "connection": "unknown", "image_rules": "", "content_rules": "",
             "notes": "Fill from the site profile questions. Unknown items stay empty (never guessed)."}
     with open(os.path.join(root, "site.json"), "w", encoding="utf-8") as fh:
         json.dump(site, fh, indent=2)

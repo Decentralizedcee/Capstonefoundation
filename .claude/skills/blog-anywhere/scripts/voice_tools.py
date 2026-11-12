@@ -142,8 +142,13 @@ def cmd_check(args):
     if len(args) < 2:
         print(__doc__)
         sys.exit(2)
-    with open(args[1], encoding="utf-8") as fh:
-        saved = json.load(fh)
+    try:
+        with open(args[1], encoding="utf-8") as fh:
+            saved = json.load(fh)
+    except FileNotFoundError:
+        print("NOTE: no saved voice numbers at that path (the voice for this post came from a menu choice or a description, "
+              "not from writing samples), so there is nothing to compare. Judge the draft against the voice brief instead.")
+        return
     base, tol = saved["metrics"], float(saved.get("tolerance", 0.3))
     with open(args[0], encoding="utf-8", errors="replace") as fh:
         try:

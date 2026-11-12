@@ -255,10 +255,48 @@ def assemble_body(post):
     return body
 
 
+def words_of(text):
+    """Plain word list used to compare two texts (ignores case, punctuation, tags and Markdown marks)."""
+    text = re.sub(r"\[\[(?:IMAGE:\d+|FAQ)\]\]", " ", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"(?m)^\s*(?:#+|>|[-*+]|\d+[.)])\s+", " ", text)
+    text = html.unescape(text).replace("\u2019", "'")
+    return re.findall(r"[\w']+", text.lower())
+
+
+def exact_check(post, add):
+    """Mode 'use mine exactly': the post body must hold the owner's words unchanged."""
+    brief = post.get("brief") or {}
+    path = brief.get("original_file", "")
+    if not path or not os.path.isfile(path):
+        add("FAIL", "Content mode is 'use mine exactly' but brief.original_file is missing or not found, so the owner's wording cannot be checked.")
+        return
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        original = fh.read()
+    original = re.sub(r"\A\s*(?:# [^\n]*\n|<h1[^>]*>.*?</h1>)", "", original, flags=re.S | re.I)  # the title is a separate field
+    a = words_of(original)
+    b = words_of(post.get("body_html", ""))
+    if a == b:
+        add("PASS", f"Owner's wording unchanged ({len(a)} words match their original exactly).")
+        return
+    i = 0
+    while i < min(len(a), len(b)) and a[i] == b[i]:
+        i += 1
+    ctx = lambda w: " ".join(w[max(0, i - 4):i + 6])
+    add("FAIL", f"Owner's wording was changed (original {len(a)} words, post {len(b)} words). First difference near word {i + 1}: "
+                f"original says '{ctx(a)}' but the post says '{ctx(b)}'. Restore their words or get their permission.")
+
+
 def lint(post, body, removed, site_url, had_h1=False):
     res = []
     add = lambda lvl, msg: res.append((lvl, msg))
     kw = (post.get("primary_keyword") or "").strip().lower()
+    brief = post.get("brief") or {}
+    if brief:
+        add("INFO", f"Brief: voice = {brief.get('voice') or 'not recorded'}; content = {brief.get('content_mode') or 'write it for me'}.")
+        if brief.get("content_mode") == "exact":
+            exact_check(post, add)
 
     def need(key, label):
         if not str(post.get(key, "")).strip():

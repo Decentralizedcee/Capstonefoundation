@@ -7,10 +7,10 @@ Non-technical, works in Claude Code on their own computer (sometimes the regular
 
 **Capstone-only rules** (hopeful and openly Christian voice, NIV, the sparkle style, humor off, no Unsplash people-photos in work pages, and so on) live in `docs/capstone/` and apply **only** to the Capstone project. They must **never** be copied into `blog-anywhere`, `site-setup`, `blog` or any other general-purpose skill. Those skills are for any user.
 
-## ORDER OF WORK (nothing below is finished yet)
-1. **First:** make the five pending edits to `blog-anywhere` (listed below).
-2. **Then:** build the **SEO site audit skill** (`seo-audit`). This is still to do. Its requirements are in `docs/seo-audit-skill-notes.md`. Do not forget it.
-3. **After that:** run the audit on the owner's Shopify client store using the preview link the owner will send (the owner said they will send it after the skill is built).
+## ORDER OF WORK
+1. ~~Make the five pending edits to `blog-anywhere`.~~ **DONE 12 Nov 2026** (see below). Not yet run end to end in a real session.
+2. **Next:** build the **SEO site audit skill** (`seo-audit`). Requirements: `docs/seo-audit-skill-notes.md`. **Wait for the owner's "go" first.**
+3. **After that:** run the audit on the owner's Shopify client store using the preview link the owner will send (after the skill is built).
 
 When a step is finished, update this note.
 
@@ -23,19 +23,21 @@ When a step is finished, update this note.
 | `service-page` skill (local service sites) | `.claude/skills/service-page/` | Built, not run |
 | `site-setup` skill (Claude Code): folder-first, intake, CLAUDE.md, verify script, design direction, build prompt | `.claude/skills/site-setup/` | Built; verify script tested |
 | `site-setup-chat` (regular chat edition, ZIP-based) | `chat-edition/site-setup-chat/` | Built; scripts tested; not run in claude.ai |
-| `blog-anywhere` (any platform; copy-paste package + preview page) | `.claude/skills/blog-anywhere/` | Built; scripts and preview tested; skill not run end to end |
+| `blog-anywhere` (any platform; per-post brief, copy-paste package + preview page, draft if connected) | `.claude/skills/blog-anywhere/` | Built and edited 12 Nov; scripts tested; skill not run end to end. Zip: `dist/blog-anywhere.zip` |
 | Interactive user guide for site-setup (7 pages) | `docs/site-setup-user-guide.pdf` | Done |
 | Capstone Foundation project files and start prompt | `docs/capstone/` | Done (owner is running it in their own folder) |
 | Audit-skill requirements | `docs/seo-audit-skill-notes.md` | **Not built yet** |
 
-## Pending edits to `blog-anywhere` (requested 12 Nov, not yet made)
-1. **Per-post voice picker (voice-neutral).** The skill is for **any user**, so every user must be free to **pick their own voice type**. Each post, ask how this post should sound and offer a menu **as examples, not rules** (for example: friendly and conversational; professional and authoritative; warm and inspirational; calm and reassuring; bold and direct; playful and witty; educational and clear; premium and refined; **my own voice from my writing samples**; or **describe it yourself**), plus humor level, "I" or "we", angle and audience. Use the choice for that post. **No default, preset or example may come from the Capstone owner's rules.** Keep example wording neutral. The user's **own** site rules (their privacy, legal and off-limits topics from their own site profile) still apply, never anyone else's. Offer to save a choice as a named variant (and update the voice reference files only after the user approves).
-2. **Keywords.** Ask for keywords before writing: if the owner supplied a list (`keywords.csv`), let them choose from it; if they have a specific keyword, take that one; if neither, ask. Flag unverified data. Then start.
-3. **Images.** Ask which images the owner wants for this post (their own photos, stock, specific files, how many, where).
-4. **Owner's own content.** Ask if they have their own content. Modes: write for me / build on my notes and add to them / **use mine exactly** (format, SEO fields and checks only; do not change their wording without permission; suggest, do not edit).
-5. **Draft publishing when connected.** Ask whether the site is connected to Claude (WordPress, Wix, Shopify or another builder, through whatever connector tools exist in the session). If yes: create the post as a **draft only**, after the owner approves exactly what will be sent. **Never publish live.** If not connected: give the preview package to copy and paste.
+## `blog-anywhere` edits (done 12 Nov 2026)
+New file `references/post-brief.md` holds the questions asked before every post; `SKILL.md` Step 3 starts with it. Skill is voice-neutral (checked: no Capstone terms anywhere in the skill folder).
+1. **Per-post voice picker:** menu of examples (friendly, professional, inspirational, calm, bold, playful, educational, premium, my own voice from samples, describe it yourself), plus humor, I/we, angle, audience. No defaults. Named variants saved only if the user approves. The old voice builder now applies only to the "my own voice" choice.
+2. **Keywords:** choose from `keywords.csv`, give one, or be asked; unverified data flagged.
+3. **Images:** asked per post (own photos, stock, files, how many, where).
+4. **Own content:** three modes (write / build on notes / use mine exactly). `build_package.py` reads `brief` in `post.json`; in `exact` mode it compares the body with `brief.original_file` word for word and FAILs on any change (tested).
+5. **Connected site:** ask which connector tools exist; if one can make drafts, show exactly what will be sent, get a yes, create a **draft only**, never live. Otherwise the copy-paste package.
+Script changes (all tested): `build_package.py` (brief + exact check), `voice_tools.py check` (friendly note if no saved numbers), `new_site.py` (`connection` field in `site.json`). Skill description is 180 characters.
 
-## Step 2: SEO audit skill (still to build, after the blog-anywhere edits)
+## Step 2: SEO audit skill (still to build; wait for the owner's "go")
 See `docs/seo-audit-skill-notes.md` for the full requirements: the access prompt (link, password protection, code, admin access, written permission), the **link-only mode that is always offered** (report only), the fix/recommend labels, safety rules and the pages to audit first (home, about, a product page, contact). First target is a Shopify client store; the owner will send a preview link after the skill exists. Lighthouse 13.6 was run successfully in the Claude Code environment (needs Node and Chrome). Google's keyless PageSpeed API was rate-limited.
 
 ## Rules that never change

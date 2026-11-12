@@ -7,6 +7,13 @@ Non-technical, works in Claude Code on their own computer (sometimes the regular
 
 **Capstone-only rules** (hopeful and openly Christian voice, NIV, the sparkle style, humor off, no Unsplash people-photos in work pages, and so on) live in `docs/capstone/` and apply **only** to the Capstone project. They must **never** be copied into `blog-anywhere`, `site-setup`, `blog` or any other general-purpose skill. Those skills are for any user.
 
+## ORDER OF WORK (nothing below is finished yet)
+1. **First:** make the five pending edits to `blog-anywhere` (listed below).
+2. **Then:** build the **SEO site audit skill** (`seo-audit`). This is still to do. Its requirements are in `docs/seo-audit-skill-notes.md`. Do not forget it.
+3. **After that:** run the audit on the owner's Shopify client store using the preview link the owner will send (the owner said they will send it after the skill is built).
+
+When a step is finished, update this note.
+
 ## What exists (all in this repo)
 | Item | Where | Status |
 |---|---|---|
@@ -28,8 +35,8 @@ Non-technical, works in Claude Code on their own computer (sometimes the regular
 4. **Owner's own content.** Ask if they have their own content. Modes: write for me / build on my notes and add to them / **use mine exactly** (format, SEO fields and checks only; do not change their wording without permission; suggest, do not edit).
 5. **Draft publishing when connected.** Ask whether the site is connected to Claude (WordPress, Wix, Shopify or another builder, through whatever connector tools exist in the session). If yes: create the post as a **draft only**, after the owner approves exactly what will be sent. **Never publish live.** If not connected: give the preview package to copy and paste.
 
-## Next to build: SEO audit skill
-See `docs/seo-audit-skill-notes.md`. First target is a Shopify client store; the owner will send a preview link after the skill exists. Lighthouse 13.6 was run successfully in the Claude Code environment (needs Node and Chrome). Google's keyless PageSpeed API was rate-limited.
+## Step 2: SEO audit skill (still to build, after the blog-anywhere edits)
+See `docs/seo-audit-skill-notes.md` for the full requirements: the access prompt (link, password protection, code, admin access, written permission), the **link-only mode that is always offered** (report only), the fix/recommend labels, safety rules and the pages to audit first (home, about, a product page, contact). First target is a Shopify client store; the owner will send a preview link after the skill exists. Lighthouse 13.6 was run successfully in the Claude Code environment (needs Node and Chrome). Google's keyless PageSpeed API was rate-limited.
 
 ## Rules that never change
 Never invent facts. Never ask for, print or store keys or passwords. Never overwrite existing files or replace an existing `CLAUDE.md`. Never publish live or change a client's site without written permission (work on copies, preview first). Stop at gates and wait for "go".

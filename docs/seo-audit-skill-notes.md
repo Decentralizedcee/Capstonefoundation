@@ -20,7 +20,7 @@ Every extra access lets us see what the skill can fix from our end.
 ## Report
 - Every finding labelled: **We fix** / **Done in the admin** (with steps) / **Platform limit** (with workaround) / **Client's decision**.
 - A plain-language summary with recommendations for the client.
-- Pages to audit first: **home, about, a product page, contact**. The blog is handled later by the blog skill.
+- Pages to audit first: **home, about, a product page, contact**. The blog is handled later with the **`blog-anywhere`** skill (copy-paste package, or a draft if the store is connected).
 - Note when a **preview link** is used: it can add the platform's own preview bar and can expire, so scores may differ from the live site.
 
 ## Credentials (the owner's rule)
@@ -31,6 +31,6 @@ Every extra access lets us see what the skill can fix from our end.
 - Work on a copy of the theme, never the live one. Show every change first. Keep a way to undo it.
 
 ## Context
-- First target: a **Shopify** client store. Owner has been given the code and admin access by the client and will send the preview link after the skill is built.
+- First target: a **Shopify** client store. Owner has been given the code and admin access by the client and will send the preview link **after the skill is built**; the audit then runs on that link. The owner connects the store themselves (never pastes a password into the chat). Whether the store is public or only reachable by the preview link is not yet known.
 - Platform notes: Shopify generates `robots.txt` by default and `robots.txt.liquid` can replace it (confirmed in Shopify's docs). Other Shopify details (fixed URL structure, generated sitemap, checkout limits) are from general knowledge and must be confirmed in the first real audit.
 - Lighthouse was run successfully in the Claude Code environment (v13.6). Google's keyless PageSpeed API was rate-limited, so it would need a free key.

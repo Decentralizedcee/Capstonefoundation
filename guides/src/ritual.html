@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Your Divine Ritual</title>
+<meta name="description" content="An interactive guide from Une Femme Divine to building a daily ritual, a moment you give back to yourself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,500&family=DM+Sans:wght@400;500;600&display=swap">
+<style>
+/*@BASE_CSS*/
+
+/* ritual guide */
+.step-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+.movement { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+.movement .n { font-family: var(--font-display); font-style: italic; font-size: 2.2rem; line-height: 1; color: var(--taupe); min-width: 1.6rem; }
+.movement label { cursor: pointer; display: block; }
+.movement input { position: absolute; opacity: 0; }
+.movement .box { display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: start; padding: 1.1rem 1.2rem; border: 1.5px solid var(--clay); border-radius: var(--radius); background: var(--card); }
+.movement input:checked + .box { background: var(--blush-soft); border-color: var(--taupe); }
+.movement input:focus-visible + .box { outline: 3px solid var(--focus); outline-offset: 2px; }
+.tick { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--taupe); display: grid; place-items: center; margin-top: 2px; }
+.movement input:checked + .box .tick { background: var(--taupe-deep); border-color: var(--taupe-deep); }
+.movement input:checked + .box .tick::after { content: ""; width: 6px; height: 11px; border: solid var(--ivory); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.movement h4 { margin-bottom: .2rem; }
+
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
+.facts li { padding: .9rem 1rem; border-radius: var(--radius-sm); background: var(--card); border: 1px solid var(--line); font-size: .9375rem; }
+.facts b { display: block; font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.15rem; color: var(--taupe-deep); }
+
+.builder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
+@media (max-width: 860px) { .builder { grid-template-columns: minmax(0, 1fr); } }
+.builder .ctl { display: flex; flex-direction: column; gap: 1.4rem; }
+.ctl .lbl { font-size: .8125rem; letter-spacing: .04em; font-weight: 600; color: var(--taupe-deep); margin: 0 0 .5rem; display: block; }
+.ritual-card { background: var(--card); border: 1px solid var(--clay); border-radius: var(--radius); padding: clamp(1.2rem, 3vw, 1.9rem); }
+.ritual-card h3 { margin-bottom: .25rem; }
+.timeline { list-style: none; margin: 1.3rem 0; padding: 0; display: grid; gap: 0; }
+.timeline li { display: grid; grid-template-columns: 3.6rem 1fr; gap: 1rem; padding: .85rem 0; border-top: 1px solid var(--line); }
+.timeline li:first-child { border-top: 0; }
+.timeline .min { font-family: var(--font-display); font-style: italic; font-size: 1.5rem; color: var(--taupe); line-height: 1.1; }
+.timeline .min small { font-family: var(--font-body); font-style: normal; font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; display: block; color: var(--muted); }
+.timeline b { display: block; color: var(--taupe-deep); }
+.cal-box { margin-top: 1.2rem; padding: 1rem 1.1rem; border-radius: var(--radius-sm); background: var(--blush-soft); border: 1px solid var(--clay); display: grid; gap: .9rem; }
+.cal-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+@media (max-width: 480px) { .cal-row { grid-template-columns: minmax(0, 1fr); } }
+
+.week { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 235px), 1fr)); gap: .9rem; }
+.day { display: flex; flex-direction: column; gap: .8rem; }
+.day.done { background: var(--blush-soft); border-color: var(--taupe); }
+.day .top { display: flex; justify-content: space-between; align-items: baseline; }
+.day h4 { margin: 0; }
+.bar { height: 8px; border-radius: 99px; background: var(--blush); overflow: hidden; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--taupe-deep); border-radius: 99px; transition: width .35s; }
+
+.deck { display: grid; place-items: center; }
+.face { width: min(100%, 420px); aspect-ratio: 3 / 4; max-height: 70vh; border-radius: 22px; background: var(--taupe-deep); color: var(--ivory); display: grid; place-items: center; text-align: center; padding: 2rem; position: relative; border: 6px solid var(--blush); box-shadow: 0 18px 40px -22px rgba(62, 58, 59, .55); }
+.face::after { content: ""; position: absolute; inset: 12px; border: 1px solid color-mix(in srgb, var(--ivory) 35%, transparent); border-radius: 14px; pointer-events: none; }
+.face .q { font-family: var(--font-display); font-style: italic; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.25; text-wrap: balance; }
+.face .tag { position: absolute; top: 1.6rem; left: 0; right: 0; font-size: .6875rem; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
+.face.swap { animation: pop .35s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+
+.gift textarea { min-height: 110px; }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="top">
+  <div class="topbar-in">
+    <img src="@@WORD@@" alt="Une Femme Divine">
+    <nav class="topnav" aria-label="Guide sections" data-locked hidden>
+      <a href="#welcome">Welcome</a><a href="#elixir">Elixir</a><a href="#builder">Build</a><a href="#journal">Journal</a><a href="#cards">Cards</a><a href="#faq">FAQ</a>
+    </nav>
+    <!--hosted--><button class="btn small ghost no-print" type="button" data-print data-locked hidden>Save as PDF</button><!--/hosted-->
+  </div>
+</header>
+
+<main>
+  <!-- COVER + GATE -->
+  <section class="band band-blush cover">
+    <div class="in">
+      <img class="mark" src="@@MARK@@" alt="Une Femme Divine, the divine woman emblem">
+      <h1>Your Divine Ritual</h1>
+      <p class="sub">A guide to the moment you give back to yourself.</p>
+      <p class="kicker">Une Femme Divine &middot; Divine Elixir</p>
+
+      <div class="gate-wrap" id="gate-wrap">
+        <div class="card gate">
+          <h2 style="font-size:1.7rem;margin-bottom:.5rem">Open your guide</h2>
+          <p class="small muted">Free for everyone, new to Une Femme Divine or already part of the circle. Tell us where to send your letters and the guide opens right here.</p>
+          <form id="gate-form" novalidate style="margin-top:1rem">
+            <label class="field" for="g-name">First name
+              <input id="g-name" name="name" type="text" autocomplete="given-name" placeholder="Your first name">
+            </label>
+            <label class="field" for="g-email">Email
+              <input id="g-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+            </label>
+            <label class="check small" for="g-consent">
+              <input id="g-consent" name="consent" type="checkbox">
+              <span>Yes, email me letters from Une Femme Divine. I can unsubscribe at any time.</span>
+            </label>
+            <p class="err" id="gate-err" role="alert"></p>
+            <button class="btn" type="submit">Open my guide</button>
+          </form>
+          <ul class="inside">
+            <li>Build a ritual that fits your own morning, afternoon or evening</li>
+            <li>Add it to your calendar as a daily reminder</li>
+            <li>A seven-day ritual journal and a deck of small moments</li>
+            <li>Everything about Divine Elixir, in one calm place</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WELCOME -->
+  <section class="band" id="welcome" data-locked hidden>
+    <div class="in cols">
+      <div>
+        <p class="eyebrow">Welcome</p>
+        <h2>Welcome, <span data-name>you</span>.</h2>
+        <div class="stack" style="margin-top:1.2rem">
+          <p>Une Femme Divine began in Dubai, with two entrepreneurs and a simple thing we kept noticing. The women around us gave everything to their work, their families and their ambitions. They rarely took anything for themselves.</p>
+          <p>What was missing was one daily ritual made truly for her. Pure. Honest. Without compromise.</p>
+          <p>So we did not rush. For a full year we worked with a laboratory on the formula. Testing, refining, testing again, until we stood fully behind it. Divine Elixir is produced by our partner in Europe, in Slovakia, under European quality standards. Our webshop opened on 29 September 2026.</p>
+          <p>This guide is how we would begin. Slowly, and with you in mind.</p>
+          <p class="muted small">With love, the founders of Une Femme Divine</p>
+        </div>
+      </div>
+      <div style="padding-top:clamp(0rem,4vw,3rem)">
+        <p class="quote">&ldquo;True wellness is not loud; it&rsquo;s felt.&rdquo;</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELIXIR -->
+  <section class="band band-soft" id="elixir" data-locked hidden>
+    <div class="in">
+      <div class="sec-head">
+        <p class="eyebrow">Divine Elixir</p>
+        <h2>Three movements, one moment</h2>
+        <p class="lead">Divine Elixir is a daily collagen ritual, created for women. We see it as a moment of self-care, never a quick fix. Tick each movement as you make it your own.</p>
+      </div>
+      <ol class="step-list" id="movements">
+        <li class="movement"><span class="n" aria-hidden="true">i</span>
+          <label><input type="checkbox" data-move="0"><span class="box"><span class="tick" aria-hidden="true"></span><span><h4>Arrive</h4><span class="muted">Put the phone down. Three slow breaths. Let your shoulders drop. You are not late for anything.</span></span></span></label></li>
+        <li class="movement"><span class="n" aria-hidden="true">ii</span>
+          <label><input type="checkbox" data-move="1"><span class="box"><span class="tick" aria-hidden="true"></span><span><h4>Prepare</h4><span class="muted">Prepare your Divine Elixir as shown on your pack. Let the preparing be part of the pleasure. Choose a cup you love.</span></span></span></label></li>
+        <li class="movement"><span class="n" aria-hidden="true">iii</span>
+          <label><input type="checkbox" data-move="2"><span class="box"><span class="tick" aria-hidden="true"></span><span><h4>Savour</h4><span class="muted">Sit down. Take your time. Notice the temperature, the light, the quiet. This minute is yours.</span></span></span></label></li>
+      </ol>
+      <ul class="facts" style="margin-top:1.75rem">
+        <li><b>Made for women</b>From the very first idea.</li>
+        <li><b>A year of patience</b>Developed with a laboratory, tested again and again.</li>
+        <li><b>Halal</b>Made with care and respect.</li>
+        <li><b>Made in Europe</b>Produced in Slovakia under European quality standards.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BUILDER -->
+  <section class="band" id="builder" data-locked hidden>
+    <div class="in">
+      <div class="sec-head">
+        <p class="eyebrow">Build your ritual</p>
+        <h2>Make it yours</h2>
+        <p class="lead">Choose when, how long and what feels good. Your ritual appears on the right, ready to add to your calendar.</p>
+      </div>
+      <div class="builder">
+        <div class="ctl card">
+          <div>
+            <span class="lbl" id="l-moment">When is your moment?</span>
+            <div class="seg" role="group" aria-labelledby="l-moment" id="seg-moment">
+              <button type="button" data-v="morning" aria-pressed="true">Morning</button>
+              <button type="button" data-v="afternoon" aria-pressed="false">Afternoon</button>
+              <button type="button" data-v="evening" aria-pressed="false">Evening</button>
+            </div>
+          </div>
+          <div class="cal-row">
+            <label class="field" for="r-time">What time?<input id="r-time" type="time" value="07:30"></label>
+            <div>
+              <span class="lbl" id="l-len">How long?</span>
+              <div class="seg" role="group" aria-labelledby="l-len" id="seg-len">
+                <button type="button" data-v="5" aria-pressed="false">5 min</button>
+                <button type="button" data-v="10" aria-pressed="true">10 min</button>
+                <button type="button" data-v="20" aria-pressed="false">20 min</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span class="lbl" id="l-el">What feels good?</span>
+            <div class="chips" role="group" aria-labelledby="l-el" id="chips-el"></div>
+            <p class="small muted chip-hint" id="el-hint" style="margin-top:.6rem"></p>
+          </div>
+          <label class="field" for="r-intent">Your words
+            <input id="r-intent" type="text" maxlength="60" value="I give back to myself.">
+          </label>
+        </div>
+
+        <div class="ritual-card" aria-live="polite">
+          <p class="eyebrow" id="rc-eyebrow">Your ritual</p>
+          <h3 id="rc-title">Your Morning Ritual</h3>
+          <p class="muted small" id="rc-sub"></p>
+          <ol class="timeline" id="rc-steps"></ol>
+          <div class="row no-print">
+            <button class="btn small ghost" type="button" id="rc-copy">Copy my ritual</button>
+          </div>
+
+          <div class="cal-box no-print">
+            <div>
+              <h4 style="margin-bottom:.2rem">Add it to your calendar</h4>
+              <p class="small muted">A gentle reminder at your time, every day.</p>
+            </div>
+            <div class="cal-row">
+              <label class="field" for="r-repeat">Repeat
+                <select id="r-repeat">
+                  <option value="7">For 7 days</option>
+                  <option value="21" selected>For 21 days</option>
+                  <option value="30">For 30 days</option>
+                  <option value="0">Every day, ongoing</option>
+                </select>
+              </label>
+              <label class="field" for="r-title">Reminder title
+                <input id="r-title" type="text" maxlength="60" value="My Divine Ritual">
+              </label>
+            </div>
+            <div class="row">
+              <a class="btn small" id="cal-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+              <!--hosted--><button class="btn small ghost" type="button" id="cal-ics">Apple &amp; Outlook (.ics)</button><!--/hosted-->
+              <button class="btn small ghost" type="button" id="cal-copy">Copy calendar file</button>
+            </div>
+            <textarea class="copybox" id="cal-box" hidden readonly aria-label="Calendar file text"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="band band-soft" id="journal" data-locked hidden>
+    <div class="in">
+      <div class="sec-head">
+        <p class="eyebrow">Seven-day journal</p>
+        <h2>Seven small moments</h2>
+        <p class="lead">One day at a time. Tick the day, choose how it felt and write a single line. Your journal stays on this device.</p>
+      </div>
+      <div class="row" style="margin-bottom:1.25rem;gap:1.25rem">
+        <div style="flex:1 1 260px">
+          <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" id="wk-bar"><i></i></div>
+          <p class="small" style="margin-top:.5rem"><b id="wk-count">0 of 7</b> <span class="muted" id="wk-msg">moments kept</span></p>
+        </div>
+        <button class="btn small ghost no-print" type="button" id="wk-reset">Begin a new week</button>
+      </div>
+      <div class="week" id="week"></div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="band" id="cards" data-locked hidden>
+    <div class="in cols" style="align-items:center">
+      <div>
+        <p class="eyebrow">Ritual moments</p>
+        <h2>Draw a small moment</h2>
+        <p class="lead" style="margin-top:1rem">Not every day has ten minutes. Every day has a small moment. Draw a card and let it be enough.</p>
+        <div class="row no-print" style="margin-top:1.5rem">
+          <button class="btn" type="button" id="draw">Draw a card</button>
+          <button class="btn ghost" type="button" id="draw-copy">Copy this moment</button>
+        </div>
+      </div>
+      <div class="deck"><div class="face" id="face" aria-live="polite"><span class="tag">Une Femme Divine</span><span class="q" id="face-q">Tap to draw today&rsquo;s moment.</span></div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band band-soft" id="faq" data-locked hidden>
+    <div class="in" style="max-width:760px">
+      <div class="sec-head">
+        <p class="eyebrow">Good to know</p>
+        <h2>Questions, answered simply</h2>
+      </div>
+      <details class="faq"><summary>What is Divine Elixir?</summary><div class="ans">A daily collagen ritual, created for women. A carefully composed formula, halal and made in Europe. We present it as a moment of self-care, never as a quick fix.</div></details>
+      <details class="faq"><summary>Where is it made?</summary><div class="ans">Divine Elixir is produced by our partner in Europe, in Slovakia, under European quality standards.</div></details>
+      <details class="faq"><summary>Is it halal?</summary><div class="ans">Yes. Divine Elixir is halal.</div></details>
+      <details class="faq"><summary>Who created Une Femme Divine?</summary><div class="ans">Two entrepreneurs in Dubai who wanted one daily ritual made truly for women. After a full year of work with a laboratory on the formula, we launched our webshop on 29 September 2026.</div></details>
+      <details class="faq"><summary>How do I take it?</summary><div class="ans">Follow the preparation and serving instructions printed on your pack. This guide helps you build the moment around it.</div></details>
+      <details class="faq"><summary>What results can I expect?</summary><div class="ans">We do not promise beauty or health results, and we never will. Divine Elixir is a daily ritual and a moment for yourself. How it feels to you is what matters most to us.</div></details>
+      <details class="faq"><summary>I have a question you have not answered</summary><div class="ans">Write to us at <a data-contact href="#">hello</a>. We read every message.</div></details>
+    </div>
+  </section>
+
+  <!-- NEXT -->
+  <section class="band" id="next" data-locked hidden>
+    <div class="in cols">
+      <div class="card tint stack" data-other-guide-wrap>
+        <p class="eyebrow">Your next ritual</p>
+        <h3>Rhythm of the Body</h3>
+        <p>A gentle cycle and self-care planner. See your month in four inner seasons, and add them to your calendar.</p>
+        <p><a class="btn" data-other-guide href="#">Open the planner</a></p>
+      </div>
+      <div class="card gift stack">
+        <p class="eyebrow">Give her a moment</p>
+        <h3>Share the ritual</h3>
+        <label class="field" for="gift-msg">Your note
+          <textarea id="gift-msg">I thought of you. Take ten minutes today, just for yourself. I made a small ritual guide and wanted you to have it too.</textarea>
+        </label>
+        <div class="row no-print"><button class="btn small ghost" type="button" id="gift-copy">Copy note</button>
+        <a class="btn small ghost" data-shop href="#" target="_blank" rel="noopener">Visit the shop</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band band-taupe" style="padding-block:3rem">
+  <div class="in" style="text-align:center">
+    <img src="@@MARK_LIGHT@@" alt="" style="width:92px;margin:0 auto 1rem">
+    <h2 style="font-size:2rem;margin-bottom:1rem">Balance begins within.</h2>
+    <p class="small" style="margin:0 auto 1rem">Questions? <a data-contact href="#">hello</a></p>
+    <p class="disclaimer" style="margin:0 auto">This guide shares ritual and lifestyle inspiration and is not medical advice. Une Femme Divine does not claim that Divine Elixir treats, cures or prevents anything.</p>
+  </div>
+</footer>
+
+<script>
+window.UFD_CONFIG = {
+  guideId: 'guide-ritual',
+  provider: 'none',                       // 'shopify' | 'webhook' | 'none'  (see guides/README.md)
+  shopDomain: '',                         // e.g. 'your-store.myshopify.com'
+  webhookUrl: '',                         // e.g. a Klaviyo / Mailchimp / Make / Zapier endpoint
+  tags: 'guide-ritual,newsletter',
+  contactEmail: 'marketing@unefemmedivine.com',
+  otherGuideUrl: 'rhythm-planner.html',
+  shopUrl: ''
+};
+</script>
+<script>
+/*@COMMON_JS*/
+</script>
+<script>
+(function () {
+  'use strict';
+  var U = window.UFD, $ = U.$, $$ = U.$$, h = U.h, store = U.store;
+
+  /* ----- movements ----- */
+  var mv = store.get('ritual.moves', [false, false, false]);
+  $$('[data-move]').forEach(function (cb) {
+    cb.checked = !!mv[+cb.dataset.move];
+    cb.addEventListener('change', function () { mv[+cb.dataset.move] = cb.checked; store.set('ritual.moves', mv); });
+  });
+
+  /* ----- builder ----- */
+  var ELEMENTS = [
+    ['sunlight', 'Sunlight', 'Stand by a window. Let the light find your face.'],
+    ['silence', 'Silence', 'Phone away. Let the quiet settle.'],
+    ['cup', 'A warm cup', 'Hold it with both hands. Feel the warmth.'],
+    ['music', 'Soft music', 'One slow song. Nothing else.'],
+    ['journal', 'A few lines', 'Write one line: what do I give myself today?'],
+    ['breath', 'Breath', 'In for four. Out for six. Repeat.'],
+    ['candle', 'A candle', 'Light it. Watch the flame soften the room.'],
+    ['stretch', 'Slow stretch', 'Roll your shoulders. Reach, then release.']
+  ];
+  var DEFAULT_TIME = { morning: '07:30', afternoon: '15:00', evening: '20:30' };
+  var S = Object.assign({ moment: 'morning', time: '07:30', len: 10, els: ['sunlight', 'cup'], intent: 'I give back to myself.', repeat: '21', title: 'My Divine Ritual', timeTouched: false }, store.get('ritual.builder', {}));
+  var plan = { steps: [], title: '', text: '' };
+
+  var chipsEl = $('#chips-el');
+  ELEMENTS.forEach(function (e) {
+    var b = h('button', { type: 'button', class: 'chip', 'data-id': e[0], 'aria-pressed': 'false', text: e[1] });
+    b.addEventListener('click', function () {
+      var i = S.els.indexOf(e[0]);
+      if (i >= 0) S.els.splice(i, 1); else S.els.push(e[0]);
+      render();
+    });
+    chipsEl.appendChild(b);
+  });
+
+  function bindSeg(id, key, num) {
+    $$('#' + id + ' button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        S[key] = num ? +b.dataset.v : b.dataset.v;
+        if (key === 'moment' && !S.timeTouched) S.time = DEFAULT_TIME[S.moment];
+        render();
+      });
+    });
+  }
+  bindSeg('seg-moment', 'moment'); bindSeg('seg-len', 'len', true);
+  $('#r-time').addEventListener('input', function (e) { S.time = e.target.value || S.time; S.timeTouched = true; render(); });
+  $('#r-intent').addEventListener('input', function (e) { S.intent = e.target.value; render(true); });
+  $('#r-repeat').addEventListener('change', function (e) { S.repeat = e.target.value; render(true); });
+  $('#r-title').addEventListener('input', function (e) { S.title = e.target.value; render(true); });
+
+  function build() {
+    var L = S.len, arrive = 1, close = 1, elixir = Math.max(2, Math.round(L * 0.3));
+    var room = Math.max(0, L - arrive - close - elixir);
+    var chosen = ELEMENTS.filter(function (e) { return S.els.indexOf(e[0]) >= 0; });
+    var cap = Math.max(1, room);
+    var used = chosen.slice(0, cap), dropped = chosen.length - used.length;
+    var steps = [{ m: arrive, t: 'Arrive', c: 'Three slow breaths. Drop your shoulders. You are not late for anything.' },
+                 { m: elixir, t: 'Your Divine Elixir', c: 'Prepare it as shown on your pack. Take your time. Taste it slowly.' }];
+    if (used.length) {
+      var base = Math.floor(room / used.length), extra = room - base * used.length;
+      used.forEach(function (e, i) { steps.push({ m: Math.max(1, base) + (i < extra ? 1 : 0), t: e[1], c: e[2] }); });
+    } else steps[1].m += room;
+    steps.push({ m: close, t: 'Close', c: S.intent ? 'Say it softly: “' + S.intent + '”' : 'Take one last slow breath.' });
+    var total = steps.reduce(function (a, s) { return a + s.m; }, 0);
+    var cap1 = S.moment.charAt(0).toUpperCase() + S.moment.slice(1);
+    var title = 'Your ' + cap1 + ' Ritual';
+    var text = title + ' · ' + total + ' min · ' + S.time + '\n\n' + steps.map(function (s) { return s.m + ' min  ' + s.t + ' — ' + s.c; }).join('\n') + '\n\nUne Femme Divine · Balance begins within.';
+    plan = { steps: steps, title: title, text: text, total: total, dropped: dropped };
+  }
+
+  function timeLabel() {
+    var p = S.time.split(':'), d = new Date(2000, 0, 1, +p[0], +p[1]);
+    return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  }
+
+  function calEvent() {
+    var p = S.time.split(':'), now = new Date();
+    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, +p[0], +p[1]);
+    var n = +S.repeat;
+    return { uid: 'ritual-' + start.getTime(), title: S.title || 'My Divine Ritual', details: plan.text, start: start, minutes: plan.total, rrule: 'FREQ=DAILY' + (n ? ';COUNT=' + n : '') };
+  }
+
+  function render(skipInputs) {
+    store.set('ritual.builder', S);
+    $$('#seg-moment button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === S.moment)); });
+    $$('#seg-len button').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.v === S.len)); });
+    $$('#chips-el .chip').forEach(function (b) { b.setAttribute('aria-pressed', String(S.els.indexOf(b.dataset.id) >= 0)); });
+    if (!skipInputs) { $('#r-time').value = S.time; }
+    $('#r-intent').value !== S.intent && ($('#r-intent').value = S.intent);
+    $('#r-repeat').value = S.repeat; $('#r-title').value = S.title;
+    build();
+    $('#rc-title').textContent = plan.title;
+    $('#rc-sub').textContent = plan.total + ' minutes, every day at ' + timeLabel() + '.';
+    var ol = $('#rc-steps'); ol.textContent = '';
+    plan.steps.forEach(function (s) {
+      ol.appendChild(h('li', {}, [
+        h('span', { class: 'min' }, [String(s.m), h('small', { text: 'min' })]),
+        h('span', {}, [h('b', { text: s.t }), h('span', { class: 'muted', text: s.c })])
+      ]));
+    });
+    $('#el-hint').textContent = plan.dropped > 0 ? 'A ' + S.len + '-minute ritual holds fewer moments. We kept your first ' + (S.els.length - plan.dropped) + '. Try 10 or 20 minutes for more.' : '';
+    var ev = calEvent();
+    $('#cal-google').href = U.googleLink(ev);
+  }
+
+  $('#rc-copy').addEventListener('click', function () { U.copy(plan.text, 'Ritual copied'); });
+  var icsBtn = $('#cal-ics');
+  if (icsBtn) icsBtn.addEventListener('click', function () { U.downloadFile('my-divine-ritual.ics', U.buildICS([calEvent()], 'My Divine Ritual')); });
+  $('#cal-copy').addEventListener('click', function () { U.copy(U.buildICS([calEvent()], 'My Divine Ritual'), 'Calendar file copied. Paste it into a .ics file to import.', $('#cal-box')); });
+  render();
+
+  /* ----- journal ----- */
+  var MOODS = ['Calm', 'Tender', 'Bright', 'Tired', 'Grounded'];
+  var W = store.get('ritual.week', null);
+  if (!W || W.length !== 7) W = Array.from({ length: 7 }, function () { return { done: false, mood: '', note: '' }; });
+  var weekEl = $('#week');
+  function summary() {
+    var n = W.filter(function (d) { return d.done; }).length;
+    $('#wk-count').textContent = n + ' of 7';
+    $('#wk-bar > i').style.width = (n / 7 * 100) + '%';
+    $('#wk-bar').setAttribute('aria-valuenow', String(n));
+    $('#wk-msg').textContent = n === 7 ? 'Seven days of giving back to yourself. Beautiful.' : n === 0 ? 'moments kept. Begin whenever you are ready.' : n === 1 ? 'moment kept. That is how it starts.' : 'moments kept.';
+  }
+  function drawWeek() {
+    weekEl.textContent = '';
+    W.forEach(function (d, i) {
+      var card = h('div', { class: 'card day' + (d.done ? ' done' : '') });
+      var cb = h('input', { type: 'checkbox', id: 'wd' + i }); cb.checked = d.done;
+      cb.addEventListener('change', function () { d.done = cb.checked; card.classList.toggle('done', d.done); store.set('ritual.week', W); summary(); });
+      var moods = h('div', { class: 'chips', role: 'group', 'aria-label': 'How did day ' + (i + 1) + ' feel?' });
+      MOODS.forEach(function (m) {
+        var b = h('button', { type: 'button', class: 'chip', 'aria-pressed': String(d.mood === m), text: m });
+        b.addEventListener('click', function () {
+          d.mood = d.mood === m ? '' : m; store.set('ritual.week', W);
+          $$('button', moods).forEach(function (x) { x.setAttribute('aria-pressed', String(x.textContent === d.mood)); });
+        });
+        moods.appendChild(b);
+      });
+      var note = h('input', { type: 'text', maxlength: 90, placeholder: 'What did I give myself?', 'aria-label': 'Day ' + (i + 1) + ' note', value: d.note });
+      note.addEventListener('input', function () { d.note = note.value; store.set('ritual.week', W); });
+      card.appendChild(h('div', { class: 'top' }, [h('h4', { text: 'Day ' + (i + 1) })]));
+      card.appendChild(h('label', { class: 'check small', for: 'wd' + i }, [cb, h('span', { text: 'I kept my moment' })]));
+      card.appendChild(moods); card.appendChild(note);
+      weekEl.appendChild(card);
+    });
+    summary();
+  }
+  drawWeek();
+  var resetBtn = $('#wk-reset'), resetT;
+  resetBtn.addEventListener('click', function () {
+    if (resetBtn.dataset.sure) {
+      W = Array.from({ length: 7 }, function () { return { done: false, mood: '', note: '' }; });
+      store.set('ritual.week', W); drawWeek(); resetBtn.textContent = 'Begin a new week'; delete resetBtn.dataset.sure; clearTimeout(resetT); U.toast('A fresh week begins');
+    } else {
+      resetBtn.dataset.sure = '1'; resetBtn.textContent = 'Tap again to clear this week';
+      resetT = setTimeout(function () { delete resetBtn.dataset.sure; resetBtn.textContent = 'Begin a new week'; }, 4000);
+    }
+  });
+
+  /* ----- card deck ----- */
+  var CARDS = ['Five minutes of silence before the phone.', 'Sunlight on your face, eyes closed.', 'A warm drink, held with both hands.', 'Say no to one thing today, kindly.', 'Walk slowly. Notice the ground beneath you.', 'Hand on your heart. Three slow breaths.', 'Wear what feels like you.', 'Write down three things that were soft today.', 'Drink a full glass of water, slowly.', 'Close the day with one slow song.', 'Tell someone you love them. Out loud.', 'Stretch as if you have all the time.', 'Light a candle. Let the room change.', 'Rest without needing a reason.'];
+  var last = -1, face = $('#face'), q = $('#face-q');
+  $('#draw').addEventListener('click', function () {
+    var i; do { i = Math.floor(Math.random() * CARDS.length); } while (i === last);
+    last = i; q.textContent = CARDS[i];
+    face.classList.remove('swap'); void face.offsetWidth; face.classList.add('swap');
+  });
+  $('#draw-copy').addEventListener('click', function () { if (last < 0) { U.toast('Draw a card first'); return; } U.copy(CARDS[last] + '  — Une Femme Divine', 'Moment copied'); });
+
+  /* ----- gift ----- */
+  $('#gift-copy').addEventListener('click', function () { U.copy($('#gift-msg').value, 'Note copied'); });
+})();
+</script>
+</body>
+</html>

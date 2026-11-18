@@ -17,8 +17,8 @@ Headline: _Some days ask for rest. Others for movement._
 Line: Your body keeps a rhythm. Learn to listen to it.
 Call to action: see Version A or B above
 
-*POST 2: speaks to the period*
-Top: Inner winter | The days of your period
+*POST 2: speaks to the cycle*
+Top: Inner winter | The start of your cycle
 Label: Rest
 Headline: _Rest is not a pause in your life. It is part of it._
 Line: Warm cups. An early night. One less thing on the list.
@@ -26,7 +26,7 @@ Call to action: see Version A or B above
 
 *POST 3: shows the planner*
 Top: Day 1 is where it begins | Rhythm of the Body
-Headline: _Start from the first day of your period._
+Headline: _Start from the first day of your cycle._
 Line: Your month becomes four seasons.
 Picture: the planner's month view, in four colours: Rest, Rise, Bloom, Restore
 Call to action: see Version A or B above

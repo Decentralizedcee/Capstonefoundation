@@ -8,68 +8,82 @@
 <meta name="description" content="A gentle cycle and self-care planner from Une Femme Divine. See your month in four inner seasons and add them to your calendar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,500&family=DM+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;1,400;1,500&family=Poppins:wght@300;400;500&display=swap">
 <style>
 /*@BASE_CSS*/
 
-/* planner */
-:root { --p-rest: #735A66; --p-rise: #DDBFB7; --p-bloom: #F0D7D2; --p-restore: #B9A2AB; --ink-dark: #FFF9F7; --ink-light: #3E3A3B; }
-.setup { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+/* planner: four inner seasons */
+:root { --p-rest: #4A2A39; --p-rise: #E2C994; --p-bloom: #D8A7A0; --p-restore: #B79AA6; }
+.setup { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; align-items: start; }
 @media (max-width: 760px) { .setup { grid-template-columns: minmax(0, 1fr); } }
 .range-row { display: flex; align-items: center; gap: .9rem; }
-.range-row output { font-family: var(--font-display); font-style: italic; font-size: 1.6rem; color: var(--taupe-deep); min-width: 2.2rem; text-align: right; }
-.banner { margin-top: 1.1rem; padding: .7rem 1rem; border-radius: var(--radius-sm); background: var(--blush); color: var(--charcoal); font-size: .875rem; }
+.range-row output { font-family: var(--serif); font-size: 2rem; color: var(--aub); min-width: 2.2rem; text-align: right; line-height: 1; }
+.banner { margin-top: 1.3rem; padding: .8rem 1rem; border-left: 2px solid var(--gold); background: var(--sand); font-size: .84375rem; }
 
-.today { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.25rem, 4vw, 2.5rem); align-items: center; }
-@media (max-width: 640px) { .today { grid-template-columns: minmax(0, 1fr); } }
-.dial { width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; text-align: center; border: 8px solid var(--clay); background: var(--card); }
-.dial b { display: block; font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 3rem; line-height: 1; color: var(--taupe-deep); }
-.dial small { font-size: .6875rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-.swatch { display: inline-block; width: .8rem; height: .8rem; border-radius: 50%; margin-right: .45rem; vertical-align: -1px; border: 1px solid rgba(62,58,59,.25); }
+.today-card { margin-top: 1.5rem; background: var(--aub); color: var(--cream); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 2.8rem); align-items: center; padding: clamp(1.5rem, 4vw, 2.6rem); }
+@media (max-width: 640px) { .today-card { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; } }
+.dial { width: 170px; height: 170px; position: relative; }
+.dial svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.dial circle { fill: none; stroke-width: 3; }
+.dial .bg { stroke: rgba(226, 201, 148, .25); }
+.dial .fg { stroke: var(--champ); stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 289; transition: stroke-dashoffset .6s ease; }
+.dial .mid { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; align-content: center; }
+.dial small { font-size: .5625rem; letter-spacing: .3em; text-transform: uppercase; color: var(--champ); display: block; }
+.dial b { display: block; font-family: var(--serif); font-weight: 400; font-size: 3.8rem; line-height: 1; color: var(--cream); }
+.today-card h3 { color: var(--champ); font-style: italic; font-size: clamp(2.4rem, 6vw, 3.4rem); margin: .3rem 0 .6rem; }
+.today-card .eyebrow { color: var(--champ); }
+.today-card p { color: var(--cream); }
+.today-card .muted { color: #CDB9BF; }
+.today-card a:not(.btn) { color: var(--champ); }
+.swatch { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .5rem; vertical-align: -1px; border: 1px solid rgba(59, 31, 43, .3); }
 
 .calwrap { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.25rem, 3vw, 2rem); align-items: start; }
 @media (max-width: 900px) { .calwrap { grid-template-columns: minmax(0, 1fr); } }
-.cal-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1rem; }
-.cal-head h3 { font-size: 1.6rem; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1.2rem; }
+.cal-head h3 { font-size: 2rem; font-style: italic; }
 .dow, .grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
-.dow span { text-align: center; font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding-bottom: .4rem; }
-.cell { position: relative; font: inherit; font-size: .9375rem; font-weight: 600; aspect-ratio: 1 / 1; min-height: 40px; border-radius: 10px; border: 1.5px solid transparent; cursor: pointer; display: grid; place-items: center; padding: 0; transition: transform .1s; }
-.cell:hover { transform: scale(1.04); }
-.cell.out { opacity: .4; }
-.cell.today { box-shadow: 0 0 0 2px var(--ivory), 0 0 0 4px var(--charcoal); }
-.cell.sel { border-color: var(--charcoal); }
-.cell.p0 { background: var(--p-rest); color: var(--ink-dark); }
-.cell.p1 { background: var(--p-rise); color: var(--ink-light); }
-.cell.p2 { background: var(--p-bloom); color: var(--ink-light); border-color: var(--clay); }
-.cell.p3 { background: var(--p-restore); color: var(--ink-light); }
-.cell.p2.sel { border-color: var(--charcoal); }
-.cell .dot { position: absolute; bottom: 5px; left: 50%; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: currentColor; }
-.legend { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin-top: 1rem; font-size: .8125rem; color: var(--muted); }
-.panel h3 { margin-bottom: .15rem; }
+.dow span { text-align: center; font-size: .5625rem; letter-spacing: .22em; text-transform: uppercase; color: var(--bronze); padding-bottom: .5rem; }
+.cell { position: relative; font: inherit; font-size: .875rem; font-weight: 400; aspect-ratio: 1 / 1; min-height: 40px; border-radius: 2px; border: 1px solid transparent; cursor: pointer; display: grid; place-items: center; padding: 0; transition: transform .12s; }
+.cell:hover { transform: scale(1.06); z-index: 1; }
+.cell.out { opacity: .38; }
+.cell.today { box-shadow: 0 0 0 2px var(--cream), 0 0 0 3.5px var(--aub); }
+.band-sand .cell.today { box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--aub); }
+.cell.sel { outline: 2px solid var(--gold); outline-offset: 2px; }
+.cell.p0 { background: var(--p-rest); color: var(--cream); }
+.cell.p1 { background: var(--p-rise); color: var(--aub); }
+.cell.p2 { background: var(--p-bloom); color: var(--aub); }
+.cell.p3 { background: var(--p-restore); color: var(--aub); }
+.cell .dot { position: absolute; bottom: 5px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; }
+.legend { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; margin-top: 1.2rem; font-size: .75rem; color: var(--muted); }
+.panel h3 { margin-bottom: .2rem; font-style: italic; }
 .energy { display: flex; gap: .4rem; flex-wrap: wrap; }
-.energy .chip { min-width: 44px; padding-inline: .8rem; }
+.energy .chip { min-width: 46px; padding-inline: .8rem; }
+.lbl2 { font-size: .6875rem; letter-spacing: .2em; text-transform: uppercase; color: var(--bronze); display: block; margin-bottom: .55rem; }
 
 .strip { width: 100%; height: auto; display: block; overflow: visible; }
-.strip text { font-family: var(--font-body); fill: var(--charcoal); }
+.strip text { font-family: var(--sans); fill: var(--aub); }
 .strip .axis { fill: var(--muted); font-size: 11px; }
 
-.tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
-.tab { font: inherit; font-size: .9375rem; padding: .55rem 1.2rem; min-height: 44px; border-radius: 999px; border: 1.5px solid var(--clay); background: var(--card); cursor: pointer; color: var(--charcoal); }
-.tab[aria-selected="true"] { background: var(--taupe-deep); border-color: var(--taupe-deep); color: var(--ivory); }
-.tab .now { font-size: .625rem; letter-spacing: .14em; text-transform: uppercase; margin-left: .5rem; opacity: .85; }
-.pb { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.tab { font: inherit; font-size: .8125rem; padding: .55rem 1.3rem; min-height: 44px; border-radius: 2px; border: 1px solid var(--line-dark); background: transparent; cursor: pointer; color: var(--cream); letter-spacing: .08em; }
+.tab:hover { border-color: var(--champ); }
+.tab[aria-selected="true"] { background: var(--champ); border-color: var(--champ); color: var(--aub); }
+.tab .now { font-size: .5625rem; letter-spacing: .18em; text-transform: uppercase; margin-left: .55rem; opacity: .85; }
+.pb { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; border-top: 1px solid var(--line-dark); padding-top: 1.6rem; }
 @media (max-width: 820px) { .pb { grid-template-columns: minmax(0, 1fr); } }
-.pb h4 { margin-bottom: .35rem; }
-.checklist { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; gap: .6rem; }
+.pb h4 { margin-bottom: .4rem; color: var(--champ); }
+.band-dark .card.pbc { background: rgba(247, 241, 234, .04); }
+.checklist { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; gap: .7rem; }
+.band-dark input[type="checkbox"] { accent-color: var(--champ); }
 
-.preview { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-.preview li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .75rem; align-items: center; padding: .7rem 0; border-top: 1px solid var(--line); font-size: .9375rem; }
-.preview li:first-child { border-top: 0; }
-.preview .when { color: var(--muted); font-size: .8125rem; display: block; }
+.preview { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.preview li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .75rem; align-items: center; padding: .85rem 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+.preview b { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; display: block; line-height: 1.2; }
+.preview .when { color: var(--muted); font-size: .75rem; display: block; }
 .sync { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(1.25rem, 3vw, 2rem); align-items: start; }
 @media (max-width: 860px) { .sync { grid-template-columns: minmax(0, 1fr); } }
-.privacy { display: flex; gap: 1rem; align-items: flex-start; }
-.privacy svg { flex: none; width: 28px; height: 28px; stroke: var(--taupe-deep); fill: none; stroke-width: 1.5; }
+.privacy { display: flex; gap: 1.2rem; align-items: flex-start; }
+.privacy svg { flex: none; width: 30px; height: 30px; stroke: var(--gold); fill: none; stroke-width: 1.3; margin-top: .2rem; }
 </style>
 </head>
 <body>
@@ -77,27 +91,30 @@
 <header class="topbar" id="top">
   <div class="topbar-in">
     <img src="@@WORD@@" alt="Une Femme Divine">
-    <nav class="topnav" aria-label="Planner sections" data-locked hidden>
+    <nav class="topnav" aria-label="Planner sections" id="topnav" data-locked hidden>
       <a href="#start">Start</a><a href="#month">Month</a><a href="#rhythm">Rhythm</a><a href="#seasons">Seasons</a><a href="#sync">Calendar</a>
     </nav>
-    <!--hosted--><button class="btn small ghost no-print" type="button" data-print data-locked hidden>Save as PDF</button><!--/hosted-->
+    <!--hosted--><a class="btn small ghost no-print" href="pdf/Rhythm-of-the-Body.pdf" download data-locked hidden>PDF</a><!--/hosted-->
   </div>
 </header>
 
 <main>
   <!-- COVER + GATE -->
-  <section class="band band-blush cover">
+  <section class="band band-dark cover">
+    <span class="corner tl">Une Femme Divine</span><span class="corner tr">Self-care planner</span>
+    <span class="corner bl">Made for women</span><span class="corner br">Four inner seasons</span>
     <div class="in">
       <img class="mark" src="@@MARK@@" alt="Une Femme Divine, the divine woman emblem">
-      <h1>Rhythm of the Body</h1>
-      <p class="sub">A gentle cycle and self-care planner.</p>
-      <p class="kicker">Une Femme Divine &middot; Four inner seasons</p>
+      <p class="kick">A gentle cycle planner</p>
+      <h1>Rhythm of<br><span class="it gold-it">the Body.</span></h1>
+      <span class="rule"></span>
+      <p class="sub">See your month in four inner seasons, and live it gently.</p>
 
       <div class="gate-wrap" id="gate-wrap">
         <div class="card gate">
-          <h2 style="font-size:1.7rem;margin-bottom:.5rem">Open your planner</h2>
+          <h2>Open your <span class="it">planner.</span></h2>
           <p class="small muted">Free for everyone, new to Une Femme Divine or already part of the circle. Tell us where to send your letters and the planner opens right here.</p>
-          <form id="gate-form" novalidate style="margin-top:1rem">
+          <form id="gate-form" novalidate style="margin-top:1.2rem">
             <label class="field" for="g-name">First name
               <input id="g-name" name="name" type="text" autocomplete="given-name" placeholder="Your first name">
             </label>
@@ -112,7 +129,7 @@
             <button class="btn" type="submit">Open my planner</button>
           </form>
           <ul class="inside">
-            <li>See your month as four inner seasons: rest, rise, bloom, restore</li>
+            <li>Your month as four inner seasons: rest, rise, bloom, restore</li>
             <li>Gentle ideas for movement, nourishment and ritual in each season</li>
             <li>A private daily log of energy, mood and a few words</li>
             <li>Send your seasons to Google, Apple or Outlook calendar</li>
@@ -125,9 +142,11 @@
   <!-- START: setup + today -->
   <section class="band" id="start" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">Begin</p><span class="num">02</span></div>
       <div class="sec-head">
-        <p class="eyebrow">Welcome, <span data-name>you</span></p>
-        <h2>Begin with your rhythm</h2>
+        <p class="script" data-greet hidden style="color:var(--bronze);margin-bottom:.6rem"></p>
+        <h2>Begin with<br><span class="it">your rhythm.</span></h2>
+        <span class="rule"></span>
         <p class="lead">Tell us about your cycle and the planner shapes your month around it. Change it any time. Everything updates as you type.</p>
       </div>
       <div class="card">
@@ -138,11 +157,11 @@
             </label>
             <button class="btn small ghost" type="button" id="s-today" style="align-self:flex-start">It started today</button>
           </div>
-          <div>
+          <div class="stack" style="gap:.5rem">
             <label class="field" for="s-len">Cycle length (days)</label>
             <div class="range-row"><input id="s-len" type="range" min="21" max="40" value="28"><output id="o-len" for="s-len">28</output></div>
           </div>
-          <div>
+          <div class="stack" style="gap:.5rem">
             <label class="field" for="s-per">Period length (days)</label>
             <div class="range-row"><input id="s-per" type="range" min="2" max="8" value="5"><output id="o-per" for="s-per">5</output></div>
           </div>
@@ -150,25 +169,26 @@
         <p class="banner" id="example-banner">You are looking at an example. Choose the first day of your last period above and everything becomes yours.</p>
       </div>
 
-      <div class="card tint today" id="today" style="margin-top:1.25rem" aria-live="polite">
-        <div class="dial"><div><small>Day</small><b id="t-day">1</b><small id="t-of">of 28</small></div></div>
-        <div class="stack" style="gap:.6rem">
-          <p class="eyebrow" style="margin:0" id="t-season">Inner winter</p>
+      <div class="today-card" id="today" aria-live="polite">
+        <div class="dial"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="fg" id="t-arc" cx="50" cy="50" r="46"/></svg><div class="mid"><div><small>Day</small><b id="t-day">1</b><small id="t-of">of 28</small></div></div></div>
+        <div class="stack" style="gap:.5rem">
+          <p class="eyebrow" id="t-season">Inner winter</p>
           <h3 id="t-phase">Rest</h3>
           <p id="t-feel"></p>
           <p class="small muted" id="t-next"></p>
-          <p class="small"><a href="#seasons" id="t-link">See ideas for this season</a></p>
+          <p class="row" style="margin-top:.5rem"><button class="btn small" type="button" id="t-log">Log today</button><a class="small" href="#seasons" id="t-link">Ideas for this season</a></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- MONTH -->
-  <section class="band band-soft" id="month" data-locked hidden>
+  <section class="band band-sand" id="month" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">Your month</p><span class="num">03</span></div>
       <div class="sec-head">
-        <p class="eyebrow">Your month</p>
-        <h2>The month, in seasons</h2>
+        <h2>The month,<br><span class="it">in seasons.</span></h2>
+        <span class="rule"></span>
         <p class="lead">Tap any day to log how you feel. Dots mark the days you have written about. Your notes stay on this device.</p>
       </div>
       <div class="calwrap">
@@ -184,17 +204,17 @@
         </div>
         <div class="card panel stack" id="panel" aria-live="polite">
           <div>
-            <p class="eyebrow" id="d-eyebrow" style="margin-bottom:.4rem"></p>
+            <p class="eyebrow" id="d-eyebrow" style="margin-bottom:.5rem"></p>
             <h3 id="d-title"></h3>
             <p class="small muted" id="d-sub"></p>
           </div>
           <div>
-            <span class="lbl" id="l-energy" style="font-size:.8125rem;font-weight:600;color:var(--taupe-deep);display:block;margin-bottom:.5rem">Energy today</span>
+            <span class="lbl2" id="l-energy">Energy today</span>
             <div class="energy" role="group" aria-labelledby="l-energy" id="d-energy"></div>
-            <p class="small muted" style="margin-top:.4rem">1 is low, 5 is full.</p>
+            <p class="small muted" style="margin-top:.5rem">1 is low, 5 is full.</p>
           </div>
           <div>
-            <span class="lbl" id="l-mood" style="font-size:.8125rem;font-weight:600;color:var(--taupe-deep);display:block;margin-bottom:.5rem">Mood</span>
+            <span class="lbl2" id="l-mood">Mood</span>
             <div class="chips" role="group" aria-labelledby="l-mood" id="d-mood"></div>
           </div>
           <label class="field" for="d-note">A few words
@@ -208,9 +228,10 @@
   <!-- RHYTHM -->
   <section class="band" id="rhythm" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">This cycle</p><span class="num">04</span></div>
       <div class="sec-head">
-        <p class="eyebrow">This cycle</p>
-        <h2>Your rhythm at a glance</h2>
+        <h2>Your rhythm<br><span class="it">at a glance.</span></h2>
+        <span class="rule"></span>
         <p class="lead">Your current cycle, drawn to scale. The dots below are the energy levels you have logged, so over time you see your own pattern.</p>
       </div>
       <div class="card"><div id="strip-wrap"></div></div>
@@ -218,24 +239,26 @@
   </section>
 
   <!-- SEASONS -->
-  <section class="band band-soft" id="seasons" data-locked hidden>
+  <section class="band band-dark" id="seasons" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">Four inner seasons</p><span class="num">05</span></div>
       <div class="sec-head">
-        <p class="eyebrow">Four inner seasons</p>
-        <h2>What each season invites</h2>
-        <p class="lead">Every body is different. Treat these as invitations, never rules. Tick the ones you want to carry into your days.</p>
+        <h2>What each season<br><span class="it gold-it">invites.</span></h2>
+        <span class="rule"></span>
+        <p class="lead" style="color:var(--cream)">Every body is different. Treat these as invitations, never rules. Tick the ones you want to carry into your days.</p>
       </div>
       <div class="tabs" role="tablist" aria-label="Seasons" id="tabs"></div>
-      <div class="card" id="pb-panel" role="tabpanel"></div>
+      <div class="card pbc" id="pb-panel" role="tabpanel"></div>
     </div>
   </section>
 
   <!-- SYNC -->
   <section class="band" id="sync" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">Your calendar</p><span class="num">06</span></div>
       <div class="sec-head">
-        <p class="eyebrow">Your calendar</p>
-        <h2>Bring your seasons into your calendar</h2>
+        <h2>Bring your seasons<br><span class="it">into your calendar.</span></h2>
+        <span class="rule"></span>
         <p class="lead">Each season becomes an all-day event, so your week always shows what you are moving through. Choose how it appears, then send it to the calendar you already use.</p>
       </div>
       <div class="sync">
@@ -267,41 +290,42 @@
           </details>
         </div>
         <div class="card">
-          <h3 style="font-size:1.4rem;margin-bottom:.4rem">Coming up</h3>
-          <p class="small muted" style="margin-bottom:.6rem">Add a single season to Google Calendar.</p>
+          <h3 style="font-size:1.7rem;margin-bottom:.4rem" class="it">Coming up</h3>
+          <p class="small muted" style="margin-bottom:.8rem">Add a single season to Google Calendar.</p>
           <ul class="preview" id="x-list"></ul>
         </div>
       </div>
 
-      <div class="card tint privacy" style="margin-top:2rem">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <div class="card tint privacy" style="margin-top:2.2rem">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
         <div>
-          <h4 style="margin-bottom:.3rem">Private by design</h4>
+          <h4 style="margin-bottom:.4rem" class="it">Private by design</h4>
           <p class="small">Your dates, moods and notes are saved only in this browser on this device. They are never sent to Une Femme Divine or anyone else. The only thing we receive is the email address you chose to share.</p>
-          <p class="small no-print" style="margin-top:.8rem"><button class="btn small ghost" type="button" id="wipe">Clear my planner data from this device</button></p>
+          <p class="small no-print" style="margin-top:.9rem"><button class="btn small ghost" type="button" id="wipe">Clear my planner data from this device</button></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- NEXT -->
-  <section class="band band-soft" id="next" data-locked hidden>
-    <div class="in" style="max-width:760px">
+  <section class="band band-sand" id="next" data-locked hidden>
+    <div class="in" style="max-width:780px">
+      <div class="sechead"><p class="eyebrow">Pair it with a ritual</p><span class="num">07</span></div>
       <div class="card stack">
-        <p class="eyebrow">Pair it with a ritual</p>
-        <h3>Your Divine Ritual</h3>
-        <p>Build a daily moment around Divine Elixir, with a seven-day journal and a deck of small moments.</p>
+        <h3>Your Divine <span class="it">Ritual</span></h3>
+        <p>Build a daily moment around Divine Elixir, with a guided timer, a seven-day journal and a deck of small moments.</p>
         <p class="row"><a class="btn" data-other-guide href="#">Open the ritual guide</a><a class="btn ghost" data-shop href="#" target="_blank" rel="noopener">Visit the shop</a></p>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="band band-taupe" style="padding-block:3rem">
+<footer class="band band-dark" style="padding-block:4rem">
   <div class="in" style="text-align:center">
-    <img src="@@MARK_LIGHT@@" alt="" style="width:92px;margin:0 auto 1rem">
-    <h2 style="font-size:2rem;margin-bottom:1rem">Balance begins within.</h2>
-    <p class="small" style="margin:0 auto 1rem">Questions? <a data-contact href="#">hello</a></p>
+    <img src="@@MARK_LIGHT@@" alt="" style="width:84px;margin:0 auto 1.4rem">
+    <h2 style="font-size:2.6rem"><span class="it gold-it">Balance begins within.</span></h2>
+    <p class="eyebrow" style="margin:1.4rem 0 .8rem">Une Femme Divine</p>
+    <p class="small" style="margin:0 auto 1rem">Tag us <b>@unefemmedivine</b> &middot; Questions? <a data-contact href="#">hello</a></p>
     <p class="disclaimer" style="margin:0 auto">This planner shares lifestyle and self-care inspiration. Seasons are estimates drawn from the dates you enter. It is not a medical tool and must not be used to avoid or plan a pregnancy or to diagnose anything. If something feels unusual or worries you, please speak with a doctor.</p>
   </div>
 </footer>
@@ -310,12 +334,12 @@
 window.UFD_CONFIG = {
   guideId: 'guide-planner',
   provider: 'none',                       // 'shopify' | 'webhook' | 'none'  (see guides/README.md)
-  shopDomain: '',                         // e.g. 'your-store.myshopify.com'
+  shopDomain: '',                         // e.g. 'unefemmedivine.com'
   webhookUrl: '',                         // e.g. a Klaviyo / Mailchimp / Make / Zapier endpoint
   tags: 'guide-planner,newsletter',
-  contactEmail: 'marketing@unefemmedivine.com',
+  contactEmail: 'help@unefemmedivine.com',
   otherGuideUrl: 'divine-ritual-guide.html',
-  shopUrl: ''
+  shopUrl: 'https://unefemmedivine.com'
 };
 </script>
 <script>
@@ -328,25 +352,25 @@ window.UFD_CONFIG = {
   var today = new Date(); today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   var PHASES = [
-    { key: 'rest', name: 'Rest', season: 'Inner winter', plain: 'menstrual phase', color: '#735A66', ink: '#FFF9F7',
+    { key: 'rest', name: 'Rest', season: 'Inner winter', plain: 'menstrual phase', color: '#4A2A39', ink: '#F7F1EA',
       feel: 'Slower and quieter. Many women notice the body asking for softness.',
       move: 'Gentle walks, slow stretching, an early night.',
       nourish: 'Warm meals, warm cups, nothing rushed.',
       rituals: ['Say no to one extra thing', 'A warm bath or a long, slow shower', 'Phone out of the bedroom tonight', 'One slow morning with your Divine Elixir'],
       perm: 'Rest is not a pause in your life. It is part of it.' },
-    { key: 'rise', name: 'Rise', season: 'Inner spring', plain: 'follicular phase', color: '#DDBFB7', ink: '#3E3A3B',
+    { key: 'rise', name: 'Rise', season: 'Inner spring', plain: 'follicular phase', color: '#E2C994', ink: '#3B1F2B',
       feel: 'Lighter and curious. New ideas and a little more energy often arrive.',
       move: 'Walks outside, a class you have wanted to try, something playful.',
       nourish: 'Fresh colours on the plate and plenty of water.',
       rituals: ['Begin the thing you have been postponing', 'Plan your week on paper', 'Take your morning ritual outside', 'Try one new thing, however small'],
       perm: 'Begin small. Begin now.' },
-    { key: 'bloom', name: 'Bloom', season: 'Inner summer', plain: 'ovulatory phase', color: '#F0D7D2', ink: '#3E3A3B',
+    { key: 'bloom', name: 'Bloom', season: 'Inner summer', plain: 'ovulatory phase', color: '#D8A7A0', ink: '#3B1F2B',
       feel: 'Open and warm. Connection and conversation can feel easier.',
       move: 'Move with energy: dance, a brisk walk, a longer session.',
       nourish: 'Light, colourful food, shared with someone you like.',
       rituals: ['Have the conversation that matters', 'Dress entirely for yourself', 'Say yes to a gathering', 'Write down what you are proud of'],
       perm: 'Take up space, softly.' },
-    { key: 'restore', name: 'Restore', season: 'Inner autumn', plain: 'luteal phase', color: '#B9A2AB', ink: '#3E3A3B',
+    { key: 'restore', name: 'Restore', season: 'Inner autumn', plain: 'luteal phase', color: '#B79AA6', ink: '#3B1F2B',
       feel: 'More inward and detail-minded. Order and comfort can matter more.',
       move: 'Steady strength, pilates, yoga, long unhurried walks.',
       nourish: 'Grounding, comforting meals at regular times.',
@@ -354,16 +378,13 @@ window.UFD_CONFIG = {
       perm: 'You are allowed to need more softness.' }
   ];
   var MOODS = ['Calm', 'Tender', 'Bright', 'Tired', 'Grounded', 'Restless'];
-  var ENERGY = ['Low', '', '', '', 'Full'];
 
   /* ---------- state ---------- */
-  var ex = U.addDays(today, -9);
-  var S = Object.assign({ start: U.ymd(ex), L: 28, P: 5, example: true, discreet: true, cycles: 3, tab: null }, store.get('planner.state', {}));
+  var S = Object.assign({ start: U.ymd(U.addDays(today, -9)), L: 28, P: 5, example: true, discreet: true, cycles: 3, tab: null }, store.get('planner.state', {}));
   var logs = store.get('planner.logs', {});
   var checks = store.get('planner.checks', {});
   var view = new Date(today.getFullYear(), today.getMonth(), 1);
   var sel = U.ymd(today);
-
   function save() { store.set('planner.state', S); }
 
   /* ---------- cycle maths ---------- */
@@ -373,16 +394,13 @@ window.UFD_CONFIG = {
     var bloomEnd = Math.min(riseEnd + 4, L - 2);
     return { P: P, riseEnd: riseEnd, bloomEnd: bloomEnd };
   }
-  function cycleDay(d) {
-    var diff = U.diffDays(U.parse(S.start), d);
-    return (((diff % S.L) + S.L) % S.L) + 1;
-  }
+  function cycleDay(d) { var diff = U.diffDays(U.parse(S.start), d); return (((diff % S.L) + S.L) % S.L) + 1; }
   function phaseIdx(c) { var b = bounds(); return c <= b.P ? 0 : c <= b.riseEnd ? 1 : c <= b.bloomEnd ? 2 : 3; }
   function cycleStart(d) { return U.addDays(d, -(cycleDay(d) - 1)); }
   function segments(start) {
     var b = bounds(), L = S.L;
     return [[0, 1, b.P], [1, b.P + 1, b.riseEnd], [2, b.riseEnd + 1, b.bloomEnd], [3, b.bloomEnd + 1, L]].map(function (s) {
-      return { idx: s[0], from: s[1], to: s[2], start: U.addDays(start, s[1] - 1), end: U.addDays(start, s[2]) /* exclusive */ };
+      return { idx: s[0], from: s[1], to: s[2], start: U.addDays(start, s[1] - 1), end: U.addDays(start, s[2]) };
     });
   }
   function fmt(d, o) { return d.toLocaleDateString(undefined, o || { day: 'numeric', month: 'short' }); }
@@ -404,22 +422,27 @@ window.UFD_CONFIG = {
 
   /* ---------- today ---------- */
   function renderToday() {
-    var c = cycleDay(today), p = PHASES[phaseIdx(c)];
+    var c = cycleDay(today), pi = phaseIdx(c), p = PHASES[pi];
     $('#t-day').textContent = c; $('#t-of').textContent = 'of ' + S.L;
+    $('#t-arc').style.strokeDashoffset = String(289 * (1 - c / S.L));
     $('#t-season').textContent = p.season + ' · ' + p.plain;
     $('#t-phase').textContent = p.name;
     $('#t-feel').textContent = p.feel + ' ' + p.perm;
-    var segs = segments(cycleStart(today)), cur = segs[phaseIdx(c)];
-    var nextSeg = segs[(phaseIdx(c) + 1) % 4], nextStart = phaseIdx(c) === 3 ? U.addDays(cycleStart(today), S.L) : nextSeg.start;
+    var segs = segments(cycleStart(today));
+    var nextStart = pi === 3 ? U.addDays(cycleStart(today), S.L) : segs[pi + 1].start;
     var n = U.diffDays(today, nextStart);
-    $('#t-next').textContent = PHASES[(phaseIdx(c) + 1) % 4].name + ' begins ' + fmt(nextStart) + ' (in ' + n + (n === 1 ? ' day' : ' days') + ').';
+    $('#t-next').textContent = PHASES[(pi + 1) % 4].name + ' begins ' + fmt(nextStart) + ' (in ' + n + (n === 1 ? ' day' : ' days') + ').';
     $('#t-link').onclick = function () { S.tab = p.key; save(); renderTabs(); };
   }
+  $('#t-log').addEventListener('click', function () {
+    sel = U.ymd(today); view = new Date(today.getFullYear(), today.getMonth(), 1); renderMonth(); renderPanel();
+    $('#month').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   /* ---------- month ---------- */
   function renderDow() {
     var el = $('#dow'); el.textContent = '';
-    var mon = new Date(2024, 0, 1); // a Monday
+    var mon = new Date(2024, 0, 1);
     for (var i = 0; i < 7; i++) el.appendChild(h('span', { text: U.addDays(mon, i).toLocaleDateString(undefined, { weekday: 'short' }) }));
   }
   function renderLegend() {
@@ -430,7 +453,7 @@ window.UFD_CONFIG = {
     $('#m-title').textContent = view.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
     var g = $('#grid'); g.textContent = '';
     var first = new Date(view.getFullYear(), view.getMonth(), 1);
-    var offset = (first.getDay() + 6) % 7; // Monday first
+    var offset = (first.getDay() + 6) % 7;
     var gridStart = U.addDays(first, -offset);
     var rows = Math.ceil((offset + new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate()) / 7);
     for (var i = 0; i < rows * 7; i++) {
@@ -455,7 +478,7 @@ window.UFD_CONFIG = {
   /* ---------- day panel ---------- */
   var eBox = $('#d-energy'), mBox = $('#d-mood'), note = $('#d-note');
   [1, 2, 3, 4, 5].forEach(function (n) {
-    var b = h('button', { type: 'button', class: 'chip', 'data-n': n, 'aria-pressed': 'false', 'aria-label': 'Energy ' + n + (ENERGY[n - 1] ? ', ' + ENERGY[n - 1].toLowerCase() : ''), text: String(n) });
+    var b = h('button', { type: 'button', class: 'chip', 'data-n': n, 'aria-pressed': 'false', 'aria-label': 'Energy ' + n, text: String(n) });
     b.addEventListener('click', function () { var l = getLog(); l.energy = l.energy === n ? 0 : n; putLog(l); });
     eBox.appendChild(b);
   });
@@ -492,31 +515,28 @@ window.UFD_CONFIG = {
     var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'strip', role: 'img', 'aria-label': 'Your current cycle: ' + segs.map(function (s) { return PHASES[s.idx].name + ' days ' + s.from + ' to ' + s.to; }).join(', ') });
     segs.forEach(function (s) {
       var p = PHASES[s.idx], x1 = x(s.from), x2 = x(s.to + 1);
-      svg.appendChild(el('rect', { x: x1, y: barY, width: x2 - x1, height: barH, fill: p.color, stroke: s.idx === 2 ? '#DDBFB7' : 'none', 'stroke-width': 1.5, rx: 8 }));
-      if (x2 - x1 > 70) svg.appendChild(el('text', { x: (x1 + x2) / 2, y: barY + barH / 2 + 4, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600, fill: p.ink, style: 'fill:' + p.ink }, p.name));
+      svg.appendChild(el('rect', { x: x1 + 1, y: barY, width: Math.max(0, x2 - x1 - 2), height: barH, fill: p.color, rx: 2 }));
+      if (x2 - x1 > 70) svg.appendChild(el('text', { x: (x1 + x2) / 2, y: barY + barH / 2 + 4, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 500, style: 'fill:' + p.ink }, p.name));
       svg.appendChild(el('text', { x: x1 + 2, y: barY - 10, class: 'axis' }, fmt(s.start)));
     });
-    // day ticks every 7 days
     for (var c = 1; c <= L; c += (c === 1 ? 6 : 7)) { svg.appendChild(el('text', { x: x(c) + (x(c + 1) - x(c)) / 2, y: barY + barH + 16, 'text-anchor': 'middle', class: 'axis' }, String(c))); }
     svg.appendChild(el('text', { x: padX, y: barY + barH + 32, class: 'axis' }, 'Cycle day'));
-    // today marker
     var tc = cycleDay(today), tx = x(tc) + (x(tc + 1) - x(tc)) / 2;
-    svg.appendChild(el('path', { d: 'M' + (tx - 7) + ' ' + (barY - 26) + ' L' + (tx + 7) + ' ' + (barY - 26) + ' L' + tx + ' ' + (barY - 14) + ' Z', fill: '#3E3A3B' }));
-    svg.appendChild(el('line', { x1: tx, y1: barY - 14, x2: tx, y2: barY + barH, stroke: '#3E3A3B', 'stroke-width': 2 }));
-    // energy plot
+    svg.appendChild(el('path', { d: 'M' + (tx - 7) + ' ' + (barY - 26) + ' L' + (tx + 7) + ' ' + (barY - 26) + ' L' + tx + ' ' + (barY - 14) + ' Z', fill: '#3B1F2B' }));
+    svg.appendChild(el('line', { x1: tx, y1: barY - 14, x2: tx, y2: barY + barH, stroke: '#3B1F2B', 'stroke-width': 2 }));
     svg.appendChild(el('text', { x: padX, y: plotTop - 12, class: 'axis' }, 'Energy you have logged'));
     [1, 3, 5].forEach(function (v) {
       var y = plotTop + plotH - ((v - 1) / 4) * plotH;
-      svg.appendChild(el('line', { x1: padX, y1: y, x2: W - padX, y2: y, stroke: '#E6CFC9', 'stroke-width': 1, 'stroke-dasharray': '3 4' }));
+      svg.appendChild(el('line', { x1: padX, y1: y, x2: W - padX, y2: y, stroke: '#DCCDBA', 'stroke-width': 1, 'stroke-dasharray': '3 4' }));
       svg.appendChild(el('text', { x: W - padX, y: y - 4, 'text-anchor': 'end', class: 'axis' }, String(v)));
     });
     var n = 0, pts = [];
     for (var i = 0; i < L; i++) {
       var d = U.addDays(start, i), lg = logs[U.ymd(d)];
-      if (lg && lg.energy) { pts.push([x(i + 1) + (x(i + 2) - x(i + 1)) / 2, plotTop + plotH - ((lg.energy - 1) / 4) * plotH, lg.energy, d]); n++; }
+      if (lg && lg.energy) { pts.push([x(i + 1) + (x(i + 2) - x(i + 1)) / 2, plotTop + plotH - ((lg.energy - 1) / 4) * plotH]); n++; }
     }
-    if (pts.length > 1) svg.appendChild(el('polyline', { points: pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '), fill: 'none', stroke: '#8B6F7B', 'stroke-width': 1.5 }));
-    pts.forEach(function (p) { svg.appendChild(el('circle', { cx: p[0], cy: p[1], r: 5, fill: '#735A66' })); });
+    if (pts.length > 1) svg.appendChild(el('polyline', { points: pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '), fill: 'none', stroke: '#B8975A', 'stroke-width': 1.5 }));
+    pts.forEach(function (p) { svg.appendChild(el('circle', { cx: p[0], cy: p[1], r: 5, fill: '#3B1F2B' })); });
     if (!n) svg.appendChild(el('text', { x: W / 2, y: plotTop + plotH / 2 + 4, 'text-anchor': 'middle', class: 'axis' }, 'Log your energy in the month view and it appears here.'));
     var wrap = $('#strip-wrap'); wrap.textContent = ''; wrap.appendChild(svg);
   }
@@ -539,9 +559,9 @@ window.UFD_CONFIG = {
     var seg = segments(cycleStart(today))[pi];
     var panel = $('#pb-panel'); panel.textContent = '';
     panel.setAttribute('aria-labelledby', 'tab-' + p.key);
-    panel.appendChild(h('div', { class: 'stack', style: 'margin-bottom:1.5rem' }, [
-      h('p', { class: 'eyebrow', style: 'margin:0' }, [h('i', { class: 'swatch', style: 'background:' + p.color }), p.season + ' · ' + p.plain]),
-      h('h3', { text: p.name }),
+    panel.appendChild(h('div', { class: 'stack', style: 'margin-bottom:1.8rem' }, [
+      h('p', { class: 'eyebrow' }, [h('i', { class: 'swatch', style: 'background:' + p.color }), p.season + ' · ' + p.plain]),
+      h('h3', { class: 'it gold-it', text: p.name }),
       h('p', { class: 'muted small', text: 'This cycle: ' + fmt(seg.start) + ' to ' + fmt(U.addDays(seg.end, -1)) + ' (days ' + seg.from + ' to ' + seg.to + ')' }),
       h('p', { text: p.feel })
     ]));
@@ -557,7 +577,7 @@ window.UFD_CONFIG = {
       h('div', {}, [h('h4', { text: 'Nourish' }), h('p', { text: p.nourish })]),
       h('div', {}, [h('h4', { text: 'Ritual ideas' }), ul])
     ]));
-    panel.appendChild(h('p', { class: 'quote', style: 'margin-top:1.75rem;font-size:1.5rem', text: '“' + p.perm + '”' }));
+    panel.appendChild(h('p', { class: 'quote', style: 'margin-top:2rem;font-size:1.8rem', text: '“' + p.perm + '”' }));
   }
 
   /* ---------- calendar sync ---------- */
@@ -599,7 +619,7 @@ window.UFD_CONFIG = {
       wt = setTimeout(function () { delete wipe.dataset.sure; wipe.textContent = 'Clear my planner data from this device'; }, 4000); return;
     }
     clearTimeout(wt);
-    ['planner.state', 'planner.logs', 'planner.checks'].forEach(store.del);
+    ['planner.state', 'planner.logs', 'planner.checks'].forEach(function (k) { store.del(k); });
     S = { start: U.ymd(U.addDays(today, -9)), L: 28, P: 5, example: true, discreet: true, cycles: 3, tab: null }; logs = {}; checks = {};
     delete wipe.dataset.sure; wipe.textContent = 'Clear my planner data from this device';
     renderAll(); U.toast('Your planner data was cleared');
@@ -607,6 +627,14 @@ window.UFD_CONFIG = {
 
   function renderAll() { syncInputs(); renderToday(); renderMonth(); renderPanel(); renderStrip(); renderTabs(); renderSync(); }
   renderDow(); renderLegend(); renderAll();
+
+  if ('IntersectionObserver' in window) {
+    var links = {}; $$('#topnav a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && links[e.target.id]) { $$('#topnav a').forEach(function (a) { a.classList.remove('on'); }); links[e.target.id].classList.add('on'); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+  }
 })();
 </script>
 </body>

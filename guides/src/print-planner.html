@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rhythm of the Body (PDF)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;1,400;1,500&family=Poppins:wght@300;400;500&display=swap">
+<style>
+/*@PRINT_CSS*/
+.s0 { background: #4A2A39; color: #F7F1EA; } .s1 { background: #E2C994; } .s2 { background: #D8A7A0; } .s3 { background: #B79AA6; }
+.dark .s0 { background: #5b3748; }
+#log td { height: 5.75mm; } #log .fld.t { height: 5.75mm; }
+.pbk { margin-bottom: 13mm; padding-bottom: 13mm; } .pbk li { font-size: 9.4pt; margin-bottom: 2.6mm; } .pbk .cols .small { font-size: 9.2pt; } .pbk .lead { font-size: 11pt !important; }
+.ct th, .ct td { text-align: center; }
+.ct td:first-child, .ct th:first-child { text-align: left; }
+.ct td { font-size: 8.6pt; height: 6.2mm; }
+</style>
+</head>
+<body>
+
+<!-- 1 cover -->
+<section class="sheet dark frame">
+  <span class="corner tl">Une Femme Divine</span><span class="corner tr">Self-care planner</span>
+  <span class="corner bl">Made for women</span><span class="corner br">Four inner seasons</span>
+  <div class="center">
+    <img class="mark" src="@@MARK@@" alt="">
+    <p class="lbl" style="letter-spacing:.38em;margin-bottom:7mm">A gentle cycle planner</p>
+    <h1 class="h1">Rhythm of<br><span class="gi">the Body.</span></h1>
+    <div class="rule"></div>
+    <p class="sub">See your month in four inner seasons, and live it gently.</p>
+  </div>
+</section>
+
+<!-- 2 welcome -->
+<section class="sheet">
+  <div class="hd"><span>Welcome</span><span>02</span></div>
+  <h2 class="h2">Welcome to<br><span class="it">your rhythm.</span></h2>
+  <div class="rule"></div>
+  <div style="max-width:132mm">
+    <p class="lead">Your body keeps a rhythm. Some days ask for rest, others for movement, connection or order. This planner helps you notice it, and shape your days around it.</p>
+    <p class="lead">We borrow the language of the seasons: an inner winter, spring, summer and autumn. Each one brings its own invitations for how to move, what to eat and how to take your ritual. They are invitations, never rules. Every body is different.</p>
+  </div>
+  <div class="seas" id="seas-intro"></div>
+  <p class="small muted" style="margin-top:6mm">Days shown are for a 28-day cycle with a 5-day period. Your own seasons are on the next page.</p>
+  <div class="ft"><span>Une Femme Divine</span><span>Balance begins within</span></div>
+</section>
+
+<!-- 3 your seasons (fillable + table) -->
+<section class="sheet sand">
+  <div class="hd"><span>Your seasons</span><span>03</span></div>
+  <h2 class="h2" style="font-size:34pt">Find your <span class="it">seasons.</span></h2>
+  <div class="rule" style="margin:5mm 0"></div>
+  <div class="grid2" style="gap:4mm 8mm;margin-bottom:5mm">
+    <div><p class="lbl">First day of your last period</p><span class="fld t" data-f="start_date" data-type="text" style="width:100%"></span></div>
+    <div class="grid2" style="gap:4mm"><div><p class="lbl">Cycle length</p><span class="fld t" data-f="cycle_length" data-type="text" style="width:100%"></span></div><div><p class="lbl">Period length</p><span class="fld t" data-f="period_length" data-type="text" style="width:100%"></span></div></div>
+  </div>
+  <p class="small">Find your cycle length in the table. Rest lasts as many days as your period. Rise, Bloom and Restore follow. This table assumes a 5-day period.</p>
+  <table class="tbl ct" style="margin-top:3mm" id="season-table"><thead><tr><th>Cycle</th><th>Rest</th><th>Rise</th><th>Bloom</th><th>Restore</th></tr></thead><tbody></tbody></table>
+  <p class="small muted" style="margin-top:4mm">Seasons are estimates drawn from the dates you enter. This is not a medical tool and must not be used to avoid or plan a pregnancy.</p>
+  <div class="ft"><span>Une Femme Divine</span><span>Balance begins within</span></div>
+</section>
+
+<!-- 4 + 5 playbooks -->
+<section class="sheet dark" id="pb-a"><div class="hd"><span>Four inner seasons</span><span>04</span></div><div class="pb-body"></div></section>
+<section class="sheet dark" id="pb-b"><div class="hd"><span>Four inner seasons</span><span>05</span></div><div class="pb-body"></div></section>
+
+<!-- 6 cycle log (fillable) -->
+<section class="sheet">
+  <div class="hd"><span>Your cycle, day by day</span><span>06</span></div>
+  <h2 class="h3" style="margin-bottom:3mm">A few words <span class="it">each day.</span></h2>
+  <table class="tbl" id="log"><thead><tr><th style="width:11mm">Day</th><th style="width:26mm">Date</th><th style="width:16mm">Energy 1-5</th><th style="width:30mm">Mood</th><th>A few words</th></tr></thead><tbody></tbody></table>
+</section>
+
+<!-- 7 calendar -->
+<section class="sheet sand">
+  <div class="hd"><span>Your calendar</span><span>07</span></div>
+  <h2 class="h2" style="font-size:34pt">Seasons in your <span class="it">calendar.</span></h2>
+  <div class="rule" style="margin:5mm 0"></div>
+  <p class="lead" style="font-size:10pt">Write the dates of your seasons below, then add each one to your calendar as an all-day event. Or use the interactive planner, which sends all your seasons to Google, Apple or Outlook calendar in one tap.</p>
+  <table class="tbl" style="margin-top:6mm"><thead><tr><th>Season</th><th style="width:48mm">From</th><th style="width:48mm">To</th></tr></thead><tbody id="cal-rows"></tbody></table>
+  <div class="card" style="margin-top:8mm"><p class="lbl">The interactive planner</p><p class="small" style="margin:0">Enter your dates once and see your month in seasons, log energy and mood, and export a calendar file. Your notes stay on your device. Open it at <a style="text-decoration:underline" href="https://unefemmedivine.com">unefemmedivine.com</a>.</p></div>
+  <div class="ft"><span>Une Femme Divine</span><span>Balance begins within</span></div>
+</section>
+
+<!-- 8 closing -->
+<section class="sheet dark frame">
+  <div class="center">
+    <img class="mark" src="@@MARK@@" alt="">
+    <h2 class="h2" style="font-size:38pt"><span class="gi">Balance begins<br>within.</span></h2>
+    <div class="rule"></div>
+    <p class="small muted" style="max-width:110mm">This planner shares lifestyle and self-care inspiration and is not medical advice. If something feels unusual or worries you, please speak with a doctor.</p>
+    <p class="lbl" style="margin-top:6mm">Une Femme Divine &middot; @unefemmedivine</p>
+    <p class="small" style="margin-top:1mm"><a style="color:var(--champ)" href="mailto:help@unefemmedivine.com">help@unefemmedivine.com</a></p>
+  </div>
+</section>
+
+<script>
+(function () {
+  function el(t, c, h) { var e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; }
+  var NAMES = [['Rest', 'Inner winter', 's0'], ['Rise', 'Inner spring', 's1'], ['Bloom', 'Inner summer', 's2'], ['Restore', 'Inner autumn', 's3']];
+  function bounds(L, P) { var riseEnd = Math.max(P + 1, Math.floor(L * .45)); var bloomEnd = Math.min(riseEnd + 4, L - 2); return { P: P, r: riseEnd, b: bloomEnd }; }
+  function range(a, b) { return a === b ? '' + a : a + '–' + b; }
+  var b28 = bounds(28, 5), spans = [range(1, 5), range(6, b28.r), range(b28.r + 1, b28.b), range(b28.b + 1, 28)];
+  var si = document.getElementById('seas-intro');
+  NAMES.forEach(function (n, i) { si.appendChild(el('div', n[2], '<b>' + n[0] + '</b><span>' + n[1] + '</span><br><span style="opacity:.8">Days ' + spans[i] + '</span>')); });
+
+  var tb = document.querySelector('#season-table tbody');
+  for (var L = 21; L <= 38; L++) { var b = bounds(L, 5); tb.appendChild(el('tr', '', '<td><b>' + L + ' days</b></td><td>' + range(1, 5) + '</td><td>' + range(6, b.r) + '</td><td>' + range(b.r + 1, b.b) + '</td><td>' + range(b.b + 1, L) + '</td>')); }
+
+  var PH = [
+    ['Rest', 'Inner winter', 'menstrual phase', '#4A2A39', 'Slower and quieter. Many women notice the body asking for softness.', 'Gentle walks, slow stretching, an early night.', 'Warm meals, warm cups, nothing rushed.', ['Say no to one extra thing', 'A warm bath or a long, slow shower', 'Phone out of the bedroom tonight', 'One slow morning with your Divine Elixir'], 'Rest is not a pause in your life. It is part of it.'],
+    ['Rise', 'Inner spring', 'follicular phase', '#E2C994', 'Lighter and curious. New ideas and a little more energy often arrive.', 'Walks outside, a class you have wanted to try, something playful.', 'Fresh colours on the plate and plenty of water.', ['Begin the thing you have been postponing', 'Plan your week on paper', 'Take your morning ritual outside', 'Try one new thing, however small'], 'Begin small. Begin now.'],
+    ['Bloom', 'Inner summer', 'ovulatory phase', '#D8A7A0', 'Open and warm. Connection and conversation can feel easier.', 'Move with energy: dance, a brisk walk, a longer session.', 'Light, colourful food, shared with someone you like.', ['Have the conversation that matters', 'Dress entirely for yourself', 'Say yes to a gathering', 'Write down what you are proud of'], 'Take up space, softly.'],
+    ['Restore', 'Inner autumn', 'luteal phase', '#B79AA6', 'More inward and detail-minded. Order and comfort can matter more.', 'Steady strength, pilates, yoga, long unhurried walks.', 'Grounding, comforting meals at regular times.', ['Tidy one small space', 'Journal what you need right now', 'Protect your evenings', 'Slow your morning ritual down'], 'You are allowed to need more softness.']
+  ];
+  PH.forEach(function (p, i) {
+    var host = document.querySelector(i < 2 ? '#pb-a .pb-body' : '#pb-b .pb-body');
+    var lis = p[7].map(function (r, k) { return '<li><span class="fld c" data-f="ck_' + p[0].toLowerCase() + k + '" data-type="check"></span><span>' + r + '</span></li>'; }).join('');
+    host.appendChild(el('div', 'pbk', '<p class="lbl"><span class="sw" style="background:' + p[3] + '"></span>' + p[1] + ' &middot; ' + p[2] + '</p><h2 class="h2" style="font-size:36pt"><span class="gi">' + p[0] + '</span></h2><p class="lead" style="font-size:10pt;margin-top:2mm">' + p[4] + '</p><div class="cols"><div><h4>Move</h4><p class="small" style="margin:0">' + p[5] + '</p></div><div><h4>Nourish</h4><p class="small" style="margin:0">' + p[6] + '</p></div><div class="pb"><h4>Ritual ideas</h4><ul>' + lis + '</ul></div></div><p class="script" style="font-size:14pt;margin:4mm 0 0;color:var(--champ)">&ldquo;' + p[8] + '&rdquo;</p>'));
+  });
+
+  var lg = document.querySelector('#log tbody');
+  for (var d = 1; d <= 35; d++) lg.appendChild(el('tr', '', '<td>' + d + '</td><td class="fcell"><span class="fld t" data-f="log' + d + '_date" data-type="text"></span></td><td class="fcell"><span class="fld t" data-f="log' + d + '_energy" data-type="text"></span></td><td class="fcell"><span class="fld t" data-f="log' + d + '_mood" data-type="text"></span></td><td class="fcell"><span class="fld t" data-f="log' + d + '_note" data-type="text"></span></td>'));
+
+  var cr = document.getElementById('cal-rows');
+  NAMES.forEach(function (n, i) { cr.appendChild(el('tr', '', '<td><span class="sw ' + n[2] + '" style="display:inline-block;vertical-align:middle"></span> <b>' + n[0] + '</b> <span class="small muted">' + n[1] + '</span></td><td class="fcell"><span class="fld t" data-f="cal' + i + '_from" data-type="text"></span></td><td class="fcell"><span class="fld t" data-f="cal' + i + '_to" data-type="text"></span></td>')); });
+})();
+</script>
+</body>
+</html>

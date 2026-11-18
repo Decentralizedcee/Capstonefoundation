@@ -27,8 +27,10 @@ def assemble(page: str) -> str:
     html = (SRC / page).read_text()
     html = html.replace("/*@BASE_CSS*/", (SRC / "base.css").read_text())
     html = html.replace("/*@COMMON_JS*/", (SRC / "common.js").read_text())
-    for token, asset in (("@@MARK_LIGHT@@", "mark-light.png"), ("@@MARK@@", "mark.png"), ("@@WORD@@", "wordmark.png")):
-        html = html.replace(token, data_uri(asset))
+    for token, asset in (("@@MARK_LIGHT@@", "mark-gold.png"), ("@@MARK_INK@@", "mark-ink.png"), ("@@MARK@@", "mark-gold.png"),
+                         ("@@WORD_GOLD@@", "word-gold.png"), ("@@WORD@@", "word-ink.png")):
+        if token in html:
+            html = html.replace(token, data_uri(asset))
     return html
 
 
@@ -46,7 +48,16 @@ def keep_hosted(html: str) -> str:
     return html.replace("<!--hosted-->", "").replace("<!--/hosted-->", "")
 
 
+def assemble_print(page: str) -> str:
+    html = (SRC / page).read_text()
+    html = html.replace("/*@PRINT_CSS*/", (SRC / "print.css").read_text())
+    return html.replace("@@MARK@@", data_uri("mark-gold.png"))
+
+
 if __name__ == "__main__":
+    (ROOT / "_print").mkdir(exist_ok=True)
+    for page, out in (("print-ritual.html", "ritual.html"), ("print-planner.html", "planner.html")):
+        (ROOT / "_print" / out).write_text(assemble_print(page))
     (ROOT / "_preview").mkdir(exist_ok=True)
     for page, out in (("ritual.html", "divine-ritual-guide.html"), ("planner.html", "rhythm-planner.html")):
         full = assemble(page)

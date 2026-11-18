@@ -8,61 +8,115 @@
 <meta name="description" content="An interactive guide from Une Femme Divine to building a daily ritual, a moment you give back to yourself.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400;1,6..96,500&family=DM+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;1,400;1,500&family=Poppins:wght@300;400;500&display=swap">
 <style>
 /*@BASE_CSS*/
 
 /* ritual guide */
-.step-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
-.movement { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
-.movement .n { font-family: var(--font-display); font-style: italic; font-size: 2.2rem; line-height: 1; color: var(--taupe); min-width: 1.6rem; }
-.movement label { cursor: pointer; display: block; }
-.movement input { position: absolute; opacity: 0; }
-.movement .box { display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: start; padding: 1.1rem 1.2rem; border: 1.5px solid var(--clay); border-radius: var(--radius); background: var(--card); }
-.movement input:checked + .box { background: var(--blush-soft); border-color: var(--taupe); }
-.movement input:focus-visible + .box { outline: 3px solid var(--focus); outline-offset: 2px; }
-.tick { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--taupe); display: grid; place-items: center; margin-top: 2px; }
-.movement input:checked + .box .tick { background: var(--taupe-deep); border-color: var(--taupe-deep); }
-.movement input:checked + .box .tick::after { content: ""; width: 6px; height: 11px; border: solid var(--ivory); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
-.movement h4 { margin-bottom: .2rem; }
+.steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.steps li { border-bottom: 1px solid var(--line); }
+.steps label { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr) 28px; gap: 1rem; align-items: start; padding: 1.5rem 0; cursor: pointer; }
+.steps input { position: absolute; opacity: 0; }
+.steps .n { font-family: var(--serif); font-size: 2.6rem; line-height: .9; color: var(--gold); }
+.steps h4 { font-family: var(--sans); font-size: .75rem; letter-spacing: .24em; text-transform: uppercase; font-weight: 500; margin: .35rem 0 .45rem; }
+.steps .tick { width: 26px; height: 26px; border: 1px solid var(--gold); display: grid; place-items: center; margin-top: .25rem; transition: background .2s; }
+.steps input:checked ~ .tick { background: var(--aub); border-color: var(--aub); }
+.steps input:checked ~ .tick::after { content: ""; width: 6px; height: 11px; border: solid var(--champ); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.steps input:checked ~ div h4 { color: var(--bronze); }
+.steps input:focus-visible ~ .tick { outline: 2px solid var(--focus); outline-offset: 3px; }
+.secret { background: var(--aub); color: var(--cream); padding: 1.7rem clamp(1.25rem, 4vw, 2rem); margin-top: 2rem; }
+.secret .eyebrow { color: var(--champ); margin-bottom: .6rem; }
+.secret p { font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.25; margin: 0; }
+.fine { font-size: .78rem; color: var(--muted); margin-top: 1.1rem; }
 
-.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
-.facts li { padding: .9rem 1rem; border-radius: var(--radius-sm); background: var(--card); border: 1px solid var(--line); font-size: .9375rem; }
-.facts b { display: block; font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.15rem; color: var(--taupe-deep); }
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; border-top: 1px solid var(--line-dark); padding-top: 1.6rem; margin-top: clamp(2.5rem, 7vw, 4.5rem); }
+.pillars h4 { color: var(--champ); margin-bottom: .4rem; }
+.pillars p { font-size: .84375rem; color: #D8C8CD; }
+@media (max-width: 640px) { .pillars { grid-template-columns: minmax(0, 1fr); } }
+
+.formula { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0; }
+@media (max-width: 640px) { .formula { grid-template-columns: minmax(0, 1fr); } }
+.formula .card .eyebrow { margin-bottom: .6rem; }
+.formula h4 { font-size: 1.5rem; line-height: 1.3; }
+.spec { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.spec li { display: flex; justify-content: space-between; gap: 1rem; padding: .75rem 0; border-bottom: 1px solid var(--line); font-size: .875rem; }
+.spec li span:first-child { color: var(--muted); }
+.spec li span:last-child { font-weight: 500; text-align: right; }
 
 .builder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
 @media (max-width: 860px) { .builder { grid-template-columns: minmax(0, 1fr); } }
-.builder .ctl { display: flex; flex-direction: column; gap: 1.4rem; }
-.ctl .lbl { font-size: .8125rem; letter-spacing: .04em; font-weight: 600; color: var(--taupe-deep); margin: 0 0 .5rem; display: block; }
-.ritual-card { background: var(--card); border: 1px solid var(--clay); border-radius: var(--radius); padding: clamp(1.2rem, 3vw, 1.9rem); }
-.ritual-card h3 { margin-bottom: .25rem; }
-.timeline { list-style: none; margin: 1.3rem 0; padding: 0; display: grid; gap: 0; }
-.timeline li { display: grid; grid-template-columns: 3.6rem 1fr; gap: 1rem; padding: .85rem 0; border-top: 1px solid var(--line); }
-.timeline li:first-child { border-top: 0; }
-.timeline .min { font-family: var(--font-display); font-style: italic; font-size: 1.5rem; color: var(--taupe); line-height: 1.1; }
-.timeline .min small { font-family: var(--font-body); font-style: normal; font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; display: block; color: var(--muted); }
-.timeline b { display: block; color: var(--taupe-deep); }
-.cal-box { margin-top: 1.2rem; padding: 1rem 1.1rem; border-radius: var(--radius-sm); background: var(--blush-soft); border: 1px solid var(--clay); display: grid; gap: .9rem; }
+.builder .ctl { display: flex; flex-direction: column; gap: 1.5rem; }
+.ctl .lbl { font-size: .6875rem; letter-spacing: .2em; text-transform: uppercase; color: var(--bronze); margin: 0 0 .6rem; display: block; }
+.ritual-card { background: var(--aub); color: var(--cream); padding: clamp(1.4rem, 3.4vw, 2.1rem); }
+.ritual-card h3 { color: var(--cream); margin: .5rem 0 .3rem; font-size: clamp(2rem, 4vw, 2.6rem); }
+.ritual-card h3 .it { color: var(--champ); }
+.ritual-card .eyebrow { color: var(--champ); }
+.ritual-card .muted { color: #CDB9BF; }
+.timeline { list-style: none; margin: 1.4rem 0; padding: 0; border-top: 1px solid var(--line-dark); }
+.timeline li { display: grid; grid-template-columns: 3.6rem minmax(0, 1fr); gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line-dark); }
+.timeline .min { font-family: var(--serif); font-style: italic; font-size: 1.8rem; color: var(--champ); line-height: 1; }
+.timeline .min small { font-family: var(--sans); font-style: normal; font-size: .5625rem; letter-spacing: .22em; text-transform: uppercase; display: block; color: #CDB9BF; margin-top: .2rem; }
+.timeline b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.3rem; color: var(--cream); }
+.timeline span span { font-size: .84375rem; color: #D8C8CD; }
+.cal-box { margin-top: 1.4rem; padding: 1.2rem; border: 1px solid var(--line-dark); display: grid; gap: .9rem; }
+.cal-box h4 { color: var(--cream); font-size: 1.35rem; }
+.cal-box label.field { color: var(--champ); }
+.cal-box input, .cal-box select { background: rgba(247, 241, 234, .08); color: var(--cream); border-color: var(--line-dark); }
+.cal-box select option { color: var(--aub); }
+.ritual-card .btn.ghost { color: var(--champ); border-color: var(--champ); }
 .cal-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
 @media (max-width: 480px) { .cal-row { grid-template-columns: minmax(0, 1fr); } }
 
+.journal-top { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.ring { width: 104px; height: 104px; position: relative; flex: none; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 5; }
+.ring .bg { stroke: var(--line); }
+.ring .fg { stroke: var(--gold); stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 289; transition: stroke-dashoffset .5s ease; }
+.ring b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-weight: 400; font-size: 2.2rem; }
 .week { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 235px), 1fr)); gap: .9rem; }
-.day { display: flex; flex-direction: column; gap: .8rem; }
-.day.done { background: var(--blush-soft); border-color: var(--taupe); }
-.day .top { display: flex; justify-content: space-between; align-items: baseline; }
-.day h4 { margin: 0; }
-.bar { height: 8px; border-radius: 99px; background: var(--blush); overflow: hidden; }
-.bar > i { display: block; height: 100%; width: 0; background: var(--taupe-deep); border-radius: 99px; transition: width .35s; }
+.day { display: flex; flex-direction: column; gap: .85rem; transition: background .25s, border-color .25s; }
+.day.done { background: var(--aub); border-color: var(--aub); color: var(--cream); }
+.day.done h4, .day.done .check span { color: var(--champ); }
+.day.done .chip { background: transparent; color: var(--cream); border-color: var(--line-dark); }
+.day.done .chip[aria-pressed="true"] { background: var(--champ); color: var(--aub); border-color: var(--champ); }
+.day.done input[type="text"] { background: rgba(247, 241, 234, .08); color: var(--cream); border-color: var(--line-dark); }
+.day.done input[type="checkbox"] { accent-color: var(--champ); }
+.day.done input::placeholder { color: #BBA7AE; }
 
 .deck { display: grid; place-items: center; }
-.face { width: min(100%, 420px); aspect-ratio: 3 / 4; max-height: 70vh; border-radius: 22px; background: var(--taupe-deep); color: var(--ivory); display: grid; place-items: center; text-align: center; padding: 2rem; position: relative; border: 6px solid var(--blush); box-shadow: 0 18px 40px -22px rgba(62, 58, 59, .55); }
-.face::after { content: ""; position: absolute; inset: 12px; border: 1px solid color-mix(in srgb, var(--ivory) 35%, transparent); border-radius: 14px; pointer-events: none; }
-.face .q { font-family: var(--font-display); font-style: italic; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.25; text-wrap: balance; }
-.face .tag { position: absolute; top: 1.6rem; left: 0; right: 0; font-size: .6875rem; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
-.face.swap { animation: pop .35s ease; }
-@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+.face { width: min(100%, 400px); aspect-ratio: 3 / 4; max-height: 74vh; background: var(--cream); color: var(--aub); display: grid; place-items: center; text-align: center; padding: 2.4rem; position: relative; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .6); }
+.face::before { content: ""; position: absolute; inset: 14px; border: 1px solid var(--gold); pointer-events: none; }
+.face .q { font-family: var(--serif); font-style: italic; font-size: clamp(1.7rem, 5vw, 2.3rem); line-height: 1.22; text-wrap: balance; }
+.face .tag { position: absolute; top: 2.2rem; left: 0; right: 0; font-size: .5625rem; letter-spacing: .32em; text-transform: uppercase; color: var(--bronze); }
+.face .tag.b { top: auto; bottom: 2.2rem; }
+.face.swap { animation: pop .4s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) rotate(-1.2deg); } to { opacity: 1; transform: none; } }
 
-.gift textarea { min-height: 110px; }
+.gift textarea { min-height: 120px; }
+
+/* guided ritual timer */
+.timer { position: fixed; inset: 0; z-index: 70; background: var(--aub); color: var(--cream); display: grid; grid-template-rows: auto 1fr auto; padding: calc(20px + env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); }
+.timer::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(226, 201, 148, .4); pointer-events: none; }
+.timer .btn { background: var(--champ); border-color: var(--champ); color: var(--aub); }
+.timer .btn:hover { background: #EBD6A8; }
+.timer .btn.ghost { background: transparent; color: var(--champ); }
+.timer .btn.ghost:hover { background: rgba(226, 201, 148, .12); }
+.timer-top { display: flex; justify-content: space-between; align-items: center; position: relative; padding: 14px 18px 0; }
+.timer-top .eyebrow { color: var(--champ); }
+.timer-body { display: grid; place-items: center; text-align: center; gap: 1.2rem; align-content: center; position: relative; }
+.t-ring { width: min(62vw, 270px); aspect-ratio: 1; position: relative; }
+.t-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.t-ring circle { fill: none; stroke-width: 3; }
+.t-ring .bg { stroke: rgba(226, 201, 148, .22); }
+.t-ring .fg { stroke: var(--champ); stroke-dasharray: 553; stroke-dashoffset: 0; stroke-linecap: round; }
+.t-ring output { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: clamp(3rem, 12vw, 4.6rem); font-variant-numeric: tabular-nums; }
+.timer h3 { color: var(--champ); font-style: italic; font-size: clamp(2rem, 6vw, 3rem); }
+.timer .cue { max-width: 34ch; color: var(--cream); font-size: 1rem; margin: 0 auto; min-height: 3.6em; }
+.timer-ctl { display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; position: relative; padding-bottom: 14px; }
+.dots { display: flex; gap: .5rem; justify-content: center; }
+.dots i { width: 28px; height: 2px; background: rgba(226, 201, 148, .25); transition: background .3s; }
+.dots i.on { background: var(--champ); }
 </style>
 </head>
 <body>
@@ -70,27 +124,30 @@
 <header class="topbar" id="top">
   <div class="topbar-in">
     <img src="@@WORD@@" alt="Une Femme Divine">
-    <nav class="topnav" aria-label="Guide sections" data-locked hidden>
-      <a href="#welcome">Welcome</a><a href="#elixir">Elixir</a><a href="#builder">Build</a><a href="#journal">Journal</a><a href="#cards">Cards</a><a href="#faq">FAQ</a>
+    <nav class="topnav" aria-label="Guide sections" id="topnav" data-locked hidden>
+      <a href="#welcome">Welcome</a><a href="#daily">Daily ritual</a><a href="#builder">Build</a><a href="#journal">Journal</a><a href="#cards">Cards</a><a href="#faq">FAQ</a>
     </nav>
-    <!--hosted--><button class="btn small ghost no-print" type="button" data-print data-locked hidden>Save as PDF</button><!--/hosted-->
+    <!--hosted--><a class="btn small ghost no-print" href="pdf/Your-Divine-Ritual.pdf" download data-locked hidden>PDF</a><!--/hosted-->
   </div>
 </header>
 
 <main>
   <!-- COVER + GATE -->
-  <section class="band band-blush cover">
+  <section class="band band-dark cover">
+    <span class="corner tl">Une Femme Divine</span><span class="corner tr">Welcome guide</span>
+    <span class="corner bl">Made for women</span><span class="corner br">Made in the EU</span>
     <div class="in">
       <img class="mark" src="@@MARK@@" alt="Une Femme Divine, the divine woman emblem">
-      <h1>Your Divine Ritual</h1>
+      <p class="kick">Your daily ritual</p>
+      <h1>Your Divine<br><span class="it gold-it">Ritual.</span></h1>
+      <span class="rule"></span>
       <p class="sub">A guide to the moment you give back to yourself.</p>
-      <p class="kicker">Une Femme Divine &middot; Divine Elixir</p>
 
       <div class="gate-wrap" id="gate-wrap">
         <div class="card gate">
-          <h2 style="font-size:1.7rem;margin-bottom:.5rem">Open your guide</h2>
+          <h2>Open your <span class="it">guide.</span></h2>
           <p class="small muted">Free for everyone, new to Une Femme Divine or already part of the circle. Tell us where to send your letters and the guide opens right here.</p>
-          <form id="gate-form" novalidate style="margin-top:1rem">
+          <form id="gate-form" novalidate style="margin-top:1.2rem">
             <label class="field" for="g-name">First name
               <input id="g-name" name="name" type="text" autocomplete="given-name" placeholder="Your first name">
             </label>
@@ -105,9 +162,9 @@
             <button class="btn" type="submit">Open my guide</button>
           </form>
           <ul class="inside">
-            <li>Build a ritual that fits your own morning, afternoon or evening</li>
-            <li>Add it to your calendar as a daily reminder</li>
-            <li>A seven-day ritual journal and a deck of small moments</li>
+            <li>Build a ritual for your own morning, afternoon or evening</li>
+            <li>Follow it with a gentle guided timer, or add it to your calendar</li>
+            <li>A seven-day journal and a deck of small moments</li>
             <li>Everything about Divine Elixir, in one calm place</li>
           </ul>
         </div>
@@ -117,56 +174,67 @@
 
   <!-- WELCOME -->
   <section class="band" id="welcome" data-locked hidden>
-    <div class="in cols">
-      <div>
-        <p class="eyebrow">Welcome</p>
-        <h2>Welcome, <span data-name>you</span>.</h2>
-        <div class="stack" style="margin-top:1.2rem">
-          <p>Une Femme Divine began in Dubai, with two entrepreneurs and a simple thing we kept noticing. The women around us gave everything to their work, their families and their ambitions. They rarely took anything for themselves.</p>
-          <p>What was missing was one daily ritual made truly for her. Pure. Honest. Without compromise.</p>
-          <p>So we did not rush. For a full year we worked with a laboratory on the formula. Testing, refining, testing again, until we stood fully behind it. Divine Elixir is produced by our partner in Europe, in Slovakia, under European quality standards. Our webshop opened on 29 September 2026.</p>
-          <p>This guide is how we would begin. Slowly, and with you in mind.</p>
-          <p class="muted small">With love, the founders of Une Femme Divine</p>
+    <div class="in">
+      <div class="sechead"><p class="eyebrow">Welcome</p><span class="num">02</span></div>
+      <div class="cols">
+        <div>
+          <p class="script" data-greet hidden style="color:var(--bronze);margin-bottom:.6rem"></p>
+          <h2>Welcome to<br><span class="it">your ritual.</span></h2>
+          <span class="rule"></span>
+          <div class="stack">
+            <p>Thank you for choosing Divine Elixir. You didn&rsquo;t just buy a product. You chose a moment for yourself, every single day.</p>
+            <p>Une Femme Divine began in Dubai, with two entrepreneurs who noticed that the women around them gave everything to their work, their families and their ambitions, and rarely took anything for themselves. It took a full year of development with a laboratory before the formula was exactly right.</p>
+            <p>This little guide shows you how to get the most out of your Elixir. Keep it close, come back to it, and make the ritual your own.</p>
+          </div>
+          <p class="script" style="margin-top:2.2rem">With love,</p>
+          <p class="eyebrow" style="margin-top:.4rem">Une Femme Divine</p>
         </div>
-      </div>
-      <div style="padding-top:clamp(0rem,4vw,3rem)">
-        <p class="quote">&ldquo;True wellness is not loud; it&rsquo;s felt.&rdquo;</p>
+        <div style="padding-top:clamp(0rem,6vw,5rem)"><p class="quote">&ldquo;True wellness is not loud; it&rsquo;s felt.&rdquo;</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ELIXIR -->
-  <section class="band band-soft" id="elixir" data-locked hidden>
+  <!-- PHILOSOPHY -->
+  <section class="band band-dark" id="philosophy" data-locked hidden>
     <div class="in">
-      <div class="sec-head">
-        <p class="eyebrow">Divine Elixir</p>
-        <h2>Three movements, one moment</h2>
-        <p class="lead">Divine Elixir is a daily collagen ritual, created for women. We see it as a moment of self-care, never a quick fix. Tick each movement as you make it your own.</p>
+      <div class="sechead"><p class="eyebrow">Our philosophy</p><span class="num">03</span></div>
+      <h2>A moment<br><span class="it gold-it">for yourself.</span></h2>
+      <p class="script" style="margin-top:1.4rem;color:#D8C8CD">Never an afterthought.</p>
+      <span class="rule"></span>
+      <p class="lead" style="color:var(--cream)">Self-care isn&rsquo;t something you fit in around everyone else. It&rsquo;s how you take care of yourself, day after day. Divine Elixir is part of that care: a small daily moment that&rsquo;s just for you.</p>
+      <div class="pillars">
+        <div><h4>Women</h4><p>Created for women, by people who listen to them.</p></div>
+        <div><h4>Care</h4><p>A year of development with a laboratory.</p></div>
+        <div><h4>Europe</h4><p>Manufactured in Slovakia, EU.</p></div>
       </div>
-      <ol class="step-list" id="movements">
-        <li class="movement"><span class="n" aria-hidden="true">i</span>
-          <label><input type="checkbox" data-move="0"><span class="box"><span class="tick" aria-hidden="true"></span><span><h4>Arrive</h4><span class="muted">Put the phone down. Three slow breaths. Let your shoulders drop. You are not late for anything.</span></span></span></label></li>
-        <li class="movement"><span class="n" aria-hidden="true">ii</span>
-          <label><input type="checkbox" data-move="1"><span class="box"><span class="tick" aria-hidden="true"></span><span><h4>Prepare</h4><span class="muted">Prepare your Divine Elixir as shown on your pack. Let the preparing be part of the pleasure. Choose a cup you love.</span></span></span></label></li>
-        <li class="movement"><span class="n" aria-hidden="true">iii</span>
-          <label><input type="checkbox" data-move="2"><span class="box"><span class="tick" aria-hidden="true"></span><span><h4>Savour</h4><span class="muted">Sit down. Take your time. Notice the temperature, the light, the quiet. This minute is yours.</span></span></span></label></li>
+    </div>
+  </section>
+
+  <!-- DAILY RITUAL -->
+  <section class="band" id="daily" data-locked hidden>
+    <div class="in" style="max-width:820px">
+      <div class="sechead"><p class="eyebrow">How to use</p><span class="num">04</span></div>
+      <h2>Your daily<br><span class="it">ritual.</span></h2>
+      <span class="rule"></span>
+      <p class="muted small" style="margin-bottom:1.4rem">Tick each step as you make it your own.</p>
+      <ol class="steps" id="movements">
+        <li><label><input type="checkbox" data-move="0"><span class="n" aria-hidden="true">01</span><div><h4>One scoop a day</h4><span>Each pouch holds 30 scoops: exactly one month of your ritual.</span></div><span class="tick" aria-hidden="true"></span></label></li>
+        <li><label><input type="checkbox" data-move="1"><span class="n" aria-hidden="true">02</span><div><h4>Mix and enjoy</h4><span>Stir into 200&ndash;300 ml of water, juice or your morning smoothie until fully dissolved.</span></div><span class="tick" aria-hidden="true"></span></label></li>
+        <li><label><input type="checkbox" data-move="2"><span class="n" aria-hidden="true">03</span><div><h4>Make it yours</h4><span>Same moment, every day. Morning coffee, after your workout, before bed: whatever fits your life.</span></div><span class="tick" aria-hidden="true"></span></label></li>
       </ol>
-      <ul class="facts" style="margin-top:1.75rem">
-        <li><b>Made for women</b>From the very first idea.</li>
-        <li><b>A year of patience</b>Developed with a laboratory, tested again and again.</li>
-        <li><b>Halal</b>Made with care and respect.</li>
-        <li><b>Made in Europe</b>Produced in Slovakia under European quality standards.</li>
-      </ul>
+      <div class="secret"><p class="eyebrow">The secret</p><p>Consistency. Small daily moments make the biggest difference.</p></div>
+      <p class="fine">Pregnant, breastfeeding or taking medication? Consult your doctor before use.</p>
     </div>
   </section>
 
   <!-- BUILDER -->
-  <section class="band" id="builder" data-locked hidden>
+  <section class="band band-sand" id="builder" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">Build your ritual</p><span class="num">05</span></div>
       <div class="sec-head">
-        <p class="eyebrow">Build your ritual</p>
-        <h2>Make it yours</h2>
-        <p class="lead">Choose when, how long and what feels good. Your ritual appears on the right, ready to add to your calendar.</p>
+        <h2>Make it<br><span class="it">yours.</span></h2>
+        <span class="rule"></span>
+        <p class="lead">Choose when, how long and what feels good. Your ritual appears on the right. Follow it with a gentle guided timer, or send it to your calendar.</p>
       </div>
       <div class="builder">
         <div class="ctl card">
@@ -192,7 +260,7 @@
           <div>
             <span class="lbl" id="l-el">What feels good?</span>
             <div class="chips" role="group" aria-labelledby="l-el" id="chips-el"></div>
-            <p class="small muted chip-hint" id="el-hint" style="margin-top:.6rem"></p>
+            <p class="small muted" id="el-hint" style="margin-top:.7rem"></p>
           </div>
           <label class="field" for="r-intent">Your words
             <input id="r-intent" type="text" maxlength="60" value="I give back to myself.">
@@ -201,16 +269,17 @@
 
         <div class="ritual-card" aria-live="polite">
           <p class="eyebrow" id="rc-eyebrow">Your ritual</p>
-          <h3 id="rc-title">Your Morning Ritual</h3>
+          <h3 id="rc-title">Your Morning <span class="it">Ritual</span></h3>
           <p class="muted small" id="rc-sub"></p>
           <ol class="timeline" id="rc-steps"></ol>
           <div class="row no-print">
+            <button class="btn" type="button" id="rc-begin">Begin my ritual now</button>
             <button class="btn small ghost" type="button" id="rc-copy">Copy my ritual</button>
           </div>
 
           <div class="cal-box no-print">
             <div>
-              <h4 style="margin-bottom:.2rem">Add it to your calendar</h4>
+              <h4>Add it to your calendar</h4>
               <p class="small muted">A gentle reminder at your time, every day.</p>
             </div>
             <div class="cal-row">
@@ -239,98 +308,146 @@
   </section>
 
   <!-- JOURNAL -->
-  <section class="band band-soft" id="journal" data-locked hidden>
+  <section class="band" id="journal" data-locked hidden>
     <div class="in">
+      <div class="sechead"><p class="eyebrow">Seven-day journal</p><span class="num">06</span></div>
       <div class="sec-head">
-        <p class="eyebrow">Seven-day journal</p>
-        <h2>Seven small moments</h2>
+        <h2>Seven small<br><span class="it">moments.</span></h2>
+        <span class="rule"></span>
         <p class="lead">One day at a time. Tick the day, choose how it felt and write a single line. Your journal stays on this device.</p>
       </div>
-      <div class="row" style="margin-bottom:1.25rem;gap:1.25rem">
-        <div style="flex:1 1 260px">
-          <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" id="wk-bar"><i></i></div>
-          <p class="small" style="margin-top:.5rem"><b id="wk-count">0 of 7</b> <span class="muted" id="wk-msg">moments kept</span></p>
+      <div class="journal-top">
+        <div class="ring" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" id="wk-ring" aria-label="Days kept this week">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="fg" cx="50" cy="50" r="46"/></svg>
+          <b id="wk-count">0</b>
         </div>
-        <button class="btn small ghost no-print" type="button" id="wk-reset">Begin a new week</button>
+        <div>
+          <p style="margin:0"><span class="script" id="wk-head">of seven moments kept</span></p>
+          <p class="small muted" id="wk-msg">Begin whenever you are ready.</p>
+          <button class="btn small ghost no-print" type="button" id="wk-reset" style="margin-top:.7rem">Begin a new week</button>
+        </div>
       </div>
       <div class="week" id="week"></div>
     </div>
   </section>
 
   <!-- CARDS -->
-  <section class="band" id="cards" data-locked hidden>
-    <div class="in cols" style="align-items:center">
-      <div>
-        <p class="eyebrow">Ritual moments</p>
-        <h2>Draw a small moment</h2>
-        <p class="lead" style="margin-top:1rem">Not every day has ten minutes. Every day has a small moment. Draw a card and let it be enough.</p>
-        <div class="row no-print" style="margin-top:1.5rem">
-          <button class="btn" type="button" id="draw">Draw a card</button>
-          <button class="btn ghost" type="button" id="draw-copy">Copy this moment</button>
+  <section class="band band-dark" id="cards" data-locked hidden>
+    <div class="in">
+      <div class="sechead"><p class="eyebrow">Ritual moments</p><span class="num">07</span></div>
+      <div class="cols" style="align-items:center">
+        <div>
+          <h2>Draw a small<br><span class="it gold-it">moment.</span></h2>
+          <span class="rule"></span>
+          <p class="lead" style="color:var(--cream)">Not every day has ten minutes. Every day has a small moment. Draw a card and let it be enough.</p>
+          <div class="row no-print" style="margin-top:1.8rem">
+            <button class="btn" type="button" id="draw">Draw a card</button>
+            <button class="btn ghost" type="button" id="draw-copy">Copy this moment</button>
+          </div>
         </div>
+        <div class="deck"><div class="face" id="face" aria-live="polite"><span class="tag">Une Femme Divine</span><span class="q" id="face-q">Tap to draw today&rsquo;s moment.</span><span class="tag b">Balance begins within</span></div></div>
       </div>
-      <div class="deck"><div class="face" id="face" aria-live="polite"><span class="tag">Une Femme Divine</span><span class="q" id="face-q">Tap to draw today&rsquo;s moment.</span></div></div>
+    </div>
+  </section>
+
+  <!-- FORMULA -->
+  <section class="band band-sand" id="formula" data-locked hidden>
+    <div class="in">
+      <div class="sechead"><p class="eyebrow">The formula</p><span class="num">08</span></div>
+      <h2>What&rsquo;s<br><span class="it">inside.</span></h2>
+      <span class="rule"></span>
+      <p class="lead">23 active ingredients in one daily scoop, built around 5,000 mg of halal bovine collagen.</p>
+      <div class="formula">
+        <div class="card"><p class="eyebrow">Beauty</p><h4>Collagen &middot; Hyaluronic Acid &middot; Biotin &middot; Vitamin C</h4></div>
+        <div class="card"><p class="eyebrow">Botanicals</p><h4>Maca Root &middot; Chasteberry &middot; Ginseng &middot; CoQ10</h4></div>
+        <div class="card"><p class="eyebrow">Vitamins &amp; minerals</p><h4>Magnesium &middot; Zinc &middot; Iron &middot; Selenium &middot; Vitamin D3 &middot; Vitamin B12</h4></div>
+        <div class="card"><p class="eyebrow">Gut</p><h4>Probiotics</h4><p class="small muted" style="margin-top:.4rem">+ more. Full list on the pouch.</p></div>
+      </div>
+      <ul class="spec">
+        <li><span>Collagen</span><span>Halal bovine. No pork.</span></li>
+        <li><span>Made in</span><span>Slovakia, European Union</span></li>
+        <li><span>One pouch</span><span>30 servings &middot; 30 days</span></li>
+      </ul>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="band band-soft" id="faq" data-locked hidden>
-    <div class="in" style="max-width:760px">
-      <div class="sec-head">
-        <p class="eyebrow">Good to know</p>
-        <h2>Questions, answered simply</h2>
-      </div>
+  <section class="band" id="faq" data-locked hidden>
+    <div class="in" style="max-width:780px">
+      <div class="sechead"><p class="eyebrow">Good to know</p><span class="num">09</span></div>
+      <h2>Questions,<br><span class="it">answered simply.</span></h2>
+      <span class="rule"></span>
       <details class="faq"><summary>What is Divine Elixir?</summary><div class="ans">A daily collagen ritual, created for women. A carefully composed formula, halal and made in Europe. We present it as a moment of self-care, never as a quick fix.</div></details>
-      <details class="faq"><summary>Where is it made?</summary><div class="ans">Divine Elixir is produced by our partner in Europe, in Slovakia, under European quality standards.</div></details>
-      <details class="faq"><summary>Is it halal?</summary><div class="ans">Yes. Divine Elixir is halal.</div></details>
-      <details class="faq"><summary>Who created Une Femme Divine?</summary><div class="ans">Two entrepreneurs in Dubai who wanted one daily ritual made truly for women. After a full year of work with a laboratory on the formula, we launched our webshop on 29 September 2026.</div></details>
-      <details class="faq"><summary>How do I take it?</summary><div class="ans">Follow the preparation and serving instructions printed on your pack. This guide helps you build the moment around it.</div></details>
+      <details class="faq"><summary>How do I take it?</summary><div class="ans">One scoop a day, stirred into 200&ndash;300 ml of water, juice or your morning smoothie until fully dissolved. Each pouch holds 30 scoops, exactly one month. Pregnant, breastfeeding or taking medication? Consult your doctor before use.</div></details>
+      <details class="faq"><summary>Where is it made?</summary><div class="ans">Divine Elixir is manufactured in Slovakia, in the European Union, by our partner under European quality standards.</div></details>
+      <details class="faq"><summary>Is it halal?</summary><div class="ans">Yes. Divine Elixir is halal. The collagen is bovine and there is no pork.</div></details>
+      <details class="faq"><summary>Who created Une Femme Divine?</summary><div class="ans">Two entrepreneurs in Dubai who wanted one daily ritual made truly for women. After a full year of development with a laboratory, our webshop opened on 29 September 2026.</div></details>
       <details class="faq"><summary>What results can I expect?</summary><div class="ans">We do not promise beauty or health results, and we never will. Divine Elixir is a daily ritual and a moment for yourself. How it feels to you is what matters most to us.</div></details>
       <details class="faq"><summary>I have a question you have not answered</summary><div class="ans">Write to us at <a data-contact href="#">hello</a>. We read every message.</div></details>
     </div>
   </section>
 
   <!-- NEXT -->
-  <section class="band" id="next" data-locked hidden>
-    <div class="in cols">
-      <div class="card tint stack" data-other-guide-wrap>
-        <p class="eyebrow">Your next ritual</p>
-        <h3>Rhythm of the Body</h3>
-        <p>A gentle cycle and self-care planner. See your month in four inner seasons, and add them to your calendar.</p>
-        <p><a class="btn" data-other-guide href="#">Open the planner</a></p>
-      </div>
-      <div class="card gift stack">
-        <p class="eyebrow">Give her a moment</p>
-        <h3>Share the ritual</h3>
-        <label class="field" for="gift-msg">Your note
-          <textarea id="gift-msg">I thought of you. Take ten minutes today, just for yourself. I made a small ritual guide and wanted you to have it too.</textarea>
-        </label>
-        <div class="row no-print"><button class="btn small ghost" type="button" id="gift-copy">Copy note</button>
-        <a class="btn small ghost" data-shop href="#" target="_blank" rel="noopener">Visit the shop</a></div>
+  <section class="band band-sand" id="next" data-locked hidden>
+    <div class="in">
+      <div class="sechead"><p class="eyebrow">Stay connected</p><span class="num">10</span></div>
+      <div class="cols">
+        <div class="card tint stack">
+          <p class="eyebrow">Your next ritual</p>
+          <h3>Rhythm of the <span class="it">Body</span></h3>
+          <p>A gentle cycle and self-care planner. See your month in four inner seasons, and add them to your calendar.</p>
+          <p><a class="btn" data-other-guide href="#">Open the planner</a></p>
+        </div>
+        <div class="card gift stack">
+          <p class="eyebrow">Give her a moment</p>
+          <h3>Share the <span class="it">ritual</span></h3>
+          <label class="field" for="gift-msg">Your note
+            <textarea id="gift-msg">I thought of you. Take ten minutes today, just for yourself. I made a small ritual guide and wanted you to have it too.</textarea>
+          </label>
+          <div class="row no-print"><button class="btn small ghost" type="button" id="gift-copy">Copy note</button>
+          <a class="btn small ghost" data-shop href="#" target="_blank" rel="noopener">Visit the shop</a></div>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="band band-taupe" style="padding-block:3rem">
+<footer class="band band-dark" style="padding-block:4rem">
   <div class="in" style="text-align:center">
-    <img src="@@MARK_LIGHT@@" alt="" style="width:92px;margin:0 auto 1rem">
-    <h2 style="font-size:2rem;margin-bottom:1rem">Balance begins within.</h2>
-    <p class="small" style="margin:0 auto 1rem">Questions? <a data-contact href="#">hello</a></p>
+    <img src="@@MARK_LIGHT@@" alt="" style="width:84px;margin:0 auto 1.4rem">
+    <h2 style="font-size:2.6rem"><span class="it gold-it">Balance begins within.</span></h2>
+    <p class="eyebrow" style="margin:1.4rem 0 .8rem">Une Femme Divine</p>
+    <p class="small" style="margin:0 auto 1rem">Tag us <b>@unefemmedivine</b> &middot; Questions? <a data-contact href="#">hello</a></p>
     <p class="disclaimer" style="margin:0 auto">This guide shares ritual and lifestyle inspiration and is not medical advice. Une Femme Divine does not claim that Divine Elixir treats, cures or prevents anything.</p>
   </div>
 </footer>
+
+<!-- guided timer -->
+<div class="timer" id="timer" role="dialog" aria-modal="true" aria-label="Guided ritual" hidden>
+  <div class="timer-top"><p class="eyebrow" id="t-count">Step 1 of 5</p><button class="btn small ghost" type="button" id="t-close">Close</button></div>
+  <div class="timer-body">
+    <div class="dots" id="t-dots" aria-hidden="true"></div>
+    <div class="t-ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle class="bg" cx="100" cy="100" r="88"/><circle class="fg" id="t-fg" cx="100" cy="100" r="88"/></svg><output id="t-time" aria-live="off">1:00</output></div>
+    <h3 id="t-title">Arrive</h3>
+    <p class="cue" id="t-cue"></p>
+  </div>
+  <div class="timer-ctl">
+    <button class="btn" type="button" id="t-pause">Pause</button>
+    <button class="btn ghost" type="button" id="t-skip">Next step</button>
+    <button class="btn" type="button" id="t-journal" hidden>Mark today in my journal</button>
+  </div>
+</div>
 
 <script>
 window.UFD_CONFIG = {
   guideId: 'guide-ritual',
   provider: 'none',                       // 'shopify' | 'webhook' | 'none'  (see guides/README.md)
-  shopDomain: '',                         // e.g. 'your-store.myshopify.com'
+  shopDomain: '',                         // e.g. 'unefemmedivine.com'
   webhookUrl: '',                         // e.g. a Klaviyo / Mailchimp / Make / Zapier endpoint
   tags: 'guide-ritual,newsletter',
-  contactEmail: 'marketing@unefemmedivine.com',
+  contactEmail: 'help@unefemmedivine.com',
   otherGuideUrl: 'rhythm-planner.html',
-  shopUrl: ''
+  shopUrl: 'https://unefemmedivine.com'
 };
 </script>
 <script>
@@ -341,7 +458,7 @@ window.UFD_CONFIG = {
   'use strict';
   var U = window.UFD, $ = U.$, $$ = U.$$, h = U.h, store = U.store;
 
-  /* ----- movements ----- */
+  /* ----- daily steps ----- */
   var mv = store.get('ritual.moves', [false, false, false]);
   $$('[data-move]').forEach(function (cb) {
     cb.checked = !!mv[+cb.dataset.move];
@@ -393,10 +510,9 @@ window.UFD_CONFIG = {
     var L = S.len, arrive = 1, close = 1, elixir = Math.max(2, Math.round(L * 0.3));
     var room = Math.max(0, L - arrive - close - elixir);
     var chosen = ELEMENTS.filter(function (e) { return S.els.indexOf(e[0]) >= 0; });
-    var cap = Math.max(1, room);
-    var used = chosen.slice(0, cap), dropped = chosen.length - used.length;
+    var used = chosen.slice(0, Math.max(1, room)), dropped = chosen.length - used.length;
     var steps = [{ m: arrive, t: 'Arrive', c: 'Three slow breaths. Drop your shoulders. You are not late for anything.' },
-                 { m: elixir, t: 'Your Divine Elixir', c: 'Prepare it as shown on your pack. Take your time. Taste it slowly.' }];
+                 { m: elixir, t: 'Your Divine Elixir', c: 'Stir one scoop into 200–300 ml of water, juice or your smoothie until dissolved. Sip slowly.' }];
     if (used.length) {
       var base = Math.floor(room / used.length), extra = room - base * used.length;
       used.forEach(function (e, i) { steps.push({ m: Math.max(1, base) + (i < extra ? 1 : 0), t: e[1], c: e[2] }); });
@@ -406,14 +522,13 @@ window.UFD_CONFIG = {
     var cap1 = S.moment.charAt(0).toUpperCase() + S.moment.slice(1);
     var title = 'Your ' + cap1 + ' Ritual';
     var text = title + ' · ' + total + ' min · ' + S.time + '\n\n' + steps.map(function (s) { return s.m + ' min  ' + s.t + ' — ' + s.c; }).join('\n') + '\n\nUne Femme Divine · Balance begins within.';
-    plan = { steps: steps, title: title, text: text, total: total, dropped: dropped };
+    plan = { steps: steps, title: title, cap: cap1, text: text, total: total, dropped: dropped };
   }
 
   function timeLabel() {
     var p = S.time.split(':'), d = new Date(2000, 0, 1, +p[0], +p[1]);
     return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   }
-
   function calEvent() {
     var p = S.time.split(':'), now = new Date();
     var start = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, +p[0], +p[1]);
@@ -426,22 +541,21 @@ window.UFD_CONFIG = {
     $$('#seg-moment button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === S.moment)); });
     $$('#seg-len button').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.v === S.len)); });
     $$('#chips-el .chip').forEach(function (b) { b.setAttribute('aria-pressed', String(S.els.indexOf(b.dataset.id) >= 0)); });
-    if (!skipInputs) { $('#r-time').value = S.time; }
-    $('#r-intent').value !== S.intent && ($('#r-intent').value = S.intent);
+    if (!skipInputs) $('#r-time').value = S.time;
+    if ($('#r-intent').value !== S.intent) $('#r-intent').value = S.intent;
     $('#r-repeat').value = S.repeat; $('#r-title').value = S.title;
     build();
-    $('#rc-title').textContent = plan.title;
+    var t = $('#rc-title'); t.textContent = 'Your ' + plan.cap + ' '; t.appendChild(h('span', { class: 'it', text: 'Ritual' }));
     $('#rc-sub').textContent = plan.total + ' minutes, every day at ' + timeLabel() + '.';
     var ol = $('#rc-steps'); ol.textContent = '';
     plan.steps.forEach(function (s) {
       ol.appendChild(h('li', {}, [
         h('span', { class: 'min' }, [String(s.m), h('small', { text: 'min' })]),
-        h('span', {}, [h('b', { text: s.t }), h('span', { class: 'muted', text: s.c })])
+        h('span', {}, [h('b', { text: s.t }), h('span', { text: s.c })])
       ]));
     });
     $('#el-hint').textContent = plan.dropped > 0 ? 'A ' + S.len + '-minute ritual holds fewer moments. We kept your first ' + (S.els.length - plan.dropped) + '. Try 10 or 20 minutes for more.' : '';
-    var ev = calEvent();
-    $('#cal-google').href = U.googleLink(ev);
+    $('#cal-google').href = U.googleLink(calEvent());
   }
 
   $('#rc-copy').addEventListener('click', function () { U.copy(plan.text, 'Ritual copied'); });
@@ -450,6 +564,72 @@ window.UFD_CONFIG = {
   $('#cal-copy').addEventListener('click', function () { U.copy(U.buildICS([calEvent()], 'My Divine Ritual'), 'Calendar file copied. Paste it into a .ics file to import.', $('#cal-box')); });
   render();
 
+  /* ----- guided timer ----- */
+  var T = { i: 0, left: 0, endAt: 0, paused: false, tick: null, lock: null, steps: [] };
+  var tEl = $('#timer'), CIRC = 553;
+  function fmtT(s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ':' + U.pad(s % 60); }
+  function showStep() {
+    var s = T.steps[T.i];
+    $('#t-count').textContent = 'Step ' + (T.i + 1) + ' of ' + T.steps.length;
+    $('#t-title').textContent = s.t; $('#t-cue').textContent = s.c;
+    T.total = s.m * 60; T.left = T.total; T.endAt = Date.now() + T.left * 1000;
+    $$('#t-dots i').forEach(function (d, k) { d.classList.toggle('on', k <= T.i); });
+    $('#t-skip').textContent = T.i === T.steps.length - 1 ? 'Finish' : 'Next step';
+    paint();
+  }
+  function paint() {
+    $('#t-time').textContent = fmtT(T.left);
+    $('#t-fg').style.strokeDashoffset = String(CIRC * (1 - T.left / T.total));
+  }
+  function loop() {
+    if (T.paused) return;
+    T.left = (T.endAt - Date.now()) / 1000;
+    if (T.left <= 0) { next(); return; }
+    paint();
+  }
+  function next() {
+    if (T.i >= T.steps.length - 1) { done(); return; }
+    T.i++; showStep();
+    try { if (navigator.vibrate) navigator.vibrate(120); } catch (e) { /* optional */ }
+  }
+  function done() {
+    clearInterval(T.tick);
+    $('#t-count').textContent = 'Complete';
+    $('#t-title').textContent = 'Beautifully done.';
+    $('#t-cue').textContent = S.intent || 'You gave a moment back to yourself.';
+    $('#t-time').textContent = '✓'; $('#t-fg').style.strokeDashoffset = '0';
+    $('#t-pause').hidden = true; $('#t-skip').hidden = true; $('#t-journal').hidden = false;
+  }
+  function openTimer() {
+    T.steps = plan.steps.slice(); T.i = 0; T.paused = false;
+    var dots = $('#t-dots'); dots.textContent = '';
+    T.steps.forEach(function () { dots.appendChild(h('i')); });
+    $('#t-pause').hidden = false; $('#t-skip').hidden = false; $('#t-journal').hidden = true; $('#t-pause').textContent = 'Pause';
+    tEl.hidden = false; document.body.style.overflow = 'hidden';
+    showStep(); clearInterval(T.tick); T.tick = setInterval(loop, 250);
+    try { if (navigator.wakeLock) navigator.wakeLock.request('screen').then(function (l) { T.lock = l; }, function () {}); } catch (e) { /* optional */ }
+    $('#t-close').focus();
+  }
+  function closeTimer() {
+    clearInterval(T.tick); tEl.hidden = true; document.body.style.overflow = '';
+    try { if (T.lock) { T.lock.release(); T.lock = null; } } catch (e) { /* ignore */ }
+    $('#rc-begin').focus();
+  }
+  $('#rc-begin').addEventListener('click', openTimer);
+  $('#t-close').addEventListener('click', closeTimer);
+  $('#t-skip').addEventListener('click', next);
+  $('#t-pause').addEventListener('click', function () {
+    if (T.paused) { T.paused = false; T.endAt = Date.now() + T.left * 1000; this.textContent = 'Pause'; }
+    else { T.paused = true; this.textContent = 'Resume'; }
+  });
+  $('#t-journal').addEventListener('click', function () {
+    var i = W.findIndex(function (d) { return !d.done; });
+    if (i < 0) { U.toast('Your week is already full. Begin a new week to keep going.'); }
+    else { W[i].done = true; store.set('ritual.week', W); drawWeek(); U.toast('Day ' + (i + 1) + ' is in your journal'); }
+    closeTimer();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !tEl.hidden) closeTimer(); });
+
   /* ----- journal ----- */
   var MOODS = ['Calm', 'Tender', 'Bright', 'Tired', 'Grounded'];
   var W = store.get('ritual.week', null);
@@ -457,10 +637,10 @@ window.UFD_CONFIG = {
   var weekEl = $('#week');
   function summary() {
     var n = W.filter(function (d) { return d.done; }).length;
-    $('#wk-count').textContent = n + ' of 7';
-    $('#wk-bar > i').style.width = (n / 7 * 100) + '%';
-    $('#wk-bar').setAttribute('aria-valuenow', String(n));
-    $('#wk-msg').textContent = n === 7 ? 'Seven days of giving back to yourself. Beautiful.' : n === 0 ? 'moments kept. Begin whenever you are ready.' : n === 1 ? 'moment kept. That is how it starts.' : 'moments kept.';
+    $('#wk-count').textContent = n;
+    $('#wk-ring .fg').style.strokeDashoffset = String(289 * (1 - n / 7));
+    $('#wk-ring').setAttribute('aria-valuenow', String(n));
+    $('#wk-msg').textContent = n === 7 ? 'Seven days of giving back to yourself. Beautiful.' : n === 0 ? 'Begin whenever you are ready.' : n === 1 ? 'That is how it starts.' : 'Keep going, gently.';
   }
   function drawWeek() {
     weekEl.textContent = '';
@@ -479,7 +659,7 @@ window.UFD_CONFIG = {
       });
       var note = h('input', { type: 'text', maxlength: 90, placeholder: 'What did I give myself?', 'aria-label': 'Day ' + (i + 1) + ' note', value: d.note });
       note.addEventListener('input', function () { d.note = note.value; store.set('ritual.week', W); });
-      card.appendChild(h('div', { class: 'top' }, [h('h4', { text: 'Day ' + (i + 1) })]));
+      card.appendChild(h('h4', { text: 'Day ' + (i + 1) }));
       card.appendChild(h('label', { class: 'check small', for: 'wd' + i }, [cb, h('span', { text: 'I kept my moment' })]));
       card.appendChild(moods); card.appendChild(note);
       weekEl.appendChild(card);
@@ -510,6 +690,15 @@ window.UFD_CONFIG = {
 
   /* ----- gift ----- */
   $('#gift-copy').addEventListener('click', function () { U.copy($('#gift-msg').value, 'Note copied'); });
+
+  /* ----- nav highlight ----- */
+  if ('IntersectionObserver' in window) {
+    var links = {}; $$('#topnav a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && links[e.target.id]) { $$('#topnav a').forEach(function (a) { a.classList.remove('on'); }); links[e.target.id].classList.add('on'); } });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+  }
 })();
 </script>
 </body>

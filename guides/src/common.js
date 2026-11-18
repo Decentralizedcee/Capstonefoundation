@@ -134,6 +134,7 @@
     var g = $('#gate-wrap'); if (g) g.hidden = true;
     document.body.classList.add('unlocked');
     $$('[data-name]').forEach(function (el) { if (name) el.textContent = name; });
+    $$('[data-greet]').forEach(function (el) { if (name) { el.textContent = 'Welcome, ' + name + '.'; el.hidden = false; } });
     document.dispatchEvent(new CustomEvent('ufd:unlocked'));
   }
   function send(payload) {
@@ -176,7 +177,6 @@
     $$('[data-contact]').forEach(function (el) { el.textContent = C.contactEmail; if (el.tagName === 'A') el.href = 'mailto:' + C.contactEmail; });
     $$('[data-other-guide]').forEach(function (el) { if (C.otherGuideUrl) el.href = C.otherGuideUrl; else el.hidden = true; });
     $$('[data-shop]').forEach(function (el) { if (C.shopUrl) el.href = C.shopUrl; else el.hidden = true; });
-    $$('[data-print]').forEach(function (el) { el.addEventListener('click', function () { try { window.print(); } catch (e) { toast('Printing is not available here'); } }); });
     initGate();
   }
 

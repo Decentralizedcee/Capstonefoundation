@@ -295,6 +295,11 @@ def lint(post, body, removed, site_url, had_h1=False):
     brief = post.get("brief") or {}
     if brief:
         add("INFO", f"Brief: voice = {brief.get('voice') or 'not recorded'}; content = {brief.get('content_mode') or 'write it for me'}.")
+        bq = brief.get("buyer_questions") or []
+        if bq:
+            add("INFO", f"{len(bq)} buyer question(s) recorded. Each should have a specific, self-contained answer in a section or the FAQ.")
+            if len(bq) > 12:
+                add("WARN", "More than 12 buyer questions. Keep the best 5 to 10 and avoid thin sections.")
         if brief.get("content_mode") == "exact":
             exact_check(post, add)
 

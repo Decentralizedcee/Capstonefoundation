@@ -23,7 +23,7 @@ Then ask:
 - **Person:** "I" (one person) or "we" (a team or company)?
 - **Angle:** what is the main point or promise of this post, in one sentence?
 - **Audience:** who is this post for, and what do they want or worry about?
-- **Buyer questions:** what questions does a reader or buyer need answered before they can say yes? Up to 10, in their own words. If they have none, suggest some from your research and mark them as suggestions. These drive the sections and the FAQ (see `answer-engine-guide.md`).
+- **Buyer questions:** see the next part. Most people cannot list these off the top of their head, so **help them**.
 
 How to use the answer:
 - The choice applies to **this post only**. A different post may use a different voice.
@@ -31,6 +31,28 @@ How to use the answer:
 - If they picked a menu voice or described one, write a **voice brief** (five to eight bullet rules: sentence length, how the reader is addressed, humor level, words to favor and avoid). Show it, get an OK, and write the post from it. There are no measured numbers for these, so the voice check script has nothing to compare; judge the draft against the brief and say so in the report.
 - Do not mix in the site's saved voice files for a menu or described voice unless the user asks.
 - Offer once, after the post: *"Want to save this voice as a named variant for future posts?"* Only if they say yes, save it as `references/voice-variants/<name>.md`. Never change the approved site voice files without their approval and a version-log note.
+
+### Buyer questions: ask, then suggest a pick-list
+These are the questions a reader or buyer needs answered before they can say yes. They become the post's sections and its FAQ (see `answer-engine-guide.md`). Many people have none ready, or are not sure, so offer **four ways**, and let them choose:
+
+| Choice | What you do |
+|---|---|
+| **I have my questions** | They type up to 10 in their own words. Use them as given. |
+| **Suggest some for me** | Ask the few basic questions below, research, and give a pick-list. |
+| **Mix** | They give some; you suggest more to fill the gaps. |
+| **Skip for now** | Still find gaps during research and show them in the outline for approval. |
+
+**The few basic questions** (ask only what you still need; "I don't know" is fine):
+1. What is this post about, and what do you want the reader to do afterwards (buy, book, subscribe, learn)?
+2. Who is the reader, and what decision are they making?
+3. What do customers or readers usually ask you before they buy or book? Even two or three real ones help.
+4. Is there anything the post must never claim or say? (This goes into the site's content rules.)
+
+**Then research and suggest.** Build the list from: what the top 3 results answer and miss; "people also ask" style questions you find; a free question tool such as AnswerThePublic where you can reach it; the owner's own pages, FAQs and customer questions; and what a first-time buyer would worry about (price, who it suits, safety, how to use it, what it does not do, delivery, returns). Show **8 to 12 numbered suggestions**, each with one line on why a reader asks it and **where the idea came from** (`top results`, `people also ask`, `your answer`, `suggestion`). Label every one a **suggestion**. Never invent search volumes, statistics, customer names or quotes.
+
+Ask them to **reply with the numbers they want** (5 to 10 is a good post), edit any wording, or add their own. If they say "you choose", pick the 6 to 8 that matter most to the buyer and say which and why. Record the final list in `brief.buyer_questions` in `post.json`.
+
+Questions the owner's facts cannot answer get a `TODO(owner)` note in the outline, not a guess. Do not make a separate page for every question (see `answer-engine-guide.md`, part 1).
 
 ## 2. Keywords
 Before writing anything:

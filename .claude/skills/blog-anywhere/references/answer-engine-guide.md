@@ -15,7 +15,7 @@ When someone asks a complex question, the AI can run several related searches be
 
 What to do for each post:
 1. Take the post's main buying or reader question.
-2. List the **related questions a reader needs answered before they can say yes** (aim for 5 to 10). Sources: the top 3 results, the "People also ask" style questions you find while researching, the owner's own customer questions, and free question tools such as AnswerThePublic (the video's suggestion).
+2. List the **related questions a reader needs answered before they can say yes** (aim for 5 to 10). Sources: the top 3 results, the "People also ask" style questions you find while researching, the owner's own customer questions, and free question tools such as AnswerThePublic (the video's suggestion). **Most owners cannot list these themselves, so help:** ask the few basic questions in `post-brief.md`, research, and show a numbered pick-list of 8 to 12 labelled suggestions for them to choose from (or to edit, or add to). Their picks are the question map.
 3. Check the post (and `site-pages.csv`) for a **specific answer to each**. If the answer is nowhere on the site, that is a gap: answer it in this post's sections or FAQ, or note it as a future post.
 4. **Do not spin up a thin page or post for every sub-question.** **[Google]** Doing that mainly to gain AI answers violates its scaled-content-abuse spam policy, and a high page count does not make a site better. Fewer pieces with real answers beat many with nothing in them.
 

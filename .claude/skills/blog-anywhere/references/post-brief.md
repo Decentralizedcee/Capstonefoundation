@@ -23,6 +23,7 @@ Then ask:
 - **Person:** "I" (one person) or "we" (a team or company)?
 - **Angle:** what is the main point or promise of this post, in one sentence?
 - **Audience:** who is this post for, and what do they want or worry about?
+- **Buyer questions:** what questions does a reader or buyer need answered before they can say yes? Up to 10, in their own words. If they have none, suggest some from your research and mark them as suggestions. These drive the sections and the FAQ (see `answer-engine-guide.md`).
 
 How to use the answer:
 - The choice applies to **this post only**. A different post may use a different voice.

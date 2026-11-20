@@ -27,7 +27,7 @@ The package is written into `blog-sites/<site>/posts/<slug>/` (next to `post.jso
 | `images` | no | List of image objects, numbered from 1. |
 | `brief` | no | `{ "voice": "what the user chose", "humor": "none/light/playful", "person": "I/we", "content_mode": "write/notes/exact", "original_file": "path (only for exact)" }`. In `exact` mode the builder compares the body with the original file word for word and FAILs on any difference. |
 | `body_html` | yes | Clean HTML (rules below). |
-| `faq` | no | List of `{ "q": "...", "a": "..." }`, 4 to 8. Appended as an H2 section, or placed where `[[FAQ]]` appears. |
+| `faq` | no | List of `{ "q": "...", "a": "..." }`, 4 to 8. Each answer opens with a direct answer that repeats its subject (no "It", "This", "They"), about 30 to 90 words, and works when copied alone. Appended as an H2 section, or placed where `[[FAQ]]` appears. |
 | `faq_heading` | no | Default "Frequently asked questions". |
 | `social` | no | Object of share texts, for example `{ "facebook": "...", "linkedin": "..." }`. |
 | `canonical_url` | no | Only if known. |
@@ -52,4 +52,4 @@ The package is written into `blog-sites/<site>/posts/<slug>/` (next to `post.jso
 
 ## The checks (what the script tells you)
 
-Search title and meta description length; clean slug; excerpt length; tag count; no H1 in the body; H2 sections present and no skipped levels; primary keyword in the first 100 words, title, search title, meta description and slug; alt text on every image; leftover `[[INTERNAL:...]]` and TODO notes; internal and external link counts; vague link text; FAQ count; anything removed to make the HTML safe. **FAIL** means fix before publishing. **WARN** means look at it and decide.
+Search title and meta description length; clean slug; excerpt length; tag count; no H1 in the body; H2 sections present and no skipped levels; primary keyword in the first 100 words, title, search title, meta description and slug; alt text on every image; leftover `[[INTERNAL:...]]` and TODO notes; internal and external link counts; vague link text; FAQ count; anything removed to make the HTML safe; answer-engine checks (WARN): FAQ answers or section-opening paragraphs that start with a pronoun or lean on earlier text ("as mentioned above", "see below"), FAQ answers under about 15 or over about 150 words. **FAIL** means fix before publishing. **WARN** means look at it and decide.

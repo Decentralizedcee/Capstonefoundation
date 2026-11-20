@@ -38,6 +38,14 @@ New file `references/post-brief.md` holds the questions asked before every post;
 5. **Connected site:** ask which connector tools exist; if one can make drafts, show exactly what will be sent, get a yes, create a **draft only**, never live. Otherwise the copy-paste package.
 Script changes (all tested): `build_package.py` (brief + exact check), `voice_tools.py check` (friendly note if no saved numbers), `new_site.py` (`connection` field in `site.json`). Skill description is 180 characters.
 
+### Answer-engine update (20 Nov 2026)
+Source: Neil Patel's video "Google's New Rules for Getting Customers" (19 Nov 2026), studied from its full transcript and checked against Google's own page "Optimizing your website for generative AI features on Google Search" (last updated 10 Jul 2026). New file `references/answer-engine-guide.md` (Google-stated points marked [Google], practitioner research marked [practitioner]).
+- **Specific answers to buyer questions:** brief now asks for the questions a buyer needs answered before saying yes; research builds a "question map" (5 to 10 related questions, gaps marked); the outline shows which section or FAQ answers each one.
+- **Self-contained passages:** first paragraph under every H2 and every FAQ answer must pass the copy test (name the subject, who it is for, the limit beside the claim; no "It/This/They" openings; 30 to 90 words for FAQ answers).
+- **No thin pages** for every sub-question (Google: scaled content abuse). **No llms.txt, special AI markup or "chunking"** sold or promised (Google: not needed).
+- **Measure honestly:** after publishing, check Search Console's Generative AI performance report and a 10-question test set; cited is not the same as chosen.
+- `build_package.py`: new WARN checks for pronoun openings, "see above" phrases, and too-short (<15 words) or too-long (>150 words) FAQ answers; tested on a good and a deliberately weak post. Checklist grew to 97 items (new section K). Report has two new lines (ANSWERS, AFTER PUBLISHING). Rules 4 and 5 of the video (Google Ads) are deliberately not used.
+
 ## seo-audit skill (built; requirements it follows)
 See `docs/seo-audit-skill-notes.md` for the full requirements: the access prompt (link, password protection, code, admin access, written permission), the **link-only mode that is always offered** (report only), the fix/recommend labels, safety rules and the pages to audit first (home, about, a product page, contact). First target is a Shopify client store; the owner will send a preview link after the skill exists. Lighthouse 13.6 was run successfully in the Claude Code environment (needs Node and Chrome). Google's keyless PageSpeed API was rate-limited.
 

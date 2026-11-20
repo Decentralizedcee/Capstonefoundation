@@ -35,10 +35,11 @@ One folder per site: `blog-sites/<site-slug>/`, made by `scripts/new_site.py`. I
 - `references/reference-templates/`: voice, tone, humor, opinions, stats, stories templates.
 - `references/style-reference-template.md`: turn a writing sample into a style guide.
 - `references/post-anatomy.md`: what a proper post contains, in order.
+- `references/answer-engine-guide.md`: how to write specific, self-contained answers so search engines' AI answers can find and quote the post. Read it before outlining and again before writing the FAQ.
 - `references/post-package-spec.md`: the `post.json` fields, HTML rules and checks.
 - `references/image-guide.md`: image sources and rules.
 - `references/platform-paste-guides.md`: Shopify, WordPress and others.
-- `references/on-page-seo-checklist.md`: the 90-item checklist (platform items are N/A here).
+- `references/on-page-seo-checklist.md`: the 97-item checklist (platform items are N/A here).
 - `scripts/new_site.py`, `scripts/voice_tools.py`, `scripts/build_package.py`, `scripts/optimize_image.py`, `assets/preview-template.html`.
 
 The owner is often a beginner. Explain each step in plain words before you do it, and **stop at each gate**.
@@ -59,15 +60,15 @@ Follow `references/voice-builder.md`: collect samples, **measure** them (`voice_
 
 ## Step 3: Each post
 
-1. **Brief.** Before anything else, ask `references/post-brief.md`, one group at a time: the **voice for this post** (a menu the user picks from freely, plus humor, "I" or "we", angle, audience), the **keyword** (choose from their list, give one, or be asked), the **images** they want, whether they have **their own content** (write it for me, build on my notes, use mine exactly) and whether the **site is connected** to Claude. Read the brief back and wait for "go". No voice is assumed: never apply a house style, a belief or humor rule, or a preset from anywhere except the user's own answers and their own site rules.
+1. **Brief.** Before anything else, ask `references/post-brief.md`, one group at a time: the **voice for this post** (a menu the user picks from freely, plus humor, "I" or "we", angle, audience), the **keyword** (choose from their list, give one, or be asked), the **images** they want, the **questions a buyer needs answered before they say yes**, whether they have **their own content** (write it for me, build on my notes, use mine exactly) and whether the **site is connected** to Claude. Read the brief back and wait for "go". No voice is assumed: never apply a house style, a belief or humor rule, or a preset from anywhere except the user's own answers and their own site rules.
 2. **Cluster.** 5 to 10 related terms, used naturally. Never reuse a keyword in `published.json`; flag unverified volume or difficulty.
-3. **Research.** Search the web for the primary keyword. Take the **top 3 organic results** (skip forums, directories and video). Record word count, number of H2s, images, FAQ presence, topics and format; average them for targets; list what all three cover and what none cover. Use them for **structure only**, never copy wording or facts. Show a short table.
-4. **Outline** following `references/post-anatomy.md`. Show it and **wait for the owner's OK** (skip only if they say "just write it").
-5. **Write** in the voice chosen in the brief (for "my own voice" read every voice file and `anchor-sample.md` first; for a menu or described voice write and show a short voice brief first). In mode **use mine exactly** do not rewrite anything: add only the SEO fields, format, images and checks, and list suggestions separately. In **build on my notes** mark what you added. Hook per the humor level (a joke only if allowed; otherwise an honest human moment, a direct question or a clear promise). Primary keyword in the first 100 words. Answer early, then go deeper. **Only true facts** from the profile, `stats.md`, `stories.md` or sources you can name; everything else is `TODO(owner)`. Quoted texts follow the owner's rule (one translation, verified exactly, cited). Signature phrases sparingly. No generic AI openings. Internal links **only** to pages in `site-pages.csv`, otherwise `[[INTERNAL:description]]`. Never invent a web address.
+3. **Research.** Search the web for the primary keyword. Take the **top 3 organic results** (skip forums, directories and video). Record word count, number of H2s, images, FAQ presence, topics and format; average them for targets; list what all three cover and what none cover. Use them for **structure only**, never copy wording or facts. Show a short table. Then build the **question map** (`references/answer-engine-guide.md`, part 1): the 5 to 10 related questions a reader needs answered before saying yes, from the brief, the top results and the owner's own customer questions. Mark which ones the post answers specifically and which are gaps.
+4. **Outline** following `references/post-anatomy.md`. Show it, with the question map and which section or FAQ answers each question, and **wait for the owner's OK** (skip only if they say "just write it").
+5. **Write** in the voice chosen in the brief (for "my own voice" read every voice file and `anchor-sample.md` first; for a menu or described voice write and show a short voice brief first). In mode **use mine exactly** do not rewrite anything: add only the SEO fields, format, images and checks, and list suggestions separately. In **build on my notes** mark what you added. Hook per the humor level (a joke only if allowed; otherwise an honest human moment, a direct question or a clear promise). Primary keyword in the first 100 words. Answer early, then go deeper. **Be specific:** follow `references/answer-engine-guide.md`. The first paragraph under every H2 and every FAQ answer must make sense when copied out of the page alone: name the subject, say who it is for, put the limit beside the claim, and never open with "It", "This" or "They". No section written only to catch a keyword. **Only true facts** from the profile, `stats.md`, `stories.md` or sources you can name; everything else is `TODO(owner)`. Quoted texts follow the owner's rule (one translation, verified exactly, cited). Signature phrases sparingly. No generic AI openings. Internal links **only** to pages in `site-pages.csv`, otherwise `[[INTERNAL:description]]`. Never invent a web address.
 6. **Images.** Follow `references/image-guide.md` and the site's image rules. Use the images the user asked for in the brief (own photos, Unsplash by hand, Unsplash by API, specific files, or none). Look at the owner's photos before choosing; write honest alt text; optimise copies with `optimize_image.py`. Show every stock photo you pick.
 7. **Build the package.** Write `blog-sites/<site>/posts/<slug>/post.json` per `references/post-package-spec.md`, then run `build_package.py <that file> blog-sites/<site>/posts --zip`. Include the `brief` object. Fix every **FAIL** (in "use mine exactly" mode a FAIL means their wording changed), weigh every **WARN**, rebuild.
 8. **Voice check.** For "my own voice" run `voice_tools.py check blog-sites/<site>/posts/<slug>/post.md blog-sites/<site>/voice-metrics.json`. Fix real drift; if you keep a difference, say why (topic or post type can move the numbers). For a menu or described voice there are no saved numbers: read the draft against the voice brief and the humor choice, and say so. For "my own voice" also read it against `voice.md` and `humor.md`.
-9. **On-page checklist.** Walk `references/on-page-seo-checklist.md`. Mark site-platform items (sitemap, robots, speed, templates) **N/A** and say they belong to the site.
+9. **On-page checklist.** Run the quick audit in `references/answer-engine-guide.md` (part 7), then walk `references/on-page-seo-checklist.md`, including section K (answer engines). Mark site-platform items (sitemap, robots, speed, templates) **N/A** and say they belong to the site.
 10. **Report** (below). Update `published.json` with keyword, slug, date and status `package built`.
 
 ## Step 4: Publish (their choice)
@@ -87,7 +88,9 @@ PACKAGE: <folder and zip>   Open post-preview.html in a browser.
 CHECKS: <passed> passed, <warnings> warning(s), <fails> failed   (list each warning in plain words)
 VOICE CHECK: <hook fits tone? no AI phrasing? only true facts? signature phrases ok?>   METRICS: <in range / drifting and why>
 IMAGES: <each: source, what it shows, who uploads it, credit>
+ANSWERS: <buyer questions answered specifically / gaps left; passages checked with the copy test; any answer warnings from the build>
 STILL NEEDED FROM YOU: <every TODO(owner), every [[INTERNAL:...]] link, every image to upload>
+AFTER PUBLISHING: <Search Console Generative AI performance report; the 10-question test set; cited is not the same as chosen>
 WHERE TO PASTE or DRAFT: <their platform's steps, or what was sent as a draft>
 ```
 
@@ -100,4 +103,5 @@ WHERE TO PASTE or DRAFT: <their platform's steps, or what was sent as a draft>
 - Never present a stock photo as the owner's own people, products, team, results or testimonials.
 - Posts link only to real pages the owner listed; everything else is a marked placeholder.
 - Follow the user's **own** content rules (privacy, legal, medical, financial or other wording they set for their site) over any default here. This skill has no house voice or beliefs of its own; rules from other people's projects never apply.
+- Never sell or promise AI tricks. Google says `llms.txt` files, special AI markup, "chunking" and writing only for AI are not needed. Never promise citations, rankings or sales from a post.
 - Content quality and truth beat checklist scores.

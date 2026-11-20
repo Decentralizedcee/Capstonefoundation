@@ -133,6 +133,18 @@ Some items apply only to blogs (B) or only to service pages (S). Unmarked items 
 
 ---
 
+## K. Answer engines (91–97)
+
+Source: `answer-engine-guide.md` (Neil Patel video of 19 Nov 2026 and Google's own AI-features guide). **[G]** = Google says it; **[P]** = practitioner research, not a Google rule.
+
+91. The post answers the main question **and 5 to 10 related questions** a buyer needs answered before saying yes, each specifically. **[G]**
+92. The first paragraph under each H2 passes the **copy test**: pasted alone, it is still accurate, clear and useful. **[P]**
+93. Every FAQ answer opens with a direct answer that repeats its subject (no pronoun opening), about 30 to 90 words, and works alone.
+94. Claims name the subject, say who they are for, and put the limit beside the claim.
+95. No thin or duplicate sections or pages made only for sub-questions or keywords. **[G: scaled content abuse]**
+96. Proof is real and specific (named customers, numbers, results) or absent. Nothing out of date, unapproved or untrue in some regions.
+97. No `llms.txt`, special AI markup or "chunking" added or promised. The owner is told how to check results (Search Console Generative AI performance report, a 10-question test set; cited is not the same as chosen). **[G]**
+
 ## Audit report format
 
 When asked to audit a page, output:

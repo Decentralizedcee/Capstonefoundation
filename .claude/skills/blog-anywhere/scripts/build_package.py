@@ -388,6 +388,47 @@ def lint(post, body, removed, site_url, had_h1=False):
         add("INFO", f"{markers} image marker(s) to replace with uploaded images.")
     faq = post.get("faq", [])
     add("PASS" if 4 <= len(faq) <= 8 else "WARN", f"{len(faq)} FAQ question(s) (aim for 4 to 8)." )
+    # Answer-engine checks: an answer must still make sense when copied out of the page on its own.
+    # (references/answer-engine-guide.md). These are WARNs, never FAILs.
+    lead_words = {"it", "this", "that", "they", "these", "those", "he", "she", "such", "also",
+                  "and", "but", "however"}
+    leaning = re.compile(r"\b(as (?:mentioned|noted|discussed|described|shown) (?:above|earlier|before|below)"
+                         r"|see (?:above|below)|the (?:above|below)\b|click here)", re.I)
+
+    def first_word(t):
+        m = re.match(r"\W*([A-Za-z']+)", t)
+        return m.group(1).lower() if m else ""
+
+    answer_issues = []
+    for item in faq:
+        q = re.sub(r"<[^>]+>", "", item.get("q", "")).strip()
+        a = re.sub(r"<[^>]+>", " ", item.get("a", "")).strip()
+        label = '"' + (q[:55] + ("..." if len(q) > 55 else "")) + '"'
+        n = len(a.split())
+        if first_word(a) in lead_words:
+            answer_issues.append(f'FAQ answer to {label} starts with "{first_word(a)}", so it needs the question to make sense. Name the subject.')
+        if leaning.search(a):
+            answer_issues.append(f"FAQ answer to {label} points to other text (\"above\", \"below\" or \"click here\"). Make it stand alone.")
+        if n < 15:
+            answer_issues.append(f"FAQ answer to {label} is only {n} words. Add the specifics (numbers, who it is for, the limit).")
+        elif n > 150:
+            answer_issues.append(f"FAQ answer to {label} is {n} words. Keep it to a short answer and move the detail into the post.")
+    for m in re.finditer(r"<h2[^>]*>(.*?)</h2>(.*?)(?=<h2|\Z)", body, re.S | re.I):
+        title = re.sub(r"<[^>]+>", "", m.group(1)).strip()
+        if re.search(r"frequently asked|faq", title, re.I):
+            continue
+        for pm in re.finditer(r"<p[^>]*>(.*?)</p>", m.group(2), re.S | re.I):
+            ptxt = re.sub(r"<[^>]+>", " ", pm.group(1)).strip()
+            if not ptxt or ptxt.startswith("[IMAGE"):
+                continue
+            if first_word(ptxt) in lead_words:
+                answer_issues.append(f'The first paragraph under "{title[:55]}" starts with "{first_word(ptxt)}", so it will not make sense if copied out alone. Name the subject.')
+            break
+    if answer_issues:
+        for msg in answer_issues:
+            add("WARN", msg)
+    else:
+        add("PASS", "Answers look self-contained: no pronoun openings, no \"see above\" in the FAQ or in the first paragraph of each section.")
     if removed:
         add("WARN", "Removed so the post pastes cleanly: " + "; ".join(removed) + ".")
     return res

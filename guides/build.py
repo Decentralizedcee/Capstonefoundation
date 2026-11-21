@@ -23,10 +23,22 @@ def data_uri(name: str) -> str:
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
+def jpg_uri(name: str) -> str:
+    return "data:image/jpeg;base64," + base64.b64encode((SRC / "assets" / name).read_bytes()).decode()
+
+
+# Where the two interactive guides live. Hosted: next to the landing page. Preview: the private artifact links.
+HOSTED_URLS = {"@@RITUAL_URL@@": "divine-ritual-guide.html", "@@PLANNER_URL@@": "rhythm-planner.html"}
+PREVIEW_URLS = {"@@RITUAL_URL@@": "https://claude.ai/artifact/XxiqtdEUhGEHNfkWekT6uY", "@@PLANNER_URL@@": "https://claude.ai/artifact/RwQSLpT7toHzmj54c1Aaxy"}
+
+
 def assemble(page: str) -> str:
     html = (SRC / page).read_text()
     html = html.replace("/*@BASE_CSS*/", (SRC / "base.css").read_text())
     html = html.replace("/*@COMMON_JS*/", (SRC / "common.js").read_text())
+    for token, asset in (("@@COVER_RITUAL@@", "cover-ritual.jpg"), ("@@COVER_PLANNER@@", "cover-planner.jpg")):
+        if token in html:
+            html = html.replace(token, jpg_uri(asset))
     for token, asset in (("@@MARK_LIGHT@@", "mark-gold.png"), ("@@MARK_INK@@", "mark-ink.png"), ("@@MARK@@", "mark-gold.png"),
                          ("@@WORD_GOLD@@", "word-gold.png"), ("@@WORD@@", "word-ink.png")):
         if token in html:
@@ -59,8 +71,13 @@ if __name__ == "__main__":
     for page, out in (("print-ritual.html", "ritual.html"), ("print-planner.html", "planner.html"), ("print-whatsapp.html", "whatsapp.html")):
         (ROOT / "_print" / out).write_text(assemble_print(page))
     (ROOT / "_preview").mkdir(exist_ok=True)
-    for page, out in (("ritual.html", "divine-ritual-guide.html"), ("planner.html", "rhythm-planner.html")):
+    for page, out in (("ritual.html", "divine-ritual-guide.html"), ("planner.html", "rhythm-planner.html"), ("landing.html", "free-guides.html")):
         full = assemble(page)
-        (ROOT / out).write_text(keep_hosted(full))
-        (ROOT / "_preview" / out).write_text(preview_variant(full))
+        hosted, preview = full, full
+        for token, url in HOSTED_URLS.items():
+            hosted = hosted.replace(token, url)
+        for token, url in PREVIEW_URLS.items():
+            preview = preview.replace(token, url)
+        (ROOT / out).write_text(keep_hosted(hosted))
+        (ROOT / "_preview" / out).write_text(preview_variant(preview))
         print(f"{out}: {(ROOT / out).stat().st_size / 1024:.0f} KB")

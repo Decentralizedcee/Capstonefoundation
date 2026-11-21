@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Free Guides</title>
+<meta name="description" content="Two free guides from Une Femme Divine: Your Divine Ritual and Rhythm of the Body. Join our email list and download both.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;1,400;1,500&family=Poppins:wght@300;400;500&display=swap">
+<style>
+/*@BASE_CSS*/
+
+/* landing page */
+.hero { background: var(--sand); padding-block: clamp(3rem, 8vw, 5.5rem); }
+.hero::before { content: ""; position: absolute; inset: clamp(10px, 2vw, 20px); border: 1px solid rgba(184, 151, 90, .55); pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.1rem); }
+.getanchor { scroll-margin-top: 90px; }
+.thanks { scroll-margin-top: 90px; }
+.thanks .btn.small { color: var(--aub); }
+.thanks .btn.ghost.small { color: var(--champ); }
+.hero h1 i { color: var(--bronze); }
+.hero .lead { margin-top: 1.4rem; font-size: 1.0625rem; }
+.formcard { background: var(--cream); border: 1px solid var(--gold); padding: clamp(1.4rem, 3.4vw, 2.2rem); max-width: 520px; margin-top: 2rem; scroll-margin-top: 90px; }
+.formcard h2 { font-size: 2.1rem; margin-bottom: .4rem; }
+.formcard form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.1rem; }
+.formcard .err { color: var(--err); font-size: .84375rem; min-height: 1.3em; margin: 0; }
+.formcard .btn { width: 100%; }
+.formcard .fine { font-size: .75rem; color: var(--muted); margin-top: .9rem; }
+.thanks { background: var(--aub); color: var(--cream); border: 1px solid var(--gold); padding: clamp(1.4rem, 3.4vw, 2.2rem); max-width: 520px; margin-top: 2rem; }
+.thanks h2 { color: var(--cream); font-size: 2.3rem; }
+.thanks h2 i { color: var(--champ); }
+.thanks .eyebrow { color: var(--champ); margin-bottom: .6rem; }
+.thanks .dl { display: grid; gap: .9rem; margin-top: 1.4rem; }
+.thanks .gd { border-top: 1px solid rgba(226, 201, 148, .3); padding-top: .9rem; }
+.thanks .gd b { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; display: block; margin-bottom: .55rem; }
+.thanks .btn { background: var(--champ); border-color: var(--champ); color: var(--aub); }
+.thanks .btn.ghost { background: transparent; color: var(--champ); }
+.thanks .small { color: #D8C8CD; margin-top: 1.1rem; }
+
+.covers { position: relative; height: clamp(360px, 56vw, 600px); align-self: start; position: sticky; top: 100px; }
+.covers img { position: absolute; width: min(52%, 290px); box-shadow: 0 28px 50px -22px rgba(59, 31, 43, .6); border: 1px solid rgba(184, 151, 90, .4); }
+.covers img:first-child { left: 0; top: 4%; transform: rotate(-4deg); }
+.covers img:last-child { right: 0; top: 22%; transform: rotate(4deg); }
+@media (max-width: 900px) { .covers { height: clamp(300px, 70vw, 460px); order: -1; } }
+
+.guides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2rem); }
+@media (max-width: 760px) { .guides { grid-template-columns: minmax(0, 1fr); } }
+.gcard { display: grid; grid-template-columns: minmax(0, 120px) minmax(0, 1fr); gap: 1.4rem; align-items: start; padding: clamp(1.2rem, 3vw, 1.8rem); border: 1px solid var(--line-dark); background: rgba(247, 241, 234, .05); }
+@media (max-width: 480px) { .gcard { grid-template-columns: minmax(0, 1fr); } .gcard img { max-width: 140px; } }
+.gcard img { border: 1px solid rgba(226, 201, 148, .4); box-shadow: 0 16px 30px -18px #000; }
+.gcard h3 { color: var(--cream); margin-bottom: .4rem; font-size: 1.9rem; }
+.gcard h3 i { color: var(--champ); }
+.gcard p { color: #D8C8CD; font-size: .9rem; }
+.gcard ul { list-style: none; margin: .9rem 0 1rem; padding: 0; display: grid; gap: .5rem; font-size: .875rem; }
+.gcard li { padding-left: 1.5rem; position: relative; }
+.gcard li::before { content: ""; position: absolute; left: 0; top: .85em; width: .8rem; height: 1px; background: var(--champ); }
+.tags { display: flex; gap: .5rem; flex-wrap: wrap; }
+.tags span { font-size: .625rem; letter-spacing: .2em; text-transform: uppercase; border: 1px solid var(--champ); color: var(--champ); padding: .3rem .7rem; }
+
+.steps3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
+@media (max-width: 760px) { .steps3 { grid-template-columns: minmax(0, 1fr); } }
+.steps3 > div { border-top: 1px solid var(--gold); padding-top: 1.2rem; }
+.steps3 .n { font-family: var(--serif); font-size: 3rem; line-height: 1; color: var(--gold); display: block; margin-bottom: .5rem; }
+.steps3 h4 { font-family: var(--sans); font-size: .75rem; letter-spacing: .24em; text-transform: uppercase; font-weight: 500; margin-bottom: .5rem; }
+
+.cta-band { text-align: center; padding-block: clamp(4rem, 9vw, 6.5rem); }
+.cta-band::before { content: ""; position: absolute; inset: clamp(10px, 2vw, 20px); border: 1px solid rgba(226, 201, 148, .5); pointer-events: none; }
+.cta-band .btn { margin-top: 1.6rem; }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="top">
+  <div class="topbar-in">
+    <img src="@@WORD@@" alt="Une Femme Divine">
+    <a class="btn small" href="#get" id="top-cta" style="white-space:nowrap">Free guides</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="band hero">
+    <div class="in hero-grid">
+      <div>
+        <p class="eyebrow" style="margin-bottom:1.2rem">Free for you</p>
+        <h1>Two free guides for your ritual <i>and your rhythm.</i></h1>
+        <p class="lead">A guide to the moment you give back to yourself, and a gentle planner for living your month in four inner seasons. Join our email list and download both.</p>
+
+        <div id="get" class="getanchor">
+          <div class="formcard" id="gate-wrap">
+            <h2>Get your <span class="it">free guides.</span></h2>
+            <p class="small muted">Tell us where to send your letters, and both guides are yours straight away.</p>
+            <form id="gate-form" novalidate>
+              <label class="field" for="g-name">First name
+                <input id="g-name" name="name" type="text" autocomplete="given-name" placeholder="Your first name">
+              </label>
+              <label class="field" for="g-email">Email
+                <input id="g-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+              </label>
+              <label class="check small" for="g-consent">
+                <input id="g-consent" name="consent" type="checkbox">
+                <span>Yes, email me letters from Une Femme Divine. I can unsubscribe at any time.</span>
+              </label>
+              <p class="err" id="gate-err" role="alert"></p>
+              <button class="btn" type="submit">Send me the guides</button>
+            </form>
+            <p class="fine">We send occasional letters, never spam, and we never share your email.</p>
+          </div>
+        </div>
+
+        <div class="thanks" id="thanks" data-locked hidden aria-live="polite">
+          <p class="eyebrow">You are in</p>
+          <p class="script" data-greet hidden style="color:var(--champ);margin:0 0 .3rem"></p>
+          <h2>Your guides <i>are ready.</i></h2>
+          <div class="dl">
+            <div class="gd"><b>Your Divine Ritual</b>
+              <div class="row"><a class="btn small" data-ritual-link href="#">Open online</a><!--hosted--><a class="btn small ghost" data-ritual-pdf href="#" download>Download PDF</a><!--/hosted--></div></div>
+            <div class="gd"><b>Rhythm of the Body</b>
+              <div class="row"><a class="btn small" data-planner-link href="#">Open online</a><!--hosted--><a class="btn small ghost" data-planner-pdf href="#" download>Download PDF</a><!--/hosted--></div></div>
+          </div>
+          <p class="small">The online guides are interactive. The PDFs can be printed or filled in on your screen. Save this page to find them again.</p>
+          <p class="small" data-email-note hidden>A link to your guides is also on its way to your inbox.</p>
+        </div>
+      </div>
+
+      <div class="covers" aria-hidden="true">
+        <img src="@@COVER_RITUAL@@" alt="">
+        <img src="@@COVER_PLANNER@@" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="band band-dark" id="inside">
+    <div class="in">
+      <div class="sechead"><p class="eyebrow">What is inside</p><span class="num">01</span></div>
+      <div class="sec-head">
+        <h2>Two guides,<br><span class="it gold-it">one calm start.</span></h2>
+        <span class="rule"></span>
+        <p class="lead" style="color:var(--cream)">Made for women who give a lot to others, and want a moment for themselves.</p>
+      </div>
+      <div class="guides">
+        <article class="gcard">
+          <img src="@@COVER_RITUAL@@" alt="Your Divine Ritual guide cover">
+          <div>
+            <h3>Your Divine <i>Ritual</i></h3>
+            <p>A guide to the moment you give back to yourself.</p>
+            <ul>
+              <li>Build a daily ritual for your morning, afternoon or evening</li>
+              <li>Follow it with a gentle guided timer</li>
+              <li>A seven-day journal and a deck of small moments</li>
+              <li>Everything about Divine Elixir in one calm place</li>
+            </ul>
+            <div class="tags"><span>Interactive</span><span>PDF</span></div>
+          </div>
+        </article>
+        <article class="gcard">
+          <img src="@@COVER_PLANNER@@" alt="Rhythm of the Body planner cover">
+          <div>
+            <h3>Rhythm of <i>the Body</i></h3>
+            <p>A gentle cycle and self-care planner.</p>
+            <ul>
+              <li>See your month in four inner seasons: Rest, Rise, Bloom, Restore</li>
+              <li>Gentle ideas for movement, nourishment and ritual</li>
+              <li>Log your energy and mood, privately on your device</li>
+              <li>Add your seasons to Google, Apple or Outlook calendar</li>
+            </ul>
+            <div class="tags"><span>Interactive</span><span>PDF</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="band">
+    <div class="in">
+      <div class="sechead"><p class="eyebrow">How it works</p><span class="num">02</span></div>
+      <h2>Simple, <span class="it">and free.</span></h2>
+      <span class="rule"></span>
+      <div class="steps3">
+        <div><span class="n">01</span><h4>Join</h4><p>Enter your first name and email above. It takes ten seconds.</p></div>
+        <div><span class="n">02</span><h4>Download</h4><p>Both guides open straight away. Use them online, or save the PDFs.</p></div>
+        <div><span class="n">03</span><h4>Make it yours</h4><p>Build your ritual, fill in your journal and plan your month, at your own pace.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band band-sand">
+    <div class="in" style="max-width:780px">
+      <div class="sechead"><p class="eyebrow">Good to know</p><span class="num">03</span></div>
+      <h2>Questions, <span class="it">answered simply.</span></h2>
+      <span class="rule"></span>
+      <details class="faq"><summary>Is it really free?</summary><div class="ans">Yes. Both guides are free when you join our email list. There is nothing to buy.</div></details>
+      <details class="faq"><summary>Do I need to own Divine Elixir?</summary><div class="ans">No. The guides are for any woman who wants a calmer daily ritual. If you do have Divine Elixir, Your Divine Ritual shows you how to build a moment around it.</div></details>
+      <details class="faq"><summary>What will you do with my email?</summary><div class="ans">We will send you occasional letters from Une Femme Divine. You can unsubscribe at any time, and we never share your email with anyone.</div></details>
+      <details class="faq"><summary>Is my planner information private?</summary><div class="ans">Yes. Your dates, moods and notes stay in your own browser, on your own device. We never see them.</div></details>
+      <details class="faq"><summary>Is this medical advice?</summary><div class="ans">No. The guides share lifestyle and self-care inspiration only. If something feels unusual or worries you, please speak with a doctor.</div></details>
+      <details class="faq"><summary>Do I get the PDFs and the online versions?</summary><div class="ans">Both. The online guides are interactive, with a ritual timer and calendar reminders. The PDFs are made for printing or filling in on your screen.</div></details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="band band-dark cta-band">
+    <div class="in">
+      <p class="eyebrow" style="margin-bottom:1.2rem">Balance begins within</p>
+      <h2>Begin with <span class="it gold-it">a free guide.</span></h2>
+      <p class="lead" style="margin:1.2rem auto 0;color:var(--cream)">A little ritual, a little rhythm, all yours.</p>
+      <a class="btn" href="#get">Get the free guides</a>
+    </div>
+  </section>
+</main>
+
+<footer class="band band-dark" style="padding-block:3rem;border-top:1px solid var(--line-dark)">
+  <div class="in" style="text-align:center">
+    <img src="@@MARK_LIGHT@@" alt="" style="width:76px;margin:0 auto 1.2rem">
+    <p class="eyebrow" style="margin-bottom:.8rem">Une Femme Divine</p>
+    <p class="small" style="margin:0 auto 1rem">Tag us <b>@unefemmedivine</b> &middot; <a data-shop href="#" target="_blank" rel="noopener">Visit the shop</a> &middot; <a data-contact href="#">hello</a></p>
+    <p class="disclaimer" style="margin:0 auto">The guides share ritual and lifestyle inspiration and are not medical advice. Une Femme Divine does not claim that Divine Elixir treats, cures or prevents anything.</p>
+  </div>
+</footer>
+
+<script>
+window.UFD_CONFIG = {
+  guideId: 'landing-free-guides',
+  provider: 'none',                       // 'shopify' | 'webhook' | 'none'  (see guides/README.md)
+  shopDomain: '',                         // e.g. 'unefemmedivine.com'
+  webhookUrl: '',                         // e.g. a Klaviyo / Mailchimp / Make / Zapier endpoint
+  tags: 'free-guides,guide-ritual,guide-planner,newsletter',
+  contactEmail: 'help@unefemmedivine.com',
+  otherGuideUrl: '',
+  shopUrl: 'https://unefemmedivine.com',
+  ritualUrl: '@@RITUAL_URL@@',
+  plannerUrl: '@@PLANNER_URL@@',
+  ritualPdf: 'pdf/Your-Divine-Ritual.pdf',
+  plannerPdf: 'pdf/Rhythm-of-the-Body.pdf',
+  emailFollowUp: false                    // set true once the welcome email automation is live
+};
+</script>
+<script>
+/*@COMMON_JS*/
+</script>
+<script>
+(function () {
+  var U = window.UFD, $ = U.$, $$ = U.$$, C = U.C;
+  $$('[data-ritual-link]').forEach(function (a) { a.href = C.ritualUrl; });
+  $$('[data-planner-link]').forEach(function (a) { a.href = C.plannerUrl; });
+  $$('[data-ritual-pdf]').forEach(function (a) { a.href = C.ritualPdf; });
+  $$('[data-planner-pdf]').forEach(function (a) { a.href = C.plannerPdf; });
+  $$('[data-email-note]').forEach(function (el) { el.hidden = !C.emailFollowUp; });
+  document.addEventListener('ufd:unlocked', function () { var t = $('#top-cta'); if (t) { t.textContent = 'Your guides'; t.href = '#get'; } });
+})();
+</script>
+</body>
+</html>

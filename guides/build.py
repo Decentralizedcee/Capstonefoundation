@@ -28,15 +28,18 @@ def jpg_uri(name: str) -> str:
 
 
 # Where the two interactive guides live. Hosted: next to the landing page. Preview: the private artifact links.
-HOSTED_URLS = {"@@RITUAL_URL@@": "divine-ritual-guide.html", "@@PLANNER_URL@@": "rhythm-planner.html"}
-PREVIEW_URLS = {"@@RITUAL_URL@@": "https://claude.ai/artifact/XxiqtdEUhGEHNfkWekT6uY", "@@PLANNER_URL@@": "https://claude.ai/artifact/RwQSLpT7toHzmj54c1Aaxy"}
+HOSTED_URLS = {"@@PLANNER_URL@@": "rhythm-planner.html"}
+PREVIEW_URLS = {"@@PLANNER_URL@@": "https://claude.ai/artifact/RwQSLpT7toHzmj54c1Aaxy"}
 
 
 def assemble(page: str) -> str:
     html = (SRC / page).read_text()
     html = html.replace("/*@BASE_CSS*/", (SRC / "base.css").read_text())
     html = html.replace("/*@COMMON_JS*/", (SRC / "common.js").read_text())
-    for token, asset in (("@@COVER_RITUAL@@", "cover-ritual.jpg"), ("@@COVER_PLANNER@@", "cover-planner.jpg")):
+    for token, f in (("/*@LANDING_CSS*/", "landing.css"), ("/*@LANDING_JS*/", "landing.js")):
+        if token in html:
+            html = html.replace(token, (SRC / f).read_text())
+    for token, asset in (("@@COVER_PLANNER@@", "cover-planner.jpg"),):
         if token in html:
             html = html.replace(token, jpg_uri(asset))
     for token, asset in (("@@MARK_LIGHT@@", "mark-gold.png"), ("@@MARK_INK@@", "mark-ink.png"), ("@@MARK@@", "mark-gold.png"),
@@ -71,7 +74,7 @@ if __name__ == "__main__":
     for page, out in (("print-ritual.html", "ritual.html"), ("print-planner.html", "planner.html"), ("print-whatsapp.html", "whatsapp.html")):
         (ROOT / "_print" / out).write_text(assemble_print(page))
     (ROOT / "_preview").mkdir(exist_ok=True)
-    for page, out in (("ritual.html", "divine-ritual-guide.html"), ("planner.html", "rhythm-planner.html"), ("landing.html", "free-guides.html")):
+    for page, out in (("ritual.html", "divine-ritual-guide.html"), ("planner.html", "rhythm-planner.html"), ("landing.html", "free-planner.html")):
         full = assemble(page)
         hosted, preview = full, full
         for token, url in HOSTED_URLS.items():

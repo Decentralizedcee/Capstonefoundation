@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="{{ 'ufd-landing.css' | asset_url }}">
+<header class="topbar" id="top">
+<div class="topbar-in">
+<img src="{{ 'ufd-word-ink.png' | asset_url }}" alt="Une Femme Divine">
+<a class="btn small" href="#get" id="top-cta" style="white-space:nowrap">Free planner</a>
+</div>
+</header>
+<main>
+<section class="band hero">
+<div class="in hero-grid">
+<div>
+<p class="eyebrow" style="margin-bottom:1.2rem">{{ section.settings.eyebrow }}</p>
+<h1>{{ section.settings.headline }}</h1>
+<p class="lead">{{ section.settings.lead }}</p>
+{%- form 'customer', id: 'ufd-form' -%}
+{%- if form.posted_successfully? -%}
+<script>try{localStorage.setItem('ufd:access',JSON.stringify({name:'',at:Date.now()}))}catch(e){}</script>
+{%- else -%}
+<div id="get" class="getanchor">
+<div class="formcard" id="gate-wrap">
+<h2>{{ section.settings.form_title }}</h2>
+<p class="small muted">{{ section.settings.form_intro }}</p>
+<input type="hidden" name="contact[tags]" value="free-planner,rhythm-of-the-body,newsletter">
+<div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.1rem">
+<label class="field" for="g-name">First name
+<input id="g-name" name="contact[first_name]" type="text" autocomplete="given-name" placeholder="Your first name">
+</label>
+<label class="field" for="g-email">Email
+<input id="g-email" name="contact[email]" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+</label>
+<label class="check small" for="g-consent">
+<input id="g-consent" type="checkbox">
+<span>Yes, email me letters from Une Femme Divine. I can unsubscribe at any time.</span>
+</label>
+<p class="err" id="gate-err" role="alert">{%- if form.errors -%}{{ form.errors | default_errors }}{%- endif -%}</p>
+<button class="btn" type="submit">{{ section.settings.button_label }}</button>
+</div>
+<p class="fine">We send occasional letters, never spam, and we never share your email.</p>
+</div>
+</div>
+{%- endif -%}
+{%- endform -%}
+<div class="thanks" id="thanks" data-locked hidden aria-live="polite">
+<p class="eyebrow">You are in</p>
+<p class="script" data-greet hidden style="color:var(--champ);margin:0 0 .3rem"></p>
+<h2>Your planner <i>is ready.</i></h2>
+<div class="row" style="margin-top:1.4rem"><a class="btn" href="{{ section.settings.planner_url }}">Open the planner</a><a class="btn ghost" href="{{ 'Rhythm-of-the-Body.pdf' | file_url }}" download>Download PDF</a></div>
+<p class="small">The online planner is interactive. The PDF can be printed or filled in on your screen. Save this page to find them again.</p>
+<p class="small">A link to your planner is also on its way to your inbox. If you do not see it, please check your spam folder.</p>
+</div>
+</div>
+<div class="covers" aria-hidden="true"><div class="covermock"><span class="cm-top">Une Femme Divine</span><img class="cm-mark" src="{{ 'ufd-mark-gold.png' | asset_url }}" alt=""><p class="cm-kick">A gentle cycle planner</p><p class="cm-title">Rhythm of<br><i>the Body.</i></p><span class="cm-rule"></span><p class="cm-sub">See your month in four inner seasons.</p><span class="cm-bot">Made for women</span></div></div>
+</div>
+</section>
+<section class="band band-dark" id="inside">
+<div class="in">
+<div class="sechead"><p class="eyebrow">What is inside</p><span class="num">01</span></div>
+<div class="sec-head">
+<h2>Your month,<br><span class="it gold-it">in four seasons.</span></h2>
+<span class="rule"></span>
+<p class="lead" style="color:var(--cream)">Made for women who give a lot to others, and want to understand their own rhythm.</p>
+</div>
+<div class="tiles">
+<div class="s0"><b>Rest</b><span>Inner winter</span></div>
+<div class="s1"><b>Rise</b><span>Inner spring</span></div>
+<div class="s2"><b>Bloom</b><span>Inner summer</span></div>
+<div class="s3"><b>Restore</b><span>Inner autumn</span></div>
+</div>
+<ul class="feat">
+<li><b>See your month</b>Enter your dates once and the calendar colours itself in seasons.</li>
+<li><b>Gentle ideas</b>Suggestions for movement, nourishment and ritual in every season.</li>
+<li><b>Log how you feel</b>Track energy, mood and a few words each day. Everything stays on your device.</li>
+<li><b>Your calendar</b>Send your seasons to Google, Apple or Outlook calendar in one go.</li>
+</ul>
+<div class="tags"><span>Interactive</span><span>PDF</span><span>Free</span></div>
+</div>
+</section>
+<section class="band">
+<div class="in">
+<div class="sechead"><p class="eyebrow">How it works</p><span class="num">02</span></div>
+<h2>Simple, <span class="it">and free.</span></h2>
+<span class="rule"></span>
+<div class="steps3">
+<div><span class="n">01</span><h4>Join</h4><p>Enter your first name and email above. It takes ten seconds.</p></div>
+<div><span class="n">02</span><h4>Open</h4><p>The planner opens straight away. Use it online, or save the PDF.</p></div>
+<div><span class="n">03</span><h4>Make it yours</h4><p>Enter your dates, log how you feel and add your seasons to your calendar.</p></div>
+</div>
+</div>
+</section>
+<section class="band band-sand">
+<div class="in" style="max-width:780px">
+<div class="sechead"><p class="eyebrow">Good to know</p><span class="num">03</span></div>
+<h2>Questions, <span class="it">answered simply.</span></h2>
+<span class="rule"></span>
+<details class="faq"><summary>Is it really free?</summary><div class="ans">Yes. The planner is free when you join our email list. There is nothing to buy.</div></details>
+<details class="faq"><summary>What will you do with my email?</summary><div class="ans">We will send you occasional letters from Une Femme Divine. You can unsubscribe at any time, and we never share your email with anyone.</div></details>
+<details class="faq"><summary>Is my planner information private?</summary><div class="ans">Yes. Your dates, moods and notes stay in your own browser, on your own device. We never see them.</div></details>
+<details class="faq"><summary>Is this medical advice?</summary><div class="ans">No. The planner shares lifestyle and self-care inspiration only. The seasons are estimates drawn from the dates you enter, and it must not be used to avoid or plan a pregnancy. If something feels unusual or worries you, please speak with a doctor.</div></details>
+<details class="faq"><summary>Do I get an online planner or a PDF?</summary><div class="ans">Both. The online planner is interactive, with a calendar and calendar export. The PDF is made for printing or filling in on your screen.</div></details>
+</div>
+</section>
+<section class="band band-dark cta-band">
+<div class="in">
+<p class="eyebrow" style="margin-bottom:1.2rem">Balance begins within</p>
+<h2>Begin with <span class="it gold-it">your rhythm.</span></h2>
+<p class="lead" style="margin:1.2rem auto 0;color:var(--cream)">A free, gentle planner, all yours.</p>
+<a class="btn" href="#get">Get the free planner</a>
+</div>
+</section>
+</main>
+<footer class="band band-dark" style="padding-block:3rem;border-top:1px solid var(--line-dark)">
+<div class="in" style="text-align:center">
+<img src="{{ 'ufd-mark-gold.png' | asset_url }}" alt="" style="width:76px;margin:0 auto 1.2rem">
+<p class="eyebrow" style="margin-bottom:.8rem">Une Femme Divine</p>
+<p class="small" style="margin:0 auto 1rem">Tag us <b>@unefemmedivine</b> &middot; <a href="{{ routes.root_url }}">Visit the shop</a> &middot; <a href="mailto:help@unefemmedivine.com">help@unefemmedivine.com</a></p>
+<p class="disclaimer" style="margin:0 auto">The planner shares ritual and lifestyle inspiration and is not medical advice. Une Femme Divine does not claim that Divine Elixir treats, cures or prevents anything.</p>
+</div>
+</footer>
+<script>window.UFD_CONFIG={guideId:'landing-free-planner',provider:'none',contactEmail:'help@unefemmedivine.com',shopUrl:'{{ routes.root_url }}'};</script>
+<script src="{{ 'ufd-common.js' | asset_url }}" defer></script>
+<script src="{{ 'ufd-landing.js' | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "Free planner page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Free for you" },
+    { "type": "inline_richtext", "id": "headline", "label": "Headline", "default": "Rhythm of the Body, <em>your free planner.</em>" },
+    { "type": "textarea", "id": "lead", "label": "Intro text", "default": "A gentle cycle and self-care planner. See your month in four inner seasons, log how you feel, and add it all to your calendar. Join our email list to get it." },
+    { "type": "text", "id": "form_title", "label": "Form title", "default": "Get your free planner." },
+    { "type": "text", "id": "form_intro", "label": "Form intro", "default": "Tell us where to send your letters, and the planner is yours straight away." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send me the planner" },
+    { "type": "text", "id": "planner_url", "label": "Planner page address", "default": "/pages/rhythm-planner" }
+  ],
+  "presets": []
+}
+{% endschema %}

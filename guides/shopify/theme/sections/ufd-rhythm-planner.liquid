@@ -1,0 +1,211 @@
+<link rel="stylesheet" href="{{ 'ufd-planner.css' | asset_url }}">
+<header class="topbar" id="top">
+<div class="topbar-in">
+<img src="{{ 'ufd-word-ink.png' | asset_url }}" alt="Une Femme Divine">
+<nav class="topnav" aria-label="Planner sections" id="topnav" data-locked hidden>
+<a href="#start">Start</a><a href="#month">Month</a><a href="#rhythm">Rhythm</a><a href="#seasons">Seasons</a><a href="#sync">Calendar</a>
+</nav>
+<a class="btn small ghost no-print" href="{{ 'Rhythm-of-the-Body.pdf' | file_url }}" download data-locked hidden>PDF</a>
+</div>
+</header>
+<main>
+<section class="band band-dark cover">
+<span class="corner tl">Une Femme Divine</span><span class="corner tr">Self-care planner</span>
+<span class="corner bl">Made for women</span><span class="corner br">Four inner seasons</span>
+<div class="in">
+<img class="mark" src="{{ 'ufd-mark-gold.png' | asset_url }}" alt="Une Femme Divine, the divine woman emblem">
+<p class="kick">A gentle cycle planner</p>
+<h1>Rhythm of<br><span class="it gold-it">the Body.</span></h1>
+<span class="rule"></span>
+<p class="sub">See your month in four inner seasons, and live it gently.</p>
+<div class="gate-wrap" id="gate-wrap">
+<div class="card gate">
+<h2>Open your <span class="it">planner.</span></h2>
+<p class="small muted">The planner is free when you join our email list. It takes ten seconds.</p>
+<p style="margin-top:1.2rem"><a class="btn" href="{{ routes.root_url }}pages/free-planner">Get the free planner</a></p>
+</div>
+</div>
+</div>
+</section>
+<section class="band" id="start" data-locked hidden>
+<div class="in">
+<div class="sechead"><p class="eyebrow">Begin</p><span class="num">02</span></div>
+<div class="sec-head">
+<p class="script" data-greet hidden style="color:var(--bronze);margin-bottom:.6rem"></p>
+<h2>Begin with<br><span class="it">your rhythm.</span></h2>
+<span class="rule"></span>
+<p class="lead">Tell us about your cycle and the planner shapes your month around it. Change it any time. Everything updates as you type.</p>
+</div>
+<div class="card">
+<div class="setup">
+<div class="stack">
+<label class="field" for="s-start">First day of your last period
+<input id="s-start" type="date">
+</label>
+<button class="btn small ghost" type="button" id="s-today" style="align-self:flex-start">It started today</button>
+</div>
+<div class="stack" style="gap:.5rem">
+<label class="field" for="s-len">Cycle length (days)</label>
+<div class="range-row"><input id="s-len" type="range" min="21" max="40" value="28"><output id="o-len" for="s-len">28</output></div>
+</div>
+<div class="stack" style="gap:.5rem">
+<label class="field" for="s-per">Period length (days)</label>
+<div class="range-row"><input id="s-per" type="range" min="2" max="8" value="5"><output id="o-per" for="s-per">5</output></div>
+</div>
+</div>
+<p class="banner" id="example-banner">You are looking at an example. Choose the first day of your last period above and everything becomes yours.</p>
+</div>
+<div class="today-card" id="today" aria-live="polite">
+<div class="dial"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="46"/><circle class="fg" id="t-arc" cx="50" cy="50" r="46"/></svg><div class="mid"><div><small>Day</small><b id="t-day">1</b><small id="t-of">of 28</small></div></div></div>
+<div class="stack" style="gap:.5rem">
+<p class="eyebrow" id="t-season">Inner winter</p>
+<h3 id="t-phase">Rest</h3>
+<p id="t-feel"></p>
+<p class="small muted" id="t-next"></p>
+<p class="row" style="margin-top:.5rem"><button class="btn small" type="button" id="t-log">Log today</button><a class="small" href="#seasons" id="t-link">Ideas for this season</a></p>
+</div>
+</div>
+</div>
+</section>
+<section class="band band-sand" id="month" data-locked hidden>
+<div class="in">
+<div class="sechead"><p class="eyebrow">Your month</p><span class="num">03</span></div>
+<div class="sec-head">
+<h2>The month,<br><span class="it">in seasons.</span></h2>
+<span class="rule"></span>
+<p class="lead">Tap any day to log how you feel. Dots mark the days you have written about. Your notes stay on this device.</p>
+</div>
+<div class="calwrap">
+<div class="card">
+<div class="cal-head">
+<button class="btn small ghost" type="button" id="m-prev" aria-label="Previous month">&larr;</button>
+<h3 id="m-title">November 2026</h3>
+<div class="row" style="gap:.4rem"><button class="btn small ghost" type="button" id="m-today">Today</button><button class="btn small ghost" type="button" id="m-next" aria-label="Next month">&rarr;</button></div>
+</div>
+<div class="dow" id="dow" aria-hidden="true"></div>
+<div class="grid" id="grid" role="grid" aria-label="Month calendar"></div>
+<div class="legend" id="legend"></div>
+</div>
+<div class="card panel stack" id="panel" aria-live="polite">
+<div>
+<p class="eyebrow" id="d-eyebrow" style="margin-bottom:.5rem"></p>
+<h3 id="d-title"></h3>
+<p class="small muted" id="d-sub"></p>
+</div>
+<div>
+<span class="lbl2" id="l-energy">Energy today</span>
+<div class="energy" role="group" aria-labelledby="l-energy" id="d-energy"></div>
+<p class="small muted" style="margin-top:.5rem">1 is low, 5 is full.</p>
+</div>
+<div>
+<span class="lbl2" id="l-mood">Mood</span>
+<div class="chips" role="group" aria-labelledby="l-mood" id="d-mood"></div>
+</div>
+<label class="field" for="d-note">A few words
+<textarea id="d-note" maxlength="400" placeholder="What does your body want today?"></textarea>
+</label>
+</div>
+</div>
+</div>
+</section>
+<section class="band" id="rhythm" data-locked hidden>
+<div class="in">
+<div class="sechead"><p class="eyebrow">This cycle</p><span class="num">04</span></div>
+<div class="sec-head">
+<h2>Your rhythm<br><span class="it">at a glance.</span></h2>
+<span class="rule"></span>
+<p class="lead">Your current cycle, drawn to scale. The dots below are the energy levels you have logged, so over time you see your own pattern.</p>
+</div>
+<div class="card"><div id="strip-wrap"></div></div>
+</div>
+</section>
+<section class="band band-dark" id="seasons" data-locked hidden>
+<div class="in">
+<div class="sechead"><p class="eyebrow">Four inner seasons</p><span class="num">05</span></div>
+<div class="sec-head">
+<h2>What each season<br><span class="it gold-it">invites.</span></h2>
+<span class="rule"></span>
+<p class="lead" style="color:var(--cream)">Every body is different. Treat these as invitations, never rules. Tick the ones you want to carry into your days.</p>
+</div>
+<div class="tabs" role="tablist" aria-label="Seasons" id="tabs"></div>
+<div class="card pbc" id="pb-panel" role="tabpanel"></div>
+</div>
+</section>
+<section class="band" id="sync" data-locked hidden>
+<div class="in">
+<div class="sechead"><p class="eyebrow">Your calendar</p><span class="num">06</span></div>
+<div class="sec-head">
+<h2>Bring your seasons<br><span class="it">into your calendar.</span></h2>
+<span class="rule"></span>
+<p class="lead">Each season becomes an all-day event, so your week always shows what you are moving through. Choose how it appears, then send it to the calendar you already use.</p>
+</div>
+<div class="sync">
+<div class="card stack">
+<label class="field" for="x-cycles">How far ahead?
+<select id="x-cycles">
+<option value="1">The current cycle</option>
+<option value="3" selected>The next 3 cycles</option>
+<option value="6">The next 6 cycles</option>
+</select>
+</label>
+<label class="check" for="x-discreet">
+<input id="x-discreet" type="checkbox" checked>
+<span><b>Discreet titles</b><br><span class="small muted">Events read &ldquo;Une Femme Divine &middot; Inner winter&rdquo; instead of naming the phase. A good choice for a shared or work calendar.</span></span>
+</label>
+<div class="row no-print">
+<button class="btn" type="button" id="x-ics">Download .ics file</button>
+<button class="btn ghost" type="button" id="x-copy">Copy calendar file</button>
+</div>
+<textarea class="copybox" id="x-box" hidden readonly aria-label="Calendar file text"></textarea>
+<details class="faq">
+<summary>How to import the file</summary>
+<div class="ans small">
+<p><b>Apple Calendar:</b> open the .ics file and choose a calendar. Pick a new one so you can hide or delete it easily.</p>
+<p><b>Google Calendar:</b> on a computer, open Settings, then Import &amp; export, and upload the file. Or add single seasons with the buttons on the right.</p>
+<p><b>Outlook:</b> File, Open &amp; Export, Import/Export, then choose an iCalendar (.ics) file.</p>
+<p class="muted">The file is a snapshot of today&rsquo;s dates. If your cycle shifts, update the date above and export again. Delete the earlier calendar first so nothing doubles up.</p>
+</div>
+</details>
+</div>
+<div class="card">
+<h3 style="font-size:1.7rem;margin-bottom:.4rem" class="it">Coming up</h3>
+<p class="small muted" style="margin-bottom:.8rem">Add a single season to Google Calendar.</p>
+<ul class="preview" id="x-list"></ul>
+</div>
+</div>
+<div class="card tint privacy" style="margin-top:2.2rem">
+<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+<div>
+<h4 style="margin-bottom:.4rem" class="it">Private by design</h4>
+<p class="small">Your dates, moods and notes are saved only in this browser on this device. They are never sent to Une Femme Divine or anyone else. The only thing we receive is the email address you chose to share.</p>
+<p class="small no-print" style="margin-top:.9rem"><button class="btn small ghost" type="button" id="wipe">Clear my planner data from this device</button></p>
+</div>
+</div>
+</div>
+</section>
+<section class="band band-sand" id="next" data-locked hidden>
+<div class="in" style="max-width:780px">
+<div class="sechead"><p class="eyebrow">Stay connected</p><span class="num">07</span></div>
+<div class="card stack">
+<h3>Small rituals, <span class="it">gentle ideas.</span></h3>
+<p>Follow us on Instagram for more calm, everyday inspiration, and take a look at Divine Elixir, our daily collagen ritual made for women.</p>
+<p class="row"><a class="btn" data-shop href="#" target="_blank" rel="noopener">Visit the shop</a><span class="small muted">@unefemmedivine</span></p>
+</div>
+</div>
+</section>
+</main>
+<footer class="band band-dark" style="padding-block:4rem">
+<div class="in" style="text-align:center">
+<img src="{{ 'ufd-mark-gold.png' | asset_url }}" alt="" style="width:84px;margin:0 auto 1.4rem">
+<h2 style="font-size:2.6rem"><span class="it gold-it">Balance begins within.</span></h2>
+<p class="eyebrow" style="margin:1.4rem 0 .8rem">Une Femme Divine</p>
+<p class="small" style="margin:0 auto 1rem">Tag us <b>@unefemmedivine</b> &middot; Questions? <a data-contact href="#">hello</a></p>
+<p class="disclaimer" style="margin:0 auto">This planner shares lifestyle and self-care inspiration. Seasons are estimates drawn from the dates you enter. It is not a medical tool and must not be used to avoid or plan a pregnancy or to diagnose anything. If something feels unusual or worries you, please speak with a doctor.</p>
+</div>
+</footer>
+<script>window.UFD_CONFIG={guideId:'planner',provider:'none',contactEmail:'help@unefemmedivine.com',otherGuideUrl:'',shopUrl:'{{ routes.root_url }}'};</script>
+<script src="{{ 'ufd-common.js' | asset_url }}" defer></script>
+<script src="{{ 'ufd-planner.js' | asset_url }}" defer></script>
+{% schema %}
+{ "name": "Rhythm planner", "settings": [], "presets": [] }
+{% endschema %}

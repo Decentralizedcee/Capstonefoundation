@@ -124,7 +124,7 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; margin: 0; line-he
     <p class="lbl" style="letter-spacing:.38em;margin-bottom:7mm">A gentle cycle planner</p>
     <h1 class="h1">Rhythm of<br><span class="gi">the Body.</span></h1>
     <div class="rule"></div>
-    <p class="sub">See your month in four inner seasons, and live it gently.</p>
+    <p class="sub">See your month in four inner seasons, and live it your way.</p>
   </div>
 </section>
 
@@ -134,7 +134,7 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; margin: 0; line-he
   <h2 class="h2">Welcome to<br><span class="it">your rhythm.</span></h2>
   <div class="rule"></div>
   <div style="max-width:132mm">
-    <p class="lead">Your body keeps a rhythm. Some days ask for rest, others for movement, connection or order. This planner helps you notice it, and shape your days around it.</p>
+    <p class="lead">Your body keeps a rhythm. Some days ask you for rest, others for movement, connection or order. This planner helps you notice it, and shape your days around you.</p>
     <p class="lead">We borrow the language of the seasons: an inner winter, spring, summer and autumn. Each one brings its own invitations for how to move, what to eat and how to take your ritual. They are invitations, never rules. Every body is different.</p>
   </div>
   <div class="seas" id="seas-intro"></div>
@@ -205,10 +205,10 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; margin: 0; line-he
   for (var L = 21; L <= 38; L++) { var b = bounds(L, 5); tb.appendChild(el('tr', '', '<td><b>' + L + ' days</b></td><td>' + range(1, 5) + '</td><td>' + range(6, b.r) + '</td><td>' + range(b.r + 1, b.b) + '</td><td>' + range(b.b + 1, L) + '</td>')); }
 
   var PH = [
-    ['Rest', 'Inner winter', 'menstrual phase', '#4A2A39', 'Slower and quieter. Many women notice the body asking for softness.', 'Gentle walks, slow stretching, an early night.', 'Warm meals, warm cups, nothing rushed.', ['Say no to one extra thing', 'A warm bath or a long, slow shower', 'Phone out of the bedroom tonight', 'One slow morning with your Divine Elixir'], 'Rest is not a pause in your life. It is part of it.'],
-    ['Rise', 'Inner spring', 'follicular phase', '#E2C994', 'Lighter and curious. New ideas and a little more energy often arrive.', 'Walks outside, a class you have wanted to try, something playful.', 'Fresh colours on the plate and plenty of water.', ['Begin the thing you have been postponing', 'Plan your week on paper', 'Take your morning ritual outside', 'Try one new thing, however small'], 'Begin small. Begin now.'],
-    ['Bloom', 'Inner summer', 'ovulatory phase', '#D8A7A0', 'Open and warm. Connection and conversation can feel easier.', 'Move with energy: dance, a brisk walk, a longer session.', 'Light, colourful food, shared with someone you like.', ['Have the conversation that matters', 'Dress entirely for yourself', 'Say yes to a gathering', 'Write down what you are proud of'], 'Take up space, softly.'],
-    ['Restore', 'Inner autumn', 'luteal phase', '#B79AA6', 'More inward and detail-minded. Order and comfort can matter more.', 'Steady strength, pilates, yoga, long unhurried walks.', 'Grounding, comforting meals at regular times.', ['Tidy one small space', 'Journal what you need right now', 'Protect your evenings', 'Slow your morning ritual down'], 'You are allowed to need more softness.']
+    ['Rest', 'Inner winter', 'menstrual phase', '#4A2A39', 'You may feel slower and quieter. Your body may be asking for softness.', 'Gentle walks, slow stretching, an early night.', 'Warm meals and warm cups, nothing rushed. Eat what comforts you.', ['Say no to one extra thing', 'A warm bath or a long, slow shower', 'Phone out of the bedroom tonight', 'One slow morning with your Divine Elixir'], 'Rest is not a pause in your life. It is part of it.'],
+    ['Rise', 'Inner spring', 'follicular phase', '#E2C994', 'You may feel lighter and more curious. New ideas and a little more energy often arrive.', 'Walks outside, a class you have wanted to try, something playful.', 'Fresh colours on your plate and plenty of water.', ['Begin the thing you have been postponing', 'Plan your week on paper', 'Take your morning ritual outside', 'Try one new thing, however small'], 'Begin small. Begin now.'],
+    ['Bloom', 'Inner summer', 'ovulatory phase', '#D8A7A0', 'You may feel open and warm. Connection and conversation can feel easier.', 'Move with energy: dance, a brisk walk, a longer session, whatever you enjoy.', 'Light, colourful food, shared with someone you like.', ['Have the conversation that matters', 'Dress entirely for yourself', 'Say yes to a gathering', 'Write down what you are proud of'], 'Take up space, softly.'],
+    ['Restore', 'Inner autumn', 'luteal phase', '#B79AA6', 'You may feel more inward and detail-minded. Order and comfort can matter more to you.', 'Steady strength, pilates, yoga, long unhurried walks.', 'Grounding, comforting meals at regular times.', ['Tidy one small space', 'Journal what you need right now', 'Protect your evenings', 'Slow your morning ritual down'], 'You are allowed to need more softness.']
   ];
   PH.forEach(function (p, i) {
     var host = document.querySelector(i < 2 ? '#pb-a .pb-body' : '#pb-b .pb-body');

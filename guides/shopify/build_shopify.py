@@ -118,7 +118,7 @@ land = (SRC / "landing.html").read_text()
 mk = body_markup(land)
 GATE = """{%- form 'customer', id: 'ufd-form' -%}
   {%- if form.posted_successfully? -%}
-    <script>try{localStorage.setItem('ufd:access',JSON.stringify({name:'',at:Date.now()}))}catch(e){}</script>
+    <script>try{var n='';try{n=JSON.parse(localStorage.getItem('ufd:pendingName')||'""')||''}catch(e){}localStorage.setItem('ufd:access',JSON.stringify({name:n,at:Date.now()}));localStorage.removeItem('ufd:pendingName')}catch(e){}</script>
   {%- else -%}
   <div id="get" class="getanchor">
     <div class="formcard" id="gate-wrap">
@@ -168,7 +168,8 @@ var f=document.getElementById('ufd-form');
 if(f){f.addEventListener('submit',function(e){
 var em=f.querySelector('[name="contact[email]"]'),c=document.getElementById('g-consent'),err=document.getElementById('gate-err');
 if(!em||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(em.value.trim())){e.preventDefault();err.textContent='Please enter a valid email address.';return;}
-if(!c.checked){e.preventDefault();err.textContent='Please tick the box so we can email you.';}
+if(!c.checked){e.preventDefault();err.textContent='Please tick the box so we can email you.';return;}
+try{var fn=f.querySelector('[name="contact[first_name]"]');localStorage.setItem('ufd:pendingName',JSON.stringify(fn?fn.value.trim():''))}catch(x){}
 });}
 document.addEventListener('ufd:unlocked',function(){var t=document.getElementById('top-cta');if(t){t.textContent='Your planner';}});
 })();"""

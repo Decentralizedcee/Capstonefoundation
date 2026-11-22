@@ -99,7 +99,7 @@ var url = URL.createObjectURL(new Blob([text], { type: type || 'text/calendar;ch
 var a = h('a', { href: url, download: name });
 document.body.appendChild(a); a.click(); a.remove();
 setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
-toast('Calendar file ready: ' + name);
+toast('Downloaded: ' + name);
 } catch (e) { toast('Download is not available here. Use Copy instead.'); }
 }
 function googleLink(o) {

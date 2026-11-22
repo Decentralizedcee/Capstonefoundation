@@ -4,31 +4,36 @@ var U = window.UFD, $ = U.$, $$ = U.$$, h = U.h, store = U.store;
 var today = new Date(); today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 var PHASES = [
 { key: 'rest', name: 'Rest', season: 'Inner winter', plain: 'menstrual phase', color: '#4A2A39', ink: '#F7F1EA',
-feel: 'Slower and quieter. Many women notice the body asking for softness.',
+feel: 'You may feel slower and quieter. Your body may be asking for softness.',
 move: 'Gentle walks, slow stretching, an early night.',
-nourish: 'Warm meals, warm cups, nothing rushed.',
+nourish: 'Warm meals and warm cups, nothing rushed. Eat what comforts you.',
 rituals: ['Say no to one extra thing', 'A warm bath or a long, slow shower', 'Phone out of the bedroom tonight', 'One slow morning with your Divine Elixir'],
-perm: 'Rest is not a pause in your life. It is part of it.' },
+perm: 'Rest is not a pause in your life. It is part of it.',
+what: 'The days of your period. Your cycle begins on the first day of bleeding, so day 1 is where your month starts. This is your season for slowing down.' },
 { key: 'rise', name: 'Rise', season: 'Inner spring', plain: 'follicular phase', color: '#E2C994', ink: '#3B1F2B',
-feel: 'Lighter and curious. New ideas and a little more energy often arrive.',
+feel: 'You may feel lighter and more curious. New ideas and a little more energy often arrive.',
 move: 'Walks outside, a class you have wanted to try, something playful.',
-nourish: 'Fresh colours on the plate and plenty of water.',
+nourish: 'Fresh colours on your plate and plenty of water.',
 rituals: ['Begin the thing you have been postponing', 'Plan your week on paper', 'Take your morning ritual outside', 'Try one new thing, however small'],
-perm: 'Begin small. Begin now.' },
+perm: 'Begin small. Begin now.',
+what: 'The days after your period, as you begin to feel lighter. You may notice your energy and curiosity returning.' },
 { key: 'bloom', name: 'Bloom', season: 'Inner summer', plain: 'ovulatory phase', color: '#D8A7A0', ink: '#3B1F2B',
-feel: 'Open and warm. Connection and conversation can feel easier.',
-move: 'Move with energy: dance, a brisk walk, a longer session.',
+feel: 'You may feel open and warm. Connection and conversation can feel easier.',
+move: 'Move with energy: dance, a brisk walk, a longer session, whatever you enjoy.',
 nourish: 'Light, colourful food, shared with someone you like.',
 rituals: ['Have the conversation that matters', 'Dress entirely for yourself', 'Say yes to a gathering', 'Write down what you are proud of'],
-perm: 'Take up space, softly.' },
+perm: 'Take up space, softly.',
+what: 'The middle of your cycle. You may feel more open, social and confident.' },
 { key: 'restore', name: 'Restore', season: 'Inner autumn', plain: 'luteal phase', color: '#B79AA6', ink: '#3B1F2B',
-feel: 'More inward and detail-minded. Order and comfort can matter more.',
+feel: 'You may feel more inward and detail-minded. Order and comfort can matter more to you.',
 move: 'Steady strength, pilates, yoga, long unhurried walks.',
 nourish: 'Grounding, comforting meals at regular times.',
 rituals: ['Tidy one small space', 'Journal what you need right now', 'Protect your evenings', 'Slow your morning ritual down'],
-perm: 'You are allowed to need more softness.' }
+perm: 'You are allowed to need more softness.',
+what: 'The days before your next period. A more inward time, when you may want order, comfort and a little extra rest.' }
 ];
 var MOODS = ['Calm', 'Tender', 'Bright', 'Tired', 'Grounded', 'Restless'];
+var isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
 var S = Object.assign({ start: U.ymd(U.addDays(today, -9)), L: 28, P: 5, example: true, discreet: true, cycles: 3, tab: null }, store.get('planner.state', {}));
 var logs = store.get('planner.logs', {});
 var checks = store.get('planner.checks', {});
@@ -234,7 +239,7 @@ buildEvents().filter(function (e) { return U.diffDays(today, U.addDays(e.endExcl
 var last = U.addDays(e.endExclusive, -1);
 list.appendChild(h('li', {}, [
 h('span', {}, [h('b', { text: e.title }), h('span', { class: 'when', text: fmt(e.start) + (U.diffDays(e.start, last) ? ' to ' + fmt(last) : '') })]),
-h('a', { class: 'btn small ghost', href: U.googleLink(e), target: '_blank', rel: 'noopener', 'aria-label': 'Add ' + e.title + ' to Google Calendar', text: 'Add' })
+h('a', { class: 'btn small' + (isApple ? ' ghost' : ''), href: U.googleLink(e), target: '_blank', rel: 'noopener', 'aria-label': 'Add ' + e.title + ' to Google Calendar', text: 'Add' })
 ]));
 });
 }
@@ -255,7 +260,69 @@ S = { start: U.ymd(U.addDays(today, -9)), L: 28, P: 5, example: true, discreet: 
 delete wipe.dataset.sure; wipe.textContent = 'Clear my planner data from this device';
 renderAll(); U.toast('Your planner data was cleared');
 });
-function renderAll() { syncInputs(); renderToday(); renderMonth(); renderPanel(); renderStrip(); renderTabs(); renderSync(); }
+function renderExplain() {
+var wrap = $('#explain'); wrap.textContent = '';
+segments(cycleStart(today)).forEach(function (s) {
+var p = PHASES[s.idx];
+wrap.appendChild(h('div', { class: 'xcard' }, [
+h('p', { class: 'eyebrow' }, [h('i', { class: 'swatch', style: 'background:' + p.color }), p.season]),
+h('h4', { text: p.name }),
+h('p', { class: 'small muted', text: 'Days ' + s.from + ' to ' + s.to + ' of your ' + S.L + '-day cycle' }),
+h('p', { text: p.what }),
+h('p', { class: 'small', text: p.feel })
+]));
+});
+}
+function renderDevice() {
+var hint = $('#x-hint'), ics = $('#x-ics');
+if (hint) hint.textContent = isApple ? 'Tap the button, then choose Add All to put every season in your Apple Calendar.' : 'Tap Add next to a season to put it in your Google Calendar. Using Apple or Outlook? Download the file instead.';
+if (ics) ics.className = isApple ? 'btn' : 'btn ghost';
+}
+function recordRows() {
+return Object.keys(logs).sort().map(function (k) {
+var c = cycleDay(U.parse(k)), l = logs[k];
+return [k, c, PHASES[phaseIdx(c)].name, l.energy || '', l.mood || '', l.note || ''];
+});
+}
+function recordCSV() {
+var q = function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; };
+var rows = [['Date', 'Cycle day', 'Season', 'Energy (1-5)', 'Mood', 'Notes']].concat(recordRows());
+return '\ufeff' + rows.map(function (r) { return r.map(q).join(','); }).join('\r\n');
+}
+function buildRecord() {
+var rec = $('#record');
+if (!rec) { rec = h('div', { id: 'record' }); document.body.appendChild(rec); }
+rec.textContent = '';
+rec.appendChild(h('h1', { text: 'My rhythm record' }));
+rec.appendChild(h('p', { text: 'Une Femme Divine \u00B7 Rhythm of the Body. First day of your last period: ' + fmt(U.parse(S.start), { day: 'numeric', month: 'long', year: 'numeric' }) + '. Your cycle: ' + S.L + ' days, period: ' + S.P + ' days.' }));
+rec.appendChild(h('h2', { text: 'Your seasons this cycle' }));
+var t1 = h('table', {}, [h('tr', {}, ['Season', 'Days', 'Dates'].map(function (x) { return h('th', { text: x }); }))]);
+segments(cycleStart(today)).forEach(function (s) {
+t1.appendChild(h('tr', {}, [PHASES[s.idx].name + ' (' + PHASES[s.idx].season + ')', s.from + ' to ' + s.to, fmt(s.start) + ' to ' + fmt(U.addDays(s.end, -1))].map(function (x) { return h('td', { text: x }); })));
+});
+rec.appendChild(t1);
+rec.appendChild(h('h2', { text: 'What you logged' }));
+var rows = recordRows();
+if (!rows.length) rec.appendChild(h('p', { text: 'You have not logged any days yet.' }));
+else {
+var t2 = h('table', {}, [h('tr', {}, ['Date', 'Day', 'Season', 'Energy', 'Mood', 'Notes'].map(function (x) { return h('th', { text: x }); }))]);
+rows.forEach(function (r) { t2.appendChild(h('tr', {}, [fmt(U.parse(r[0]), { day: 'numeric', month: 'short', year: 'numeric' }), r[1], r[2], r[3], r[4], r[5]].map(function (x) { return h('td', { text: String(x) }); }))); });
+rec.appendChild(t2);
+}
+rec.appendChild(h('p', { style: 'margin-top:18pt;color:#555', text: 'This is a lifestyle record for you. It is not medical advice.' }));
+}
+var rCsv = $('#r-csv'), rPrint = $('#r-print');
+if (rCsv) rCsv.addEventListener('click', function () {
+if (!recordRows().length) { U.toast('Log a day first, then download your record.'); return; }
+U.downloadFile('my-rhythm-record.csv', recordCSV(), 'text/csv;charset=utf-8');
+});
+if (rPrint) rPrint.addEventListener('click', function () {
+buildRecord(); document.body.classList.add('record-print');
+try { window.print(); } catch (e) { U.toast('Printing is not available here'); }
+setTimeout(function () { document.body.classList.remove('record-print'); }, 1500);
+});
+window.addEventListener('afterprint', function () { document.body.classList.remove('record-print'); });
+function renderAll() { syncInputs(); renderToday(); renderMonth(); renderPanel(); renderStrip(); renderExplain(); renderTabs(); renderSync(); renderDevice(); }
 renderDow(); renderLegend(); renderAll();
 if ('IntersectionObserver' in window) {
 var links = {}; $$('#topnav a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });

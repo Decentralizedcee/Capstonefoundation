@@ -14,7 +14,7 @@
 <p class="lead">{{ section.settings.lead }}</p>
 {%- form 'customer', id: 'ufd-form' -%}
 {%- if form.posted_successfully? -%}
-<script>try{localStorage.setItem('ufd:access',JSON.stringify({name:'',at:Date.now()}))}catch(e){}</script>
+<script>try{var n='';try{n=JSON.parse(localStorage.getItem('ufd:pendingName')||'""')||''}catch(e){}localStorage.setItem('ufd:access',JSON.stringify({name:n,at:Date.now()}));localStorage.removeItem('ufd:pendingName')}catch(e){}</script>
 {%- else -%}
 <div id="get" class="getanchor">
 <div class="formcard" id="gate-wrap">

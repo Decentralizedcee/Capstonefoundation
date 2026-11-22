@@ -17,7 +17,7 @@
 <p class="kick">A gentle cycle planner</p>
 <h1>Rhythm of<br><span class="it gold-it">the Body.</span></h1>
 <span class="rule"></span>
-<p class="sub">See your month in four inner seasons, and live it gently.</p>
+<p class="sub">See your month in four inner seasons, and live it your way.</p>
 <div class="gate-wrap" id="gate-wrap">
 <div class="card gate">
 <h2>Open your <span class="it">planner.</span></h2>
@@ -34,7 +34,7 @@
 <p class="script" data-greet hidden style="color:var(--bronze);margin-bottom:.6rem"></p>
 <h2>Begin with<br><span class="it">your rhythm.</span></h2>
 <span class="rule"></span>
-<p class="lead">Tell us about your cycle and the planner shapes your month around it. Change it any time. Everything updates as you type.</p>
+<p class="lead">Tell us a little about your cycle, and we will shape your month around you. You can change anything, any time. Everything updates as you type.</p>
 </div>
 <div class="card">
 <div class="setup">
@@ -73,7 +73,7 @@
 <div class="sec-head">
 <h2>The month,<br><span class="it">in seasons.</span></h2>
 <span class="rule"></span>
-<p class="lead">Tap any day to log how you feel. Dots mark the days you have written about. Your notes stay on this device.</p>
+<p class="lead">Tap any day to log how you feel. A dot marks each day you have written about. What you write stays on your device, just for you.</p>
 </div>
 <div class="calwrap">
 <div class="card">
@@ -114,9 +114,12 @@
 <div class="sec-head">
 <h2>Your rhythm<br><span class="it">at a glance.</span></h2>
 <span class="rule"></span>
-<p class="lead">Your current cycle, drawn to scale. The dots below are the energy levels you have logged, so over time you see your own pattern.</p>
+<p class="lead">Here is your current cycle, drawn to scale. The dots show the energy you have logged, so over time you can see your own pattern.</p>
 </div>
 <div class="card"><div id="strip-wrap"></div></div>
+<h3 class="it" style="margin:3.2rem 0 .6rem">Your four seasons, explained</h3>
+<p class="lead small" style="margin-bottom:1.2rem">Here is what each season can mean for you, and which days of your cycle it covers. Your cycle is yours, so if your body does things a little differently, that is completely normal.</p>
+<div class="explain" id="explain"></div>
 </div>
 </section>
 <section class="band band-dark" id="seasons" data-locked hidden>
@@ -125,7 +128,7 @@
 <div class="sec-head">
 <h2>What each season<br><span class="it gold-it">invites.</span></h2>
 <span class="rule"></span>
-<p class="lead" style="color:var(--cream)">Every body is different. Treat these as invitations, never rules. Tick the ones you want to carry into your days.</p>
+<p class="lead" style="color:var(--cream)">Every body is different, so treat these as invitations, never rules. Tick the ones you would like to carry into your days.</p>
 </div>
 <div class="tabs" role="tablist" aria-label="Seasons" id="tabs"></div>
 <div class="card pbc" id="pb-panel" role="tabpanel"></div>
@@ -137,7 +140,7 @@
 <div class="sec-head">
 <h2>Bring your seasons<br><span class="it">into your calendar.</span></h2>
 <span class="rule"></span>
-<p class="lead">Each season becomes an all-day event, so your week always shows what you are moving through. Choose how it appears, then send it to the calendar you already use.</p>
+<p class="lead">You can have your seasons right here, any time you open this page. Bookmark it and they are always one tap away. If you would also like them in your own calendar, each season becomes an all-day event, so your week shows what you are moving through.</p>
 </div>
 <div class="sync">
 <div class="card stack">
@@ -153,7 +156,8 @@
 <span><b>Discreet titles</b><br><span class="small muted">Events read &ldquo;Une Femme Divine &middot; Inner winter&rdquo; instead of naming the phase. A good choice for a shared or work calendar.</span></span>
 </label>
 <div class="row no-print">
-<button class="btn" type="button" id="x-ics">Download .ics file</button>
+<p class="small muted" id="x-hint" style="flex-basis:100%"></p>
+<button class="btn" type="button" id="x-ics">Add to my calendar (.ics)</button>
 <button class="btn ghost" type="button" id="x-copy">Copy calendar file</button>
 </div>
 <textarea class="copybox" id="x-box" hidden readonly aria-label="Calendar file text"></textarea>
@@ -168,16 +172,21 @@
 </details>
 </div>
 <div class="card">
-<h3 style="font-size:1.7rem;margin-bottom:.4rem" class="it">Coming up</h3>
+<h3 style="font-size:1.7rem;margin-bottom:.4rem" class="it">Coming up for you</h3>
 <p class="small muted" style="margin-bottom:.8rem">Add a single season to Google Calendar.</p>
 <ul class="preview" id="x-list"></ul>
 </div>
+</div>
+<div class="card" style="margin-top:1.5rem">
+<h3 style="font-size:1.7rem;margin-bottom:.4rem" class="it">Keep your record</h3>
+<p class="small muted" style="margin-bottom:1rem">What you log stays on your device. Download a copy, so you always have it, even if you change phone or clear your browser.</p>
+<div class="row no-print"><button class="btn" type="button" id="r-csv">Download my record (.csv)</button><button class="btn ghost" type="button" id="r-print">Print or save as PDF</button></div>
 </div>
 <div class="card tint privacy" style="margin-top:2.2rem">
 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
 <div>
 <h4 style="margin-bottom:.4rem" class="it">Private by design</h4>
-<p class="small">Your dates, moods and notes are saved only in this browser on this device. They are never sent to Une Femme Divine or anyone else. The only thing we receive is the email address you chose to share.</p>
+<p class="small">Your dates, moods and notes are saved only in this browser, on your device. They are never sent to Une Femme Divine or anyone else. The only thing we receive is the email address you chose to share.</p>
 <p class="small no-print" style="margin-top:.9rem"><button class="btn small ghost" type="button" id="wipe">Clear my planner data from this device</button></p>
 </div>
 </div>

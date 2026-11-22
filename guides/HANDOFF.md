@@ -1,6 +1,6 @@
 # Une Femme Divine: handoff note
 
-Status as of 22 Nov 2026. Branch: `ccr-80b17ffc-ti5gyr` (repo `decentralizedcee/capstonefoundation`). Everything below is committed on that branch.
+Status as of 22 Nov 2026 (updated after the ad welcome message was added). Branch: `ccr-80b17ffc-ti5gyr` (repo `decentralizedcee/capstonefoundation`). Everything below is committed on that branch.
 
 ## 1. What this project is
 Une Femme Divine sells **Divine Elixir**, a daily collagen ritual for women (halal, made in Slovakia, EU). The webshop opened 29 Sep 2026 on Shopify (store `unefemmedivine.com`, admin domain `71w86d-dn.myshopify.com`, EUR, Netherlands). Markets: NL, BE, DE, ES, Dubai, UK.
@@ -25,6 +25,12 @@ We built a lead magnet: a free **Rhythm of the Body** planner (a gentle cycle an
   - `/pages/rhythm-planner` (Page `gid://shopify/Page/713101836675`, template `rhythm-planner`): the interactive planner. Visitors who have not signed up see a "Get the free planner" button.
 - **PDF:** `Rhythm-of-the-Body.pdf` is uploaded in Shopify Files (READY, 374,015 bytes, new "you" wording). Pages link to it with `{{ 'Rhythm-of-the-Body.pdf' | file_url }}`, so the file name must stay exact.
 - Not linked from the menu or homepage. Intended use: Instagram bio, ads, DM replies ("send us FREE PLANNER"), WhatsApp.
+
+## 3b. Community and ad welcome message
+- The WhatsApp community is called **The Divine Circle**. Invite link: https://chat.whatsapp.com/CXlD37wd3kIAWV4uFzHblz?s=cl&p=a&mlu=4&ilr=4&iam=2
+- Final single welcome message for ad responders (same on WhatsApp and Instagram) is in `social/ad-welcome-message.txt`. It sends people to the community link and to https://unefemmedivine.com/pages/free-planner (the `https://` form, so it is tappable on both apps). It does not ask for details in the chat; the planner page captures the email.
+- An earlier, longer set of messages (button replies, step-by-step flow, away message, Instagram ice breakers) was drafted in chat but not saved to the repo; the owner chose the single message instead.
+- Naming mismatch to clean up: the WhatsApp plan PDF, `social/whatsapp-copy.txt` and some copy say "The Circle". The owner now says **The Divine Circle**. Update them if asked.
 
 ## 4. How the sign-up works
 - The landing page uses Shopify's native customer form (`{% form 'customer' %}`), posting `contact[email]`, `contact[first_name]` and tags `free-planner,rhythm-of-the-body,newsletter`. A required consent checkbox is validated in JS.
@@ -58,7 +64,7 @@ Season maths (in `planner.html`): rest = period days; rise ends at `max(period+1
 1. **Owner test** of the live sign-up (see section 4). Confirm customer, tag and email-marketing consent.
 2. **Welcome email.** Nothing is automated yet. Cannot be created through the API; the owner sets it up in the Shopify messaging app (Automations, Welcome) or Klaviyo. Draft: subject "Your Rhythm of the Body planner is ready"; body: warm welcome, button to `/pages/rhythm-planner`, sign-off "Balance begins within". The landing page's line "A link to your planner is also on its way to your inbox" is shown to everyone; keep it only once the email is live, otherwise remove it from `sections/ufd-free-planner.liquid`.
 3. **Email deliverability / DNS.** The owner could not reach DNS (domain at one.com; an earlier note suggested Shopify might manage it). Step-by-step guidance was given for Shopify domain authentication on one.com. Plan agreed: start sending from Shopify's default sender (may land in spam; the guide opens instantly so nothing depends on email), fix DNS later. Klaviyo was discussed as a better long-term tool; its DNS records differ from Shopify's. Awaiting: who manages DNS (Settings, Domains).
-4. **Instagram posts.** 3 designs x 2 versions are finished. Captions "to follow". DM keyword: "FREE PLANNER". The link in bio should be `unefemmedivine.com/pages/free-planner`. DM replies need a person or an auto-reply tool (e.g. ManyChat).
+4. **Instagram posts and ads.** 3 designs x 2 versions are finished. Captions "to follow". DM keyword: "FREE PLANNER". The link in bio and in ads should be `https://unefemmedivine.com/pages/free-planner`. DM replies need a person or an auto-reply tool (e.g. ManyChat). The ad welcome message (section 3b) is ready to paste into Meta Ads Manager (Messages destination), WhatsApp Business (Greeting message) and Instagram (welcome message / saved reply). Not yet confirmed by the owner that it is switched on.
 5. **WhatsApp community.** Plan PDF done (13 pages): two spaces (announcements plus chat), six weekly pillars (Mon growth, Tue mental wellbeing, Wed routines, Thu beauty and style, Fri lifestyle, Sun self-care), four first-month themes (Boundaries and rest; Confidence and ambition; Friendship and connection; Home and calm), monthly "brand moments" (You decide, Divine Voices, Ask the founders, Free guides). Only Week 1 messages are written; **Weeks 2 to 4 still to write.** Owner said they will return to it.
 6. **Compliance review needed (owner or counsel):** (a) the "What's inside" copy copied from Badar's PDF (22 active ingredients, 5,000 mg collagen; the ritual guide only); (b) the live homepage lists "Hormonal Balance", "Reduced Bloating", "More Energy", which conflicts with the no-claims rule and EU/UK advertising rules; (c) privacy policy wording ("we never share your email").
 7. **Decisions pending:** tagline (Balance vs Beauty begins within); customer contact email (`help@` vs `info@`); fonts (real Sharpe/Palatino files if the owner has them).

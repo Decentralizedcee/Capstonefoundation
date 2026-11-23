@@ -1,0 +1,31 @@
+Welcome email for the free planner (set up in Shopify: Marketing > Automations, or Klaviyo).
+Trigger: customer subscribes / tagged free-planner. Sender: Une Femme Divine, help@unefemmedivine.com
+
+Subject: Your Rhythm of the Body planner is ready
+Preview text: Your month, in four inner seasons.
+
+---
+Hello {{ first_name | default: "lovely" }},
+
+Welcome to Une Femme Divine. 🤍
+
+Your free Rhythm of the Body planner is ready. It is a gentle way to see your month in four inner seasons, log how you feel, and add it all to your calendar.
+
+[ Open your planner ]  -> https://unefemmedivine.com/pages/rhythm-planner
+(Button colours: aubergine #3B1F2B, cream text #F7F1EA)
+
+Prefer a PDF? You can download it from the same page.
+
+Everything you enter stays on your device. We never see it.
+
+You are also welcome in The Divine Circle, our WhatsApp community:
+https://chat.whatsapp.com/CXlD37wd3kIAWV4uFzHblz?s=cl&p=a&mlu=4&ilr=4&iam=2
+
+Balance begins within.
+Une Femme Divine
+
+---
+Footer: The planner shares ritual and lifestyle inspiration and is not medical advice.
+Unsubscribe link (required). help@unefemmedivine.com
+
+Note: the planner page opens only in the browser where the person signed up. If they open the email on another device, they will see "Get the free planner" and can re-enter their email. Mention this if it causes questions.

@@ -71,7 +71,7 @@ def assemble_print(page: str) -> str:
 
 if __name__ == "__main__":
     (ROOT / "_print").mkdir(exist_ok=True)
-    for page, out in (("print-ritual.html", "ritual.html"), ("print-planner.html", "planner.html"), ("print-whatsapp.html", "whatsapp.html")):
+    for page, out in (("print-ritual.html", "ritual.html"), ("print-planner.html", "planner.html"), ("print-whatsapp.html", "whatsapp.html"), ("print-partner.html", "partner.html")):
         (ROOT / "_print" / out).write_text(assemble_print(page))
     (ROOT / "_preview").mkdir(exist_ok=True)
     for page, out in (("ritual.html", "divine-ritual-guide.html"), ("planner.html", "rhythm-planner.html"), ("landing.html", "free-planner.html")):

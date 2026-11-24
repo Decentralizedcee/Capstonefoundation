@@ -5,7 +5,7 @@ const path = require('path'), fs = require('fs');
 const ROOT = path.resolve(__dirname, '..');
 (async () => {
   const b = await chromium.launch();
-  for (const [src, name] of [['ritual', 'Your-Divine-Ritual'], ['planner', 'Rhythm-of-the-Body']]) {
+  for (const [src, name] of [['ritual', 'Your-Divine-Ritual'], ['planner', 'Rhythm-of-the-Body'], ['partner', 'Divine-Ritual-Pack-Partner']]) {
     const p = await b.newPage({ viewport: { width: 794, height: 1123 } });
     await p.goto('file://' + path.join(ROOT, '_print', src + '.html'));
     await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(800);

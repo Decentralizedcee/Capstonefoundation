@@ -40,3 +40,4 @@ def build(name, src):
 
 build("Your-Divine-Ritual", "ritual")
 build("Rhythm-of-the-Body", "planner")
+build("Divine-Ritual-Pack-Partner", "partner")

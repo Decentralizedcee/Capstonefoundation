@@ -17,7 +17,7 @@
 .fact p { margin: 0; font-size: 8.4pt; line-height: 1.5; color: var(--muted); }
 .pill { display: inline-block; border: .3mm solid var(--gold); padding: 1.6mm 4mm; font-size: 7.6pt; letter-spacing: .14em; text-transform: uppercase; margin: 0 2mm 2mm 0; color: var(--aub); background: var(--paper); }
 .pill.on { background: var(--aub); color: var(--cream); border-color: var(--aub); }
-.pillar { background: var(--paper); border: .25mm solid var(--line); padding: 6mm 5mm 5.5mm; }
+.pillar { background: var(--paper); border: .25mm solid var(--line); padding: 4.5mm 4.5mm 4.5mm; }
 .pillar svg { display: block; margin: 0 auto 4mm; }
 .pillar h4 { font-size: 17pt; font-style: italic; text-align: center; margin-bottom: 2mm; }
 .pillar p { font-size: 8.6pt; line-height: 1.6; margin: 0; text-align: center; color: var(--muted); }
@@ -46,6 +46,13 @@
 .cta { display: inline-block; background: var(--champ); color: var(--aub); padding: 4mm 9mm; font-size: 8pt; letter-spacing: .26em; text-transform: uppercase; font-weight: 500; }
 .card2 { background: var(--paper); border: .25mm solid var(--line); padding: 5mm 6mm; }
 .opts label { font-size: 8.6pt; }
+.photo { display: block; width: 100%; object-fit: cover; }
+.frame-photo { position: relative; }
+.frame-photo::after { content: ""; position: absolute; inset: 2.2mm; border: .3mm solid rgba(247,241,234,.7); pointer-events: none; }
+.quote { border-left: .5mm solid var(--gold); padding: 0 0 0 4mm; margin: 0 0 4.2mm; }
+.quote p { font-family: var(--serif); font-style: italic; font-size: 11.5pt; line-height: 1.38; margin: 0 0 1.4mm; color: var(--aub); }
+.quote span { font-size: 6.6pt; letter-spacing: .22em; text-transform: uppercase; color: var(--bronze); }
+.quote em { display: block; font-style: normal; font-size: 7.6pt; color: var(--muted); margin: -.6mm 0 1.4mm; }
 .nrow { display: flex; align-items: flex-end; gap: 3mm; margin-bottom: 3.4mm; }
 .nrow .lbl { margin: 0 0 1mm; white-space: nowrap; }
 .fld.nl { display: block; width: 100%; border-bottom: .3mm solid var(--gold); height: 6.4mm; }
@@ -64,25 +71,22 @@
     <h1 class="h1" style="font-size:50pt">Let&rsquo;s grow<br><span class="gi">something calm,</span><br>together.</h1>
     <div class="rule"></div>
     <p class="sub">Partner with Une Femme Divine.</p>
-    <p class="tag" style="margin-top:6mm">Beauty begins within.</p>
+    <p class="tag" style="margin-top:6mm">Balance begins within.</p>
   </div>
 </section>
 
 <!-- 2 WHO WE ARE -->
 <section class="sheet">
   <div class="hd"><span>Who we are</span><span>02</span></div>
-  <div style="display:grid;grid-template-columns:1fr 62mm;gap:8mm;align-items:start">
+  <div style="display:grid;grid-template-columns:1fr 60mm;gap:8mm;align-items:start">
     <div>
-      <h2 class="h2" style="font-size:38pt">A moment for<br><span class="it">herself.</span></h2>
+      <h2 class="h2" style="font-size:36pt">A moment for<br><span class="it">herself.</span></h2><p class="lbl" style="margin-top:3mm">One pouch &middot; 30 scoops &middot; 30 days</p>
       <div class="rule" style="margin:5mm 0"></div>
       <p class="lead2">Une Femme Divine began in Dubai, with two entrepreneurs. They saw women giving everything to their work, their families and their goals, and taking very little for themselves.</p>
       <p class="lead2">So we made one thing that is just for her: <b style="font-weight:500">Divine Elixir</b>, a daily collagen ritual. One scoop, one calm moment, every day. After a full year of development with a laboratory, it is halal, made in the EU, and made for women.</p>
       <p class="lead2">We never sell it as a quick fix. We sell it as care.</p>
     </div>
-    <div style="text-align:center;padding-top:4mm">
-      <svg id="dots30" width="62mm" height="62mm" viewBox="0 0 200 200" class="art"></svg>
-      <p class="lbl" style="margin-top:2mm">One pouch &middot; 30 scoops &middot; 30 days</p>
-    </div>
+    <div class="frame-photo" style="margin-top:2mm"><img class="photo" src="@@PHOTO_PRODUCT@@" alt="Divine Elixir pouch and bottle" style="height:86mm;object-position:50% 40%"></div>
   </div>
   <div class="grid3" style="margin-top:12mm;gap:6mm">
     <div class="fact"><h4>Halal certified</h4><p>Halal bovine collagen, no pork. Certificate available on request.</p></div>
@@ -91,41 +95,47 @@
   </div>
   <div class="secret" style="margin-top:12mm"><p class="lbl">Our belief</p><p>Self-care is not an extra. It is part of every day.</p></div>
   <p class="small muted" style="margin-top:6mm">Selling now at unefemmedivine.com since 29 September 2026. Pregnant, breastfeeding or taking medication? We always say: consult your doctor before use.</p>
-  <div class="ft"><span>Une Femme Divine</span><span>Beauty begins within</span></div>
+  <div class="ft"><span>Une Femme Divine</span><span>Balance begins within</span></div>
 </section>
 
 <!-- 3 WHY IT FITS -->
 <section class="sheet sand">
   <div class="hd"><span>Why it fits your customers</span><span>03</span></div>
-  <h2 class="h2" style="font-size:38pt">Three things<br><span class="it">women love to receive.</span></h2>
-  <div class="rule" style="margin:5mm 0 7mm"></div>
+  <h2 class="h2" style="font-size:30pt">Three things <span class="it">women love to receive.</span></h2>
+  <div class="rule" style="margin:4mm 0 5mm"></div>
   <div class="grid3" style="gap:4.5mm">
-    <div class="pillar"><svg id="ic-ritual" width="26mm" height="26mm" viewBox="0 0 100 100"></svg><h4>A daily ritual</h4><p>Divine Elixir. One scoop stirred into water, juice or a smoothie. A calm moment she can count on.</p></div>
-    <div class="pillar"><svg id="ic-planner" width="26mm" height="26mm" viewBox="0 0 100 100"></svg><h4>A free planner</h4><p>Rhythm of the Body: her month in four inner seasons, with gentle ideas, a daily log and a calendar export.</p></div>
-    <div class="pillar"><svg id="ic-circle" width="26mm" height="26mm" viewBox="0 0 100 100"></svg><h4>A premium community</h4><p>The Divine Circle: a calm WhatsApp space for rituals, honest conversation and gentle ideas for everyday life.</p></div>
+    <div class="pillar"><svg id="ic-ritual" width="19mm" height="19mm" viewBox="0 0 100 100"></svg><h4>A daily ritual</h4><p>Divine Elixir. One scoop stirred into water, juice or a smoothie. A calm moment she can count on.</p></div>
+    <div class="pillar"><svg id="ic-planner" width="19mm" height="19mm" viewBox="0 0 100 100"></svg><h4>A free planner</h4><p>Rhythm of the Body: her month in four inner seasons, with gentle ideas, a daily log and a calendar export.</p></div>
+    <div class="pillar"><svg id="ic-circle" width="19mm" height="19mm" viewBox="0 0 100 100"></svg><h4>A premium community</h4><p>The Divine Circle: a calm WhatsApp space for rituals, honest conversation and gentle ideas for everyday life.</p></div>
   </div>
-  <div style="margin-top:9mm;border-top:.3mm solid var(--gold);border-bottom:.3mm solid var(--gold);padding:6mm 0;display:grid;grid-template-columns:repeat(3,1fr)">
-    <div class="stat"><b>600+</b><span>Followers on<br>Instagram</span></div>
-    <div class="stat" style="border-left:.25mm solid var(--line);border-right:.25mm solid var(--line)"><b>Real</b><span>Customer reviews<br>on Google</span></div>
+  <div style="margin-top:6mm;border-top:.3mm solid var(--gold);border-bottom:.3mm solid var(--gold);padding:4mm 0;display:grid;grid-template-columns:repeat(3,1fr)">
+    <div class="stat"><b>5.0 &#9733;</b><span>Google rating<br>from 3 customer reviews</span></div>
+    <div class="stat" style="border-left:.25mm solid var(--line);border-right:.25mm solid var(--line)"><b>600+</b><span>Followers on<br>Instagram</span></div>
     <div class="stat"><b>Halal</b><span>Certified,<br>certificate on request</span></div>
   </div>
-  <h3 class="h3" style="margin-top:9mm">What this means <span class="it">for you</span></h3>
-  <div class="grid2" style="margin-top:4mm;gap:3mm 8mm">
-    <p class="small" style="margin:0"><b style="font-weight:500">A gift that costs nothing.</b> The free planner is something you can hand to every client.</p>
-    <p class="small" style="margin:0"><b style="font-weight:500">A fit with your space.</b> Calm, warm and made for women, like the places you have built.</p>
-    <p class="small" style="margin:0"><b style="font-weight:500">A ritual that returns.</b> One pouch lasts a month, so her moment comes back every month.</p>
-    <p class="small" style="margin:0"><b style="font-weight:500">A community, not a campaign.</b> We keep a small, premium circle, and we care for it.</p>
+  <div style="display:grid;grid-template-columns:52mm 1fr;gap:8mm;margin-top:7mm;align-items:start">
+    <div class="frame-photo"><img class="photo" src="@@PHOTO_CREATOR@@" alt="A creator sharing her Divine Elixir ritual" style="height:92mm;object-position:50% 20%"></div>
+    <div>
+      <p class="lbl">What customers say</p>
+      <div class="quote"><p>&ldquo;My mornings start differently now. The forest-fruit taste is soft, it dissolves easily, and making it has become my little moment for myself before the day begins.&rdquo;</p><span>Nes A. &middot; Google review &middot; 5 stars</span></div>
+      <div class="quote"><p>&ldquo;Ik gebruik nu sinds 30 dagen de Divine Elixer. Ik ben zeer tevreden!&rdquo;</p><em>&ldquo;I have been using Divine Elixir for 30 days. I am very satisfied!&rdquo;</em><span>Saskia V. &middot; Google review &middot; 5 stars</span></div>
+      <h4 class="h4" style="margin:5mm 0 2mm">What this means <span class="it">for you</span></h4>
+      <p class="small" style="margin:0 0 1.6mm"><b style="font-weight:500">A free gift for every client.</b> The planner costs you nothing.</p>
+      <p class="small" style="margin:0 0 1.6mm"><b style="font-weight:500">A fit with your space.</b> Calm, warm and made for women.</p>
+      <p class="small" style="margin:0 0 1.6mm"><b style="font-weight:500">A ritual that returns.</b> One pouch lasts a month.</p>
+      <p class="small" style="margin:0"><b style="font-weight:500">A community, not a campaign.</b> Small, premium and cared for.</p>
+    </div>
   </div>
   <p class="small muted" style="position:absolute;left:20mm;right:20mm;bottom:22mm">The planner is a lifestyle tool and is not medical advice. Divine Elixir is a daily ritual, not a promise of results.</p>
-  <div class="ft"><span>Une Femme Divine</span><span>Beauty begins within</span></div>
+  <div class="ft"><span>Une Femme Divine</span><span>Balance begins within</span></div>
 </section>
 
 <!-- 4 PROPOSITION -->
 <section class="sheet dark">
   <div class="hd"><span>Our proposition</span><span>04</span></div>
   <h2 class="h2" style="font-size:36pt">Two simple ways<br><span class="gi">to work together.</span></h2>
-  <p class="small muted" style="margin-top:4mm;max-width:130mm">Start with one, or both. Begin by sharing, and grow into stocking when it feels right.</p>
-  <div class="grid2" style="margin-top:10mm;gap:6mm">
+  <p class="small muted" style="margin-top:4mm;max-width:130mm">Start with one, or both. Begin by sharing, and grow into stocking when it feels right. Everything on this page is a starting point, and we are open to talks.</p>
+  <div class="grid2" style="margin-top:7mm;gap:6mm">
     <div class="track">
       <span class="badge">Track A</span>
       <h3>Community <i>partner</i></h3>
@@ -145,14 +155,15 @@
       <ul id="b-get"></ul>
     </div>
   </div>
-  <div style="margin-top:9mm;border-top:.25mm solid rgba(226,201,148,.3);padding-top:6mm">
+  <div style="margin-top:6mm;border-top:.25mm solid rgba(226,201,148,.3);padding-top:4mm">
     <p class="lbl">A good fit</p>
     <div style="margin-top:2mm">
       <span class="pill on" style="background:transparent;border-color:var(--champ);color:var(--champ)">Spas</span><span class="pill on" style="background:transparent;border-color:var(--champ);color:var(--champ)">Yoga &amp; Pilates studios</span><span class="pill on" style="background:transparent;border-color:var(--champ);color:var(--champ)">Wellness &amp; lifestyle brands</span><span class="pill on" style="background:transparent;border-color:var(--champ);color:var(--champ)">Drugstores</span><span class="pill on" style="background:transparent;border-color:var(--champ);color:var(--champ)">Grocery stores</span><span class="pill on" style="background:transparent;border-color:var(--champ);color:var(--champ)">Creators &amp; influencers</span>
     </div>
   </div>
-  <div class="secret" style="background:rgba(247,241,234,.06);border:.3mm solid rgba(226,201,148,.4);margin-top:7mm;padding:5mm 7mm"><p class="lbl">What we ask in return</p><p style="font-size:13pt">Share Divine Elixir as a daily ritual and a moment of care, never as a promise of results.</p></div>
-  <div class="ft"><span>Une Femme Divine</span><span>Beauty begins within</span></div>
+  <div class="secret" style="background:rgba(247,241,234,.06);border:.3mm solid rgba(226,201,148,.4);margin-top:5mm;padding:4mm 7mm"><p class="lbl">What we ask in return</p><p style="font-size:12.5pt">Share Divine Elixir as a daily ritual and a moment of care, never as a promise of results.</p></div>
+  <div style="margin-top:4mm;display:grid;grid-template-columns:auto 1fr;gap:5mm;align-items:center;border:.3mm solid var(--champ);padding:3.4mm 6mm"><span class="tag" style="font-size:18pt;color:var(--champ)">Open to talks.</span><span class="small muted" style="margin:0;color:#E6D8DC">Terms, quantities and ideas can all be discussed. Tell us what would work for you and we will shape it together.</span></div>
+  <div class="ft"><span>Une Femme Divine</span><span>Balance begins within</span></div>
 </section>
 
 <!-- 5 HOW TO START -->
@@ -160,7 +171,7 @@
   <div class="hd"><span>How to start</span><span>05</span></div>
   <h2 class="h2" style="font-size:32pt">Three steps. <span class="it">No pressure.</span></h2>
   <div class="rule" style="margin:4mm 0 3mm"></div>
-  <div class="step"><span class="n">1</span><div><h4>Say hello</h4><p>Message us on WhatsApp or email. Tell us who you are and who you serve. We reply personally.</p></div></div>
+  <div class="step"><span class="n">1</span><div><h4>Say hello</h4><p>Message us on WhatsApp or email. Tell us who you are, who you serve and what you have in mind. We reply personally, and we are open to talks.</p></div></div>
   <div class="step"><span class="n">2</span><div><h4>Choose your track</h4><p>We share the details: price list for stores, our halal certificate and full ingredient list. Stores can ask for up to 5 samples first.</p></div></div>
   <div class="step"><span class="n">3</span><div><h4>Launch together</h4><p>We send the planner link, the content and the materials. Your first order, for stores, starts from 30 units.</p></div></div>
 
@@ -213,13 +224,6 @@
   [['Rest', 45], ['Rise', 135], ['Bloom', 225], ['Restore', 315]].forEach(function (n) {
     var q = pt(200, 200, 178, n[1]); var t = sv('text', { x: q[0], y: q[1], 'text-anchor': 'middle', 'dominant-baseline': 'middle', 'font-family': 'Crimson Pro, serif', 'font-style': 'italic', 'font-size': 24, fill: '#E2C994', opacity: .8 }, cw); t.textContent = n[0];
   });
-
-  // 30 dots, one per day
-  var d = document.getElementById('dots30');
-  sv('circle', { cx: 100, cy: 100, r: 96, fill: 'none', stroke: '#B8975A', 'stroke-width': .5 }, d);
-  for (var i = 0; i < 30; i++) { var q = pt(100, 100, 80, i * 12); sv('circle', { cx: q[0], cy: q[1], r: i < 29 ? 4.2 : 5.4, fill: i < 29 ? '#B8975A' : '#3B1F2B', opacity: i < 29 ? .45 + (i / 29) * .55 : 1 }, d); }
-  var t = sv('text', { x: 100, y: 108, 'text-anchor': 'middle', 'font-family': 'Crimson Pro, serif', 'font-size': 40, fill: '#3B1F2B' }, d); t.textContent = '30';
-  var t2 = sv('text', { x: 100, y: 126, 'text-anchor': 'middle', 'font-family': 'Poppins, sans-serif', 'font-size': 7, 'letter-spacing': 2.4, fill: '#7B5C47' }, d); t2.textContent = 'DAYS OF RITUAL';
 
   // pillar icons
   var r = document.getElementById('ic-ritual');

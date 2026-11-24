@@ -66,6 +66,9 @@ def keep_hosted(html: str) -> str:
 def assemble_print(page: str) -> str:
     html = (SRC / page).read_text()
     html = html.replace("/*@PRINT_CSS*/", (SRC / "print.css").read_text())
+    for token, asset in (("@@PHOTO_PRODUCT@@", "product-pair.jpg"), ("@@PHOTO_CREATOR@@", "creator-ritual.jpg")):
+        if token in html:
+            html = html.replace(token, jpg_uri(asset))
     return html.replace("@@MARK@@", data_uri("mark-gold.png"))
 
 
